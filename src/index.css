@@ -1,1 +1,32 @@
 @import "tailwindcss";
+@font-face {
+  font-family: "Gordita";
+  src: url("../src/Gordita-Font/Gordita-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Gordita";
+  src: url("../src/Gordita-Font/Gordita-Medium.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Gordita";
+  src: url("../src/Gordita-Font/Gordita-Regular.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Gordita";
+  src: url("../src/Gordita-Font/Gordita-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}

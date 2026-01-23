@@ -1,8 +1,17 @@
 import React from 'react'
+import ProgramIntro from './programs_components/ProgramIntro'
+import ProgramCards from './programs_components/ProgramCards'
+import ProgramsTable from './programs_components/ProgramsTable'
+import ProgramConclusion from './programs_components/ProgramConclusion'
 
 const Programs = () => {
   return (
-    <div>Programs</div>
+    <>
+    <ProgramIntro/>
+    <ProgramCards/>
+    <ProgramsTable/>
+    <ProgramConclusion/>
+    </>
   )
 }
 

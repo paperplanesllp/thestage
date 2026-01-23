@@ -32,3 +32,85 @@ export const archives = [
     image: "https://i.pinimg.com/736x/58/47/57/58475788b753c74d5f7978f0158493d7.jpg",
   },
 ];
+
+
+export const benefits = [
+    {
+      name: 'Access to Regular Events',
+      groupOne: true,
+      groupTwo: true,
+      students: true,
+    },
+    {
+      name: 'Access to Special / Closed Events',
+      groupOne: true,
+      groupTwo: false,
+      students: false,
+    },
+    {
+      name: 'Participation in Discussions',
+      groupOne: true,
+      groupTwo: true,
+      students: true,
+    },
+    {
+      name: 'Participation in Debates',
+      groupOne: true,
+      groupTwo: true,
+      students: true,
+    },
+    {
+      name: 'Participation in Group / Panel Discussions',
+      groupOne: true,
+      groupTwo: true,
+      students: true,
+    },
+    {
+      name: 'Opportunity to Speak (as per session format)',
+      groupOne: true,
+      groupTwo: true,
+      students: true,
+    },
+    {
+      name: 'Publishing Written Work (Website / Magazine)',
+      groupOne: true,
+      groupTwo: false,
+      students: false,
+    },
+    {
+      name: 'Stage Monthly Inclusion',
+      groupOne: true,
+      groupTwo: false,
+      students: false,
+    },
+    {
+      name: 'Video Recording of Sessions',
+      groupOne: true,
+      groupTwo: false,
+      students: false,
+    },
+    {
+      name: 'YouTube / Public Media Presence',
+      groupOne: true,
+      groupTwo: false,
+      students: false,
+    },
+    {
+      name: 'Participation in Special Programs',
+      groupOne: true,
+      groupTwo: false,
+      students: false,
+    },
+    {
+      name: 'Pre-Session Intellectual Refinement',
+      groupOne: true,
+      groupTwo: false,
+      students: false,
+    },
+    {
+      name: 'Role in Decision-Making',
+      groupOne: false,
+      groupTwo: false,
+      students: false,
+    },
+  ];

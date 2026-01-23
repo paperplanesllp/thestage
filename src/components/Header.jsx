@@ -1,64 +1,43 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFacebookF,
-  faTwitter,
-  faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
-import { HiBars3 } from "react-icons/hi2";
+
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
 
   return (
-    <header className="w-full z-50 bg-black text-white fixed ">
-      <div className="max-w-8xl mx-auto px-15 h-16 pb-2 flex items-center justify-between">
+    <header className="w-full z-50 bg-black text-white fixed top-0">
+      <div className="relative max-w-8xl mx-auto px-10 h-16 flex items-center justify-between">
 
-        {/* LEFT */}
-        <div className="flex items-center gap-6">
-          <button className="p-2 rounded">
-            <HiBars3 className="text-3xl" />
-          </button>
+        {/* LEFT NAV */}
+        <nav
+          className="hidden md:flex items-center gap-8 text-xl tracking-wide"
+          style={{ fontFamily: "Josefin Slab, serif" }}
+        >
+          <a href="/about_the_stage" className="hover:opacity-80">About</a>
+          <a href="/the_stage_events" className="hover:opacity-80">Events</a>
+          <a href="/the_stage_programs" className="hover:opacity-80">Join</a>
+          <a href="/the_stage_magazine" className="hover:opacity-80">Magazine</a>
+          <a href="/archives_the_stage" className="hover:opacity-80">Archives</a>
+        </nav>
 
-          <nav
-            className="hidden md:flex items-center gap-6 text-lg font-medium"
-            style={{ fontFamily: "Quintessential, serif" }}
-          >
-            <a href="/about_the_stage" className="hover:opacity-80">
-              About
-            </a>
-            <a href="/contact_us" className="hover:opacity-80">
-              Contact
-            </a>
-            <a href="#" className="hover:opacity-80">
-              Events
-            </a>
-          </nav>
-        </div>
-
-        {/* CENTER */}
+        {/* CENTER LOGO */}
         <div
-          className="text-xl flex items-ce text-white md:text-4xl font-normal cursor-pointer"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+                     text-xl md:text-4xl cursor-pointer"
           onClick={() => navigate("/")}
-          style={{
-            fontFamily: "XB Niloofar",fontStyle:'italic'
-          }}
+          style={{ fontFamily: "XB Niloofar", fontStyle: "italic" }}
         >
           The Stage
         </div>
 
-        {/* RIGHT */}
-        <div className="flex text-2xl items-center gap-4">
-          <FontAwesomeIcon icon={faFacebookF} />
-          <FontAwesomeIcon icon={faTwitter} />
-          <FontAwesomeIcon icon={faInstagram} />
+        {/* RIGHT SIDE */}
+        <div className="flex items-center gap-6 text-xl" style={{ fontFamily: "Josefin Slab, serif" }} >
+          <a href="/store" className="hover:opacity-80">Store</a>
+          <a href="/contact_us" className="hover:opacity-80">Contact</a>
 
-          <button className="ml-4 px-4 py-1.5 border border-white rounded text-sm hover:bg-white hover:text-[#8C3917] transition">
-            Search
-          </button>
+         
         </div>
-
       </div>
     </header>
   );

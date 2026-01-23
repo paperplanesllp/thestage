@@ -5,10 +5,7 @@ const AboutContents = () => {
     <section className="w-full bg-white py-24">
       <div className="max-w-7xl mx-auto px-6 text-center">
 
-        {/* Small Heading */}
-        <p className="text-xs uppercase tracking-[0.3em] text-gray-400">
-          Italy · Tuscany
-        </p>
+      
 
         {/* Title */}
         <h2 className="mt-6 text-3xl md:text-4xl font-serif font-medium text-gray-900 tracking-wide">
@@ -23,9 +20,9 @@ const AboutContents = () => {
         {/* Two-column editorial text */}
      <div
   className="grid w-full grid-cols-1 md:grid-cols-2    justify-items-center"
-  style={{ fontFamily: "Bricolage Grotesque, sans-serif" }}
+  style={{ fontFamily: "Gordita, sans-serif" }}
 >
-  <p className="text-gray-600 text-sm leading-4.5 text-[15px] w-[80%] text-justify">
+  <p className="text-black font-light text-sm leading-4.5 text-[15px] w-[80%] text-justify">
     Rolling hills, golden fields, and historic villages define the
     timeless beauty of Val de Chiana. This region blends natural
     landscapes with centuries of cultural heritage, offering a peaceful
@@ -37,7 +34,7 @@ const AboutContents = () => {
     blanditiis placeat libero ad.
   </p>
 
-  <p className="text-gray-600 text-sm leading-4.5 text-[15px] w-[80%] text-justify">
+  <p className="text-black font-light text-sm leading-4.5 text-[15px] w-[80%] text-justify">
     The towns that rise from the valley reflect a deep connection
     between architecture and landscape. Stone walls, quiet streets,
     and open horizons create a balance between intimacy and scale,
@@ -50,11 +47,7 @@ const AboutContents = () => {
 </div>
 
 
-        {/* Footer */}
-        <div className="mt-20 flex justify-between text-xs text-gray-400">
-          <span>18</span>
-          <span>Tuscany, Italy</span>
-        </div>
+       
 
       </div>
     </section>

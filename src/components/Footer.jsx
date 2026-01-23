@@ -1,75 +1,67 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFacebookF,
-  faTwitter,
-  faPinterestP,
-  faLinkedinIn,
-  faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
+import img from '../assets/footer_img.JPEG'
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-[#1c1c1c] text-gray-400">
-      <div className="max-w-6xl mx-auto px-6 py-16">
+    <footer className="relative text-gray-300 px-6 py-10 overflow-hidden">
 
-        {/* Logo */}
-        <div className="text-center">
-          <h2 className="text-4xl font-serif text-white tracking-wide"style={{
-            fontFamily: "'Playfair Display', serif",
+      {/* ===== BACKGROUND IMAGE ===== */}
+      <div
+        className="absolute inset-0 bg-cover bg-no-repeat bg-[50%_60%]"
+        style={{ backgroundImage: `url(${img})` }}
+      ></div>
+
+      {/* ===== BLACK OVERLAY (ONLY ON IMAGE) ===== */}
+      <div className="absolute inset-0 bg-black/60"></div>
+
+      {/* ===== FOOTER CONTENT ===== */}
+      <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 gap-8 text-center">
+
+        {/* LOGO */}
+        <div className="text-5xl font-normal tracking-wide text-white"style={{
+            fontFamily: "XB Niloofar",
             fontStyle: "italic",
           }}>
-            The Stage
-          </h2>
+          The Stage
         </div>
 
-        {/* Top Links */}
-        <div className="mt-8 flex flex-wrap justify-center gap-8 text-xs uppercase tracking-widest">
-          <a href="#" className="hover:text-white">Brands</a>
-          <a href="#" className="hover:text-white">Media</a>
-          <a href="#" className="hover:text-white">PR Agencies</a>
+        {/* TOP NAV */}
+        <div className="grid grid-flow-col justify-center gap-6 text-2xl uppercase tracking-widest" style={{ fontFamily: "Glass Antiqua, cursive" }}>
+          <p>For the minds that don't settle for the surface</p>
         </div>
 
-        {/* Divider */}
-        <div className="my-10 h-px bg-gray-700/40" />
+        {/* DIVIDER */}
+        <div className="h-px bg-gray-600 w-full"></div>
 
-        {/* Bottom Links */}
-        <div className="flex flex-wrap justify-center gap-6 text-xs uppercase tracking-widest">
-          <a href="#" className="hover:text-white">Brand Directory</a>
-          <a href="#" className="hover:text-white">Case Studies</a>
-          <a href="#" className="hover:text-white">Blog</a>
-          <a href="#" className="hover:text-white">Pricing</a>
-          <a href="#" className="hover:text-white">FAQ</a>
-          <a href="#" className="hover:text-white">About</a>
-          <a href="#" className="hover:text-white">Contact</a>
+        {/* MAIN NAV */}
+        <div className="grid grid-flow-col justify-center gap-6 text-xs uppercase tracking-widest"style={{ fontFamily: "Gordita, sans-serif" }}>
+          <a href="/about_the_stage">About</a>
+          <a href="/the_stage_programs">Join</a>
+          <a href="/store">Store</a>
+          <a href="/archives_the_stage">Archives</a>
+          <a href="/contact_us">Contact</a>
         </div>
 
-        {/* Social Icons */}
-        <div className="mt-10 flex justify-center gap-4">
-          {[
-            faFacebookF,
-            faTwitter,
-            faPinterestP,
-            faLinkedinIn,
-            faInstagram,
-          ].map((icon, index) => (
-            <a
-              key={index}
-              href="#"
-              className="w-9 h-9 flex items-center justify-center border border-gray-600 rounded-full hover:border-white hover:text-white transition"
+        {/* SOCIAL ICONS */}
+        <div className="grid grid-flow-col justify-center gap-4">
+          {["f", "t", "p", "in", "ig"].map((icon, i) => (
+            <div
+              key={i}
+              className="w-9 h-9 border border-gray-500 rounded-full flex items-center justify-center text-sm hover:bg-white hover:text-black transition"
             >
-              <FontAwesomeIcon icon={icon} className="text-sm" />
-            </a>
+              {icon}
+            </div>
           ))}
         </div>
 
-        {/* Legal */}
-        <div className="mt-10 text-center text-xs text-gray-500 space-y-2">
-          <div className="flex justify-center gap-4">
-            <a href="#" className="hover:text-white">Terms & Conditions</a>
-            <a href="#" className="hover:text-white">Privacy Policy</a>
+        {/* LEGAL */}
+        <div className="text-xs text-gray-400 space-y-2" style={{ fontFamily: "Gordita, sans-serif" }}>
+          <div className="grid grid-flow-col justify-center gap-4">
+            <span>Terms & Conditions</span>
+            <span>Privacy Policy</span>
           </div>
-          <p>© 2026 YourCompany. All rights reserved.</p>
+          <p>
+            © 2020 Flaunter, Ltd. All rights reserved. Site credit.
+          </p>
         </div>
 
       </div>
