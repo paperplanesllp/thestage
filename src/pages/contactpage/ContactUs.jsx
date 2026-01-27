@@ -12,7 +12,7 @@ const ContactSection = () => {
         <div className="w-1/2 flex flex-col justify-between">
           <div>
             <h1
-              className="text-[3.5rem] ms-10 leading-tight mb-6"
+              className="text-[3.5rem]  leading-tight mb-6"
               
             >
               Let’s get on

@@ -18,14 +18,16 @@ const StageDescription = () => {
  
    </div> */}
 
-<div className=" mt-8 w-full text-center">
+<div className=" mt-8 w-full flex flex-row  text-center bg-[#7F6848]">
        
 
-        <p className=" py-2 bg-[#70310E] text-white font-semibold text-xl md:text-4xl  leading-relaxed"style={{ fontFamily: "Josefin Slab, serif" }}>
+        <p className="    ms-33 text-white font-semibold text-xl md:text-4xl  leading-relaxed"style={{ fontFamily: "Josefin Slab, serif" }}>
           Fine. Since <span className="font-semibold">the tea </span> is not forthcoming, 
           <span className="font-semibold"> let's</span> have a{" "}
           <span className="font-semibold">philosophical conversation.</span>
+           
         </p>
+       <p className="text-lg  text-end  inline-block text-white mt-5 ms-5 " style={{fontStyle:"Italic",fontFamily: "Josefin Slab, serif"}}>-Chekhov</p>
       </div> 
 
       {/* LINE ART IMAGE */}

@@ -1,58 +1,62 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import heroimg from '../../../assets/hero_bg_image.PNG'
+import img from "../../../assets/magazine_img.JPEG";
 
 const Hero = () => {
-  const heroTextRef = useRef(null);
+  const linesRef = useRef([]);
 
   useEffect(() => {
     gsap.fromTo(
-      heroTextRef.current,
+      linesRef.current,
       {
         opacity: 0,
-        y: 50,
+        y: 80,
       },
       {
         opacity: 1,
         y: 0,
-        duration: 1.7,
+        duration: 1.4,
         ease: "power3.out",
-        delay: 0.3,
+        stagger: 0.30, // 👈 line-by-line delay
+        delay: 0.4,
       }
     );
   }, []);
 
+  const lines = [
+    "For the minds that don't",
+    "settle for the surface."
+  ];
+
   return (
     <section
-      className="relative w-full bg-cover bg-no-repeat"
+      className="relative w-full flex justify-center items-center h-screen bg-cover bg-no-repeat"
       style={{
-        height: "95vh",
-        backgroundImage: `url(${heroimg})`,
-        backgroundPosition: "50% 80%",
+        backgroundImage: `url(${img})`,
+        backgroundPosition: "50% 70%",
       }}
     >
-
-
-      <div
-        className="
-          absolute inset-0
-          bg-linear-to-r
-          from-black/70 via-black/20 to-transparent
-        "
-      />
+      {/* overlay */}
+      <div className="absolute inset-0 bg-linear-to-t from-black/50 via-black/20 to-transparent" />
 
       {/* hero text */}
       <h1
-        ref={heroTextRef}
         className="
-          absolute mt-40 ms-17
-          flex items-center justify-start text-start font-extralight
-          text-white text-3xl md:text-[7rem] max-w-lg
-          tracking-wide leading-20 px-2
+          relative mt-40 text-center font-extralight
+          text-white text-3xl md:text-[7rem]
+          tracking-wide leading-[0.8] px-2 uppercase max-w-7xl
         "
         style={{ fontFamily: "Glass Antiqua, cursive" }}
       >
-        For the minds that don&apos;t settle for the surface.
+        {lines.map((line, i) => (
+          <span
+            key={i}
+            ref={(el) => (linesRef.current[i] = el)}
+            className="block will-change-transform"
+          >
+            {line}
+          </span>
+        ))}
       </h1>
     </section>
   );

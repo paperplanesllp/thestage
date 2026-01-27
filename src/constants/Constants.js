@@ -42,8 +42,14 @@ export const benefits = [
       students: true,
     },
     {
-      name: 'Access to Special / Closed Events',
+      name: 'Access to Special Events',
       groupOne: true,
+      groupTwo: false,
+      students: false,
+    },
+    {
+      name: 'Access to  Closed Events',
+      groupOne: false,
       groupTwo: false,
       students: false,
     },
@@ -61,6 +67,12 @@ export const benefits = [
     },
     {
       name: 'Participation in Group / Panel Discussions',
+      groupOne: true,
+      groupTwo: true,
+      students: true,
+    },
+    {
+      name: 'Pre-Session Intellectual Refinement',
       groupOne: true,
       groupTwo: true,
       students: true,
@@ -101,16 +113,6 @@ export const benefits = [
       groupTwo: false,
       students: false,
     },
-    {
-      name: 'Pre-Session Intellectual Refinement',
-      groupOne: true,
-      groupTwo: false,
-      students: false,
-    },
-    {
-      name: 'Role in Decision-Making',
-      groupOne: false,
-      groupTwo: false,
-      students: false,
-    },
+    
+   
   ];

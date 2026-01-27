@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import img from "../../assets/about_img.JPEG";
-
+import heroimg from '../../assets/hero_bg_image.PNG'
 const StageMagazine = () => {
   const magazineRef = useRef([]);
   const comingRef = useRef([]);
@@ -39,14 +39,14 @@ const StageMagazine = () => {
 
   return (
     <section
-      className="relative w-full h-screen  flex flex-col justify-center items-center overflow-hidden"
+      className="relative w-full h-screen mb-75 flex flex-col justify-center items-center overflow-hidden"
       style={{ fontFamily: "Gordita, sans-serif" }}
     >
       {/* BACKGROUND IMAGE */}
       <img
-        src={img}
+        src={heroimg}
         alt=""
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover object-[50%_85%]"
       />
 
       {/* OVERLAY */}

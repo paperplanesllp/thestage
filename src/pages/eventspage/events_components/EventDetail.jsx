@@ -72,7 +72,7 @@ const EventDetail = () => {
   const [activeFilter, setActiveFilter] = useState("upcoming");
 const navigate=useNavigate()
   return (
-    <section className="max-w-8xl flex flex-col items-center mx-auto px-6 mt-8"style={{ fontFamily: "Gordita, sans-serif" }}>
+    <section className="max-w-8xl flex flex-col items-center mx-auto px-6 "style={{ fontFamily: "Gordita, sans-serif" }}>
       
       {/* ===== FILTER PILLS ===== */}
       <div className="flex gap-8 mt-15 mb-10">

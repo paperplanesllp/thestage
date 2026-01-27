@@ -7,16 +7,16 @@ const Header = () => {
 
   return (
     <header className="w-full z-50 bg-black text-white fixed top-0">
-      <div className="relative max-w-8xl mx-auto px-10 h-16 flex items-center justify-between">
+      <div className="relative max-w-8xl mx-auto overflow-hidden px-10 h-16 flex items-center justify-between">
 
         {/* LEFT NAV */}
         <nav
-          className="hidden md:flex items-center gap-8 text-xl tracking-wide"
+          className="hidden md:flex items-center gap-8 text-xl overflow-hidden tracking-wide"
           style={{ fontFamily: "Josefin Slab, serif" }}
         >
           <a href="/about_the_stage" className="hover:opacity-80">About</a>
           <a href="/the_stage_events" className="hover:opacity-80">Events</a>
-          <a href="/the_stage_programs" className="hover:opacity-80">Join</a>
+          <a href="/the_stage_programs" className=" bg-white text-black font-extrabold text-2xl py-5 px-5 hover:opacity-80">Join</a>
           <a href="/the_stage_magazine" className="hover:opacity-80">Magazine</a>
           <a href="/archives_the_stage" className="hover:opacity-80">Archives</a>
         </nav>

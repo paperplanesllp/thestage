@@ -89,33 +89,38 @@ const ArchiveSection = () => {
   const navigate=useNavigate()
 
   return (
-    <section className="max-w-8xl mx-auto px-5 py-32" style={{ fontFamily: "Gordita, sans-serif" }}>
+    <section className="max-w-8xl mx-auto px-5 h-screen justify-around flex flex-col items-center py-12" style={{ fontFamily: "Gordita, sans-serif" }}>
       
       {/* CATEGORY NAV */}
-      <div className="flex justify-center items-center gap-12 mb-16 text-sm tracking-wider uppercase">
-        {["Articles", "Essays", "Lectures", "Poems"].map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setActiveCategory(cat)}
-            className={`pb-2 border-b-2 transition-all duration-300 ${
-              activeCategory === cat
-                ? "border-gray-900 text-gray-900 font-medium"
-                : "border-transparent text-gray-500 hover:text-gray-900"
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+     <div className="flex w-[50%] border-b  justify-center translate-y-[-10%] items-center gap-36 mb-16 text-xl tracking-wider uppercase">
+  {["Articles", "Essays", "Lectures", "Poems"].map((cat) => (
+    <button
+      key={cat}
+      onClick={() => setActiveCategory(cat)}
+      className={`relative pb-3 text-lg transition-all duration-300 ${
+        activeCategory === cat
+          ? "text-gray-900 font-medium"
+          : "text-gray-500 hover:text-gray-900"
+      }`}
+    >
+      {cat}
+
+      {/* underline */}
+    
+    </button>
+  ))}
+</div>
+<div className="w-[90%] h-2px bg-gray-900"></div>
+
 
       {/* CONTENT */}
       {!activeCategory ? (
         /* DEFAULT INTRO LAYOUT */
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+        <div className="grid translate-y-[-60%] grid-cols-1 md:grid-cols-2 gap-16 items-start">
           
           {/* LEFT TEXT */}
           <div>
-            <p className="text-2xl md:text-3xl leading-relaxed font-light text-gray-800 max-w-md">
+            <p className="text-2xl md:text-3xl leading-7 ms-10 font-normal text-gray-800 max-w-md">
               This archive gathers fragments of thought, spoken memory, and
               written form. It exists as a living record of ideas in motion.
               Select a category to begin navigating through the material.

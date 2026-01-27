@@ -17,28 +17,22 @@ const ProgramsTable = () => {
               </div>
             </div>
             <div className="text-center">
-              <div className="text-lg font-semibold text-pink-500 mb-3">
+              <div className="text-lg font-semibold text-gray-900 mb-3">
                 Group One
               </div>
-              <button className="px-7 py-2.5 bg-pink-100 text-pink-500 rounded-full text-sm font-semibold hover:bg-pink-500 hover:text-white transition-all duration-300">
-                Try now
-              </button>
+              
             </div>
             <div className="text-center">
-              <div className="text-lg font-semibold text-blue-500 mb-3">
+              <div className="text-lg font-semibold text-gray-900 mb-3">
                 Group Two
               </div>
-              <button className="px-7 py-2.5 bg-blue-500 text-white rounded-full text-sm font-semibold hover:bg-blue-600 transition-all duration-300">
-                Try now
-              </button>
+             
             </div>
             <div className="text-center">
               <div className="text-lg font-semibold text-gray-900 mb-3">
                 Students Group
               </div>
-              <button className="px-7 py-2.5 bg-gray-900 text-white rounded-full text-sm font-semibold hover:bg-gray-800 transition-all duration-300">
-                Contact
-              </button>
+             
             </div>
           </div>
 
@@ -60,21 +54,21 @@ const ProgramsTable = () => {
                   {benefit.groupOne ? (
                     <span className="text-gray-500 text-xl font-semibold">✓</span>
                   ) : (
-                    <span className="text-gray-300 text-lg">x</span>
+                    <span className="text-gray-500 text-lg">x</span>
                   )}
                 </div>
                 <div className="text-center">
                   {benefit.groupTwo ? (
                     <span className="text-gray-500 text-xl font-semibold">✓</span>
                   ) : (
-                    <span className="text-gray-300 text-lg">x</span>
+                    <span className="text-gray-500 text-lg">x</span>
                   )}
                 </div>
                 <div className="text-center">
                   {benefit.students ? (
                     <span className="text-gray-500 text-xl font-semibold">✓</span>
                   ) : (
-                    <span className="text-gray-300 text-lg">x</span>
+                    <span className="text-gray-500 text-lg">x</span>
                   )}
                 </div>
               </div>
