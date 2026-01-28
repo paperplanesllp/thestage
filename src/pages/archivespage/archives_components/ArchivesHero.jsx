@@ -3,19 +3,32 @@ import { useNavigate } from "react-router-dom";
 
 const ArchiveSection = () => {
   const [activeCategory, setActiveCategory] = useState(null);
+  const [hoveredIntro, setHoveredIntro] = useState(null);
+  const navigate = useNavigate();
+
+  const COLLAPSED_WIDTH = 175;
+  const EXPANDED_WIDTH = 575;
 
   const introImages = [
     {
-      src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80",
+      src: "https://i.pinimg.com/1200x/3c/02/ab/3c02ab9b8c89130a3b61f1f503083457.jpg",
       desc: "Fragments of performance and memory."
     },
     {
-      src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80",
+      src: "https://i.pinimg.com/1200x/2f/24/a8/2f24a8538e9399a7c7d68f5ba8a3b546.jpg",
       desc: "Spaces where language becomes gesture."
     },
     {
-      src: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600&q=80",
+      src: "https://i.pinimg.com/736x/79/33/d9/7933d9804049b95a1cdc9db0e3c590ae.jpg",
       desc: "Moments suspended between thought and form."
+    },
+    {
+      src: "https://i.pinimg.com/1200x/80/c7/52/80c7527bf3b23fcd694671c006b068b5.jpg",
+      desc: "Structures emerging from silence."
+    },
+    {
+      src: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=900&q=80",
+      desc: "Landscape as emotional terrain."
     }
   ];
 
@@ -24,7 +37,7 @@ const ArchiveSection = () => {
       id: 1,
       title: "Small Town Sweden",
       image: "https://i.pinimg.com/1200x/80/c7/52/80c7527bf3b23fcd694671c006b068b5.jpg",
-      desc: "Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo.",
+      desc: "Vestibulum id ligula porta felis euismod semper.",
       category: "by Jrddoe",
       time: "24 hours"
     },
@@ -32,227 +45,122 @@ const ArchiveSection = () => {
       id: 2,
       title: "Portrait in Black and White",
       image: "https://i.pinimg.com/1200x/fc/75/79/fc757978da7434e0283c87cbd3f365cb.jpg",
-      desc: "Intimate moments captured in monochrome, exploring the depths of human emotion.",
+      desc: "Intimate moments captured in monochrome.",
       category: "by Studio K",
       time: "18 hours"
-    },
-    {
-      id: 3,
-      title: "Morning Coffee Ritual",
-      image: "https://i.pinimg.com/1200x/9f/03/3a/9f033a103624ca100bc116f575f70f91.jpg",
-      desc: "The art of slow living through everyday moments and meaningful connections.",
-      category: "by Chase",
-      time: "24 hours"
-    },
-    {
-      id: 4,
-      title: "Coastal Dreams",
-      image: "https://i.pinimg.com/736x/ff/ea/71/ffea7149890415a2f41c53eccc644525.jpg",
-      desc: "Where the ocean meets tranquility. Exploring minimalist landscapes and serene horizons.",
-      category: "by Wells",
-      time: "36 hours"
-    },
-    {
-      id: 5,
-      title: "Architectural Lines",
-      image: "https://i.pinimg.com/1200x/7d/7c/38/7d7c38c6a84eb0079ff6a5b845ecaca5.jpg",
-      desc: "Bold geometry and striking forms that define modern spaces.",
-      category: "by Morrison",
-      time: "12 hours"
-    },
-    {
-      id: 6,
-      title: "Golden Hour Fields",
-      image: "https://i.pinimg.com/736x/02/5e/02/025e020505e6093fa8d0a4a546b1c91a.jpg",
-      desc: "Light dancing through nature, capturing the essence of rural landscapes at dusk.",
-      category: "by Rivers",
-      time: "48 hours"
-    },
-    {
-      id: 7,
-      title: "Urban Solitude",
-      image: "https://i.pinimg.com/736x/48/8e/4f/488e4ff5d7a561618ecd19548b932743.jpg",
-      desc: "Finding peace in the rhythm of city life and concrete jungles.",
-      category: "by Metro",
-      time: "24 hours"
-    },
-    {
-      id: 8,
-      title: "Forest Wandering",
-      image: "https://i.pinimg.com/736x/48/5b/93/485b937146407780a281b3f6dbcef214.jpg",
-      desc: "Into the wild where stories unfold beneath ancient canopies.",
-      category: "by Wilde",
-      time: "24 hours"
     }
   ];
 
-  const navigate=useNavigate()
+  const isIntroExpanded = hoveredIntro !== null;
 
   return (
-    <section className="max-w-8xl mx-auto px-5 h-screen justify-around flex flex-col items-center py-12" style={{ fontFamily: "Gordita, sans-serif" }}>
-      
-      {/* CATEGORY NAV */}
-     <div className="flex w-[50%] border-b  justify-center translate-y-[-10%] items-center gap-36 mb-16 text-xl tracking-wider uppercase">
-  {["Articles", "Essays", "Lectures", "Poems"].map((cat) => (
-    <button
-      key={cat}
-      onClick={() => setActiveCategory(cat)}
-      className={`relative pb-3 text-lg transition-all duration-300 ${
-        activeCategory === cat
-          ? "text-gray-900 font-medium"
-          : "text-gray-500 hover:text-gray-900"
-      }`}
+    <section
+      className="max-w-8xl mx-auto px-5 h-screen flex flex-col items-center py-12"
+      style={{ fontFamily: "Gordita, sans-serif" }}
     >
-      {cat}
-
-      {/* underline */}
-    
-    </button>
-  ))}
-</div>
-<div className="w-[90%] h-2px bg-gray-900"></div>
-
+      {/* CATEGORY NAV */}
+      <div className="flex w-[50%] border-b justify-center gap-36 mb-16 uppercase">
+        {["Articles", "Essays", "Lectures", "Poems"].map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setActiveCategory(cat)}
+            className={`pb-3 transition-all ${
+              activeCategory === cat
+                ? "text-gray-900 font-medium"
+                : "text-gray-500 hover:text-gray-900"
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
 
       {/* CONTENT */}
       {!activeCategory ? (
-        /* DEFAULT INTRO LAYOUT */
-        <div className="grid translate-y-[-60%] grid-cols-1 md:grid-cols-2 gap-16 items-start">
-          
-          {/* LEFT TEXT */}
-          <div>
-            <p className="text-2xl md:text-3xl leading-7 ms-10 font-normal text-gray-800 max-w-md">
-              This archive gathers fragments of thought, spoken memory, and
-              written form. It exists as a living record of ideas in motion.
-              Select a category to begin navigating through the material.
-            </p>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start w-full">
+          {/* LEFT TEXT (pushes left on expand) */}
+          <p
+            className={`text-2xl md:text-3xl leading-7.5 px-5 font-light max-w-sm text-gray-800 transition-transform duration-900 ease-in-out ${
+              isIntroExpanded ? "-translate-x-74" : "translate-x-0"
+            }`}
+          >
+            This archive gathers fragments of thought, spoken memory, and written
+            form. It exists as a living record of ideas in motion.
+          </p>
 
-          {/* RIGHT IMAGES */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {introImages.map((item, i) => (
-              <div key={i}>
-                <img
-                  src={item.src}
-                  alt=""
-                  className="w-full h-48 object-cover mb-3"
-                />
-                <p className="text-sm text-gray-700 leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
-            ))}
+          {/* RIGHT STRIP IMAGES */}
+          <div
+            className="flex justify-end gap-2 h-[460px]  overflow-visible"
+            style={{
+              
+            }}
+          >
+            {introImages.map((item, index) => {
+              const isActive = hoveredIntro === index;
+
+              return (
+                <div
+                  key={index}
+                  onMouseEnter={() => setHoveredIntro(index)}
+                  onMouseLeave={() => setHoveredIntro(null)}
+                  className="relative rounded-xl overflow-hidden h-full transition-all duration-900 ease-in-out cursor-pointer"
+                  style={{
+                    width: isActive ? `${EXPANDED_WIDTH}px` : `${COLLAPSED_WIDTH}px`,
+                    flexShrink: 0
+                  }}
+                >
+                  {/* IMAGE */}
+                  <img
+                    src={item.src}
+                    alt=""
+                    className="w-full h-full object-cover object-center"
+                  />
+
+                  {/* OVERLAY */}
+                  <div
+                    className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${
+                      isActive ? "opacity-100" : "opacity-0"
+                    }`}
+                  />
+
+                  {/* TEXT */}
+                  <p
+                    className={`absolute bottom-5 left-5 right-5 text-white text-sm transition-all duration-300 ${
+                      isActive
+                        ? "opacity-100 translate-y-0"
+                        : "opacity-0 translate-y-4"
+                    }`}
+                  >
+                    {item.desc}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       ) : (
-        /* EDITORIAL GRID - 3 COLUMNS */
-    
-
-<div className="flex flex-wrap gap-6">
-
-  {/* CARD 1 */}
-  <div className="w-full sm:w-[48%] lg:w-[23%]" onClick={() => navigate("/archives_details")}>
-    <div className="h-[200px] overflow-hidden mb-4">
-      <img src={articles[0].image} className="w-full h-full object-cover" />
-    </div>
-    <p className="text-xs text-gray-500 mb-1">{articles[0].time}</p>
-    <h3 className="text-lg font-medium">{articles[0].title}</h3>
-    <p className="text-sm italic text-gray-600">{articles[0].category}</p>
-    <p className="text-sm text-gray-700 mt-2">{articles[0].desc}</p>
-  </div>
-
-  {/* CARD 2 */}
-  <div className="w-full sm:w-[48%] lg:w-[23%]" onClick={() => navigate("/archives_details")}>
-    <div className="h-[360px] overflow-hidden mb-4">
-      <img src={articles[1].image} className="w-full h-full object-cover" />
-    </div>
-    <p className="text-xs text-gray-500 mb-1">{articles[1].time}</p>
-    <h3 className="text-lg font-medium">{articles[1].title}</h3>
-    <p className="text-sm italic text-gray-600">{articles[1].category}</p>
-    <p className="text-sm text-gray-700 mt-2">{articles[1].desc}</p>
-  </div>
-
-  {/* CARD 3 */}
-  <div className="w-full sm:w-[48%] lg:w-[23%]" onClick={() => navigate("/archives_details")}>
-    <div className="h-[260px] overflow-hidden mb-4">
-      <img src={articles[2].image} className="w-full h-full object-cover" />
-    </div>
-    <p className="text-xs text-gray-500 mb-1">{articles[2].time}</p>
-    <h3 className="text-lg font-medium">{articles[2].title}</h3>
-    <p className="text-sm italic text-gray-600">{articles[2].category}</p>
-    <p className="text-sm text-gray-700 mt-2">{articles[2].desc}</p>
-  </div>
-
-  {/* CARD 4 */}
-  <div className="w-full sm:w-[48%] lg:w-[23%]" onClick={() => navigate("/archives_details")}>
-    <div className="h-[480px] overflow-hidden mb-4">
-      <img src={articles[3].image} className="w-full h-full object-cover" />
-    </div>
-    <p className="text-xs text-gray-500 mb-1">{articles[3].time}</p>
-    <h3 className="text-lg font-medium">{articles[3].title}</h3>
-    <p className="text-sm italic text-gray-600">{articles[3].category}</p>
-    <p className="text-sm text-gray-700 mt-2">{articles[3].desc}</p>
-  </div>
-
-  {/* ROW 2 */}
-
-  <div className="w-full translate-y-[-45%] sm:w-[48%] lg:w-[23%]" onClick={() => navigate("/archives_details")}>
-    <div className="h-[480px] overflow-hidden mb-4">
-      <img src={articles[4].image} className="w-full h-full object-cover" />
-    </div>
-    <p className="text-xs text-gray-500 mb-1">{articles[4].time}</p>
-    <h3 className="text-lg font-medium">{articles[4].title}</h3>
-    <p className="text-sm italic text-gray-600">{articles[4].category}</p>
-    <p className="text-sm text-gray-700 mt-2">{articles[4].desc}</p>
-  </div>
-
-  <div className="w-full sm:w-[48%] translate-y-[-20%] lg:w-[23%]" onClick={() => navigate("/archives_details")}>
-    <div className="h-[380px] overflow-hidden mb-4">
-      <img src={articles[5].image} className="w-full h-full object-cover" />
-    </div>
-    <p className="text-xs text-gray-500 mb-1">{articles[5].time}</p>
-    <h3 className="text-lg font-medium">{articles[5].title}</h3>
-    <p className="text-sm italic text-gray-600">{articles[5].category}</p>
-    <p className="text-sm text-gray-700 mt-2">{articles[5].desc}</p>
-  </div>
-
-  <div className="w-full sm:w-[48%] lg:w-[23%]" onClick={() => navigate("/archives_details")}>
-    <div className="h-[520px] translate-y-[-42%] overflow-hidden ">
-      <img src={articles[6].image} className="w-full h-full object-cover" />
-    </div>
-    <div className="translate-y-[-150%]">
-      <p className="text-xs text-gray-500 mb-1">{articles[6].time}</p>
-      <h3 className="text-lg font-medium">{articles[6].title}</h3>
-      <p className="text-sm italic text-gray-600">{articles[6].category}</p>
-      <p className="text-sm text-gray-700 mt-2">{articles[6].desc}</p>
-    </div>
-  </div>
-
-  <div className="w-full sm:w-[48%] lg:w-[23%]" onClick={() => navigate("/archives_details")}>
-    <div className="h-[340px] overflow-hidden mb-4">
-      <img src={articles[7].image} className="w-full h-full object-cover" />
-    </div>
-    <p className="text-xs text-gray-500 mb-1">{articles[7].time}</p>
-    <h3 className="text-lg font-medium">{articles[7].title}</h3>
-    <p className="text-sm italic text-gray-600">{articles[7].category}</p>
-    <p className="text-sm text-gray-700 mt-2">{articles[7].desc}</p>
-  </div>
-<div className="w-full flex justify-center">
-        <p className="font-normal text-center w-[75%]">Philosophy has to proceed comparatively.
-  The best we can do is to develope the rival 
-  alternative conceptions in each important domain
-  as fully and carefully as possible, depending 
-  on our antecedent sympathies, and see how 
-  they measure up. That is a more credible form
-  of progress than decisive proof or refutation.
-  In the present climate of a dominant scientific naturalism, heavily dependent on speculative </p>
-     </div>
-</div>
-
-
-
+        /* ARTICLES GRID (UNCHANGED) */
+        <div className="flex flex-wrap gap-6 w-full">
+          {articles.map((item) => (
+            <div
+              key={item.id}
+              className="w-full sm:w-[48%] lg:w-[23%] cursor-pointer"
+              onClick={() => navigate("/archives_details")}
+            >
+              <div className="h-[260px] overflow-hidden mb-4">
+                <img
+                  src={item.image}
+                  className="w-full h-full object-cover "
+                />
+              </div>
+              <p className="text-xs text-gray-500">{item.time}</p>
+              <h3 className="text-lg font-medium">{item.title}</h3>
+              <p className="text-sm italic text-gray-600">{item.category}</p>
+              <p className="text-sm text-gray-700 mt-2">{item.desc}</p>
+            </div>
+          ))}
+        </div>
       )}
-
-     
     </section>
   );
 };

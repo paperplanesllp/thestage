@@ -53,7 +53,7 @@ of progress than decisive proof or refutation.
 
     {/* ROW 2 SMALL IMAGES */}
     <div className="col-span-1 row-span-2 overflow-hidden">
-      <img src="https://i.pinimg.com/1200x/9f/03/3a/9f033a103624ca100bc116f575f70f91.jpg"
+      <img src="  "
            className="w-full h-full object-cover hover:scale-[1.08] transition-all 500ms ease-in-out" />
     </div>
 

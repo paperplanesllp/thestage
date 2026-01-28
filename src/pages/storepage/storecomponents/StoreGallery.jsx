@@ -21,7 +21,7 @@ const posts = [
     excerpt:
       "New technology becoming more ingrained into our everyday encounters.",
     image:
-      "https://images.unsplash.com/photo-1520975916090-3105956dac38?w=800",
+      "https://i.pinimg.com/736x/3c/53/e8/3c53e8992d4634d1538d9b863fcb10f4.jpg",
   },
   {
     id: 2,
@@ -30,7 +30,7 @@ const posts = [
     excerpt:
       "A relaxing few glasses of wine, heavy eyelids, and you’re out.",
     image:
-      "https://images.unsplash.com/photo-1514361892635-eae31f1c9c3d?w=800",
+      "https://i.pinimg.com/736x/23/32/a3/2332a33729f2b12203d8583a10b31a33.jpg",
   },
   {
     id: 3,
@@ -39,7 +39,7 @@ const posts = [
     excerpt:
       "It’s true that innljsndlnaln",
     image:
-      "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800",
+      "https://i.pinimg.com/736x/7d/b7/45/7db7451973e0ea24ff9dd1ab99a7ed33.jpg",
   },
   {
     id: 4,
@@ -48,7 +48,7 @@ const posts = [
     excerpt:
       "From curtains and bed sheets",
     image:
-      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=800",
+      "https://i.pinimg.com/1200x/0f/c8/2d/0fc82dea6e8a4072c1dd16f9b6508136.jpg",
   },
   {
     id: 5,
@@ -57,7 +57,7 @@ const posts = [
     excerpt:
       "lorem ipsum litum reipmkjn bduhjjlm",
     image:
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800",
+      "https://i.pinimg.com/736x/55/4e/9c/554e9c22f267061552fcde9a2e8ba2b2.jpg",
   },
   {
     id: 6,
@@ -66,7 +66,7 @@ const posts = [
     excerpt:
       "When it’s been a long day and the only thing burning.",
     image:
-      "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=800",
+      "https://i.pinimg.com/1200x/12/6a/e3/126ae372a3833742ca60c0eb7eb36176.jpg",
   },
 ];
 

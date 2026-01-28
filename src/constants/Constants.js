@@ -116,3 +116,31 @@ export const benefits = [
     
    
   ];
+
+
+export  const stripImages = [
+  {
+    src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
+    title: "Preventive Diagnostics",
+    subtitle: "Health Tools",
+    desc: "Map your pet’s health with advanced screening and early detection."
+  },
+  {
+    src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800",
+    title: "Personalised Plans",
+    subtitle: "Care Programs",
+    desc: "Tailored nutrition and lifestyle plans for long-term wellbeing."
+  },
+  {
+    src: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800",
+    title: "Veterinary Access",
+    subtitle: "On Demand",
+    desc: "Connect with specialists anytime, anywhere."
+  },
+  {
+    src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800",
+    title: "Progress Tracking",
+    subtitle: "Insights",
+    desc: "Track growth, recovery, and performance over time."
+  }
+];
