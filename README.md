@@ -1,16 +1,44 @@
-# React + Vite
+# The Stage
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project now includes:
 
-Currently, two official plugins are available:
+- Vite + React frontend
+- Express + MongoDB backend for admin login
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Environment setup
 
-## React Compiler
+1. Copy `.env.example` to `.env` (if not already present).
+2. Update these values in `.env`:
+	- `MONGO_URI`
+	- `ADMIN_USERNAME`
+	- `ADMIN_PASSWORD`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+When the backend starts, it will auto-create the default admin user if it does not exist.
 
-## Expanding the ESLint configuration
+## Run the app
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Frontend (Vite):
+
+```bash
+npm run dev
+```
+
+Backend (Express API):
+
+```bash
+npm run server
+```
+
+Optional backend watch mode:
+
+```bash
+npm run dev:server
+```
+
+Admin login endpoint:
+
+- `POST /api/admin/login`
+
+Health check endpoint:
+
+- `GET /api/health`

@@ -1,69 +1,101 @@
-import img from '../assets/footer_img.JPEG'
+import img from "../assets/footer_img.JPEG";
+
+const socialLinks = [
+  { label: "f", link: "https://www.facebook.com/share/1DsuXZCkQS/" },
+  { label: "in", link: "https://linkedin.com/in/yourprofile" },
+  { label: "ig", link: "https://www.instagram.com/thestageoff?igsh=MWYzNzBqc3pndXd0bQ==" },
+];
 
 const Footer = () => {
   return (
-    <footer className="relative text-gray-300 px-6 py-10 overflow-hidden">
-
-      {/* ===== BACKGROUND IMAGE ===== */}
+    <footer className="relative overflow-hidden h-[317px] px-4 sm:px-6 md:px-8 lg:px-10 text-gray-300 flex items-center">
+      
+      {/* BACKGROUND IMAGE */}
       <div
-        className="absolute inset-0 bg-cover bg-no-repeat bg-[50%_60%]"
-        style={{ backgroundImage: `url(${img})` }}
+        className="absolute inset-0 bg-black"
+        
       ></div>
 
-      {/* ===== BLACK OVERLAY (ONLY ON IMAGE) ===== */}
+      {/* BLACK OVERLAY */}
       <div className="absolute inset-0 bg-black/60"></div>
 
-      {/* ===== FOOTER CONTENT ===== */}
-      <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 gap-8 text-center">
-
-        {/* LOGO */}
-        <div className="text-5xl font-normal tracking-wide text-white"style={{
-            fontFamily: "XB Niloofar",
-            fontStyle: "italic",
-          }}>
-          The Stage
-        </div>
-
-        {/* TOP NAV */}
-        <div className="grid grid-flow-col justify-center gap-6 text-2xl uppercase tracking-widest" style={{ fontFamily: "Glass Antiqua, cursive" }}>
-          <p>For the minds that don't settle for the surface</p>
-        </div>
-
-        {/* DIVIDER */}
-        <div className="h-px bg-gray-600 w-full"></div>
-
-        {/* MAIN NAV */}
-        <div className="grid grid-flow-col justify-center gap-6 text-xs uppercase tracking-widest"style={{ fontFamily: "Gordita, sans-serif" }}>
-          <a href="/about_the_stage">About</a>
-          <a href="/the_stage_programs">Join</a>
-          <a href="/store">Store</a>
-          <a href="/archives_the_stage">Archives</a>
-          <a href="/contact_us">Contact</a>
-        </div>
-
-        {/* SOCIAL ICONS */}
-        <div className="grid grid-flow-col justify-center gap-4">
-          {["f", "t", "p", "in", "ig"].map((icon, i) => (
-            <div
-              key={i}
-              className="w-9 h-9 border border-gray-500 rounded-full flex items-center justify-center text-sm hover:bg-white hover:text-black transition"
-            >
-              {icon}
-            </div>
-          ))}
-        </div>
-
-        {/* LEGAL */}
-        <div className="text-xs text-gray-400 space-y-2" style={{ fontFamily: "Gordita, sans-serif" }}>
-          <div className="grid grid-flow-col justify-center gap-4">
-            <span>Terms & Conditions</span>
-            <span>Privacy Policy</span>
+      {/* CONTENT */}
+      <div className="relative z-10 mx-auto max-w-7xl w-full">
+        <div className="grid grid-cols-1 gap-5 text-center">
+          
+          {/* LOGO */}
+          <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white logo-font-footer">
+            The Stage
           </div>
-          <p>
-            © 2020 Flaunter, Ltd. All rights reserved. Site credit.
-          </p>
-        </div>
 
+          {/* TAGLINE */}
+          <div
+            className="text-sm sm:text-xl md:text-2xl lg:text-2xl leading-tight"
+            style={{ fontFamily: "Gordita, sans-serif" }}
+          >
+            <p className="font-thin">
+              For the minds that don't settle for the surface
+            </p>
+          </div>
+
+          {/* DIVIDER */}
+          <div className="h-px w-full bg-gray-600"></div>
+
+          {/* NAV */}
+          <div
+            className="mx-auto flex flex-wrap items-center justify-center gap-y-3 text-[11px] sm:text-xs md:text-sm uppercase tracking-[0.14em]"
+            style={{ fontFamily: "Gordita, sans-serif" }}
+          >
+            <a href="/about_the_stage" className="w-[92px] text-center hover:text-white transition">
+              About
+            </a>
+            <a href="/the_stage_programs" className="w-[92px] text-center hover:text-white transition">
+              Join
+            </a>
+            <a href="/store" className="w-[92px] text-center hover:text-white transition">
+              Store
+            </a>
+            <a href="/archives_the_stage" className="w-[92px] text-center hover:text-white transition">
+              Archives
+            </a>
+            <a href="/contact_us" className="w-[92px] text-center hover:text-white transition">
+              Contact
+            </a>
+          </div>
+
+          {/* SOCIAL */}
+       <div className="flex items-center justify-center gap-3">
+  {socialLinks.map((item, i) => (
+    <a
+      key={i}
+      href={item.link}
+      target="_blank"   // remove this if you want same tab
+      rel="noopener noreferrer"
+      className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-500 text-xs transition hover:bg-white hover:text-black"
+    >
+      {item.label}
+    </a>
+  ))}
+</div>
+
+          {/* LEGAL */}
+          <div
+            className="text-[11px] sm:text-xs text-gray-400 space-y-2"
+            style={{ fontFamily: "Gordita, sans-serif" }}
+          >
+            <div className="flex flex-wrap justify-center gap-4">
+              <span className="cursor-pointer hover:text-white transition">
+                Terms & Conditions
+              </span>
+              <span className="cursor-pointer hover:text-white transition">
+                Privacy Policy
+              </span>
+            </div>
+
+            <p>© 2020 Flaunter, Ltd. All rights reserved.</p>
+          </div>
+
+        </div>
       </div>
     </footer>
   );

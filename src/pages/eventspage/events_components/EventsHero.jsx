@@ -1,15 +1,22 @@
-import React from 'react'
+
+
+import React from "react";
 
 const EventsHero = () => {
   return (
-    <div className=' w-full'>
-        <div className=' w-full h-[50vh] flex items-center justify-center '
+    <section className="w-full">
+      <div className="w-full min-h-[30vh] sm:min-h-[40vh] md:h-[50vh] flex items-center justify-center px-4">
+        
+        <h1
+          className="text-[41px] sm:text-4xl md:text-[6rem] lg:text-[9rem] text-center leading-tight md:mt-7"
+          style={{ fontFamily: "XB Niloofar", fontStyle: "italic" }}
         >
-            <h1 className='text-[9rem]  text-center'style={{ fontFamily: "XB Niloofar", fontStyle: "italic" }}>The Stage Events</h1>
-        </div>
+          The Stage Events
+        </h1>
 
-    </div>
-  )
-}
+      </div>
+    </section>
+  );
+};
 
-export default EventsHero
+export default EventsHero;

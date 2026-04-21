@@ -6,7 +6,7 @@ const Store = () => {
   return (
     <>
     <StoreIntro/>
-    <StoreGallery/>
+    {/* <StoreGallery/> */}
     </>
 
   )

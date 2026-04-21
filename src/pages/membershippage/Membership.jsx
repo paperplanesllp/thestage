@@ -64,7 +64,7 @@ export default function MembershipForm() {
         className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
           isSelected
             ? 'bg-black text-white'
-            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            : 'bg-gray-100 text-black hover:bg-gray-200'
         }`}
       >
         {label}
@@ -88,9 +88,9 @@ export default function MembershipForm() {
      
       <div className="max-w-7xl mx-auto pb-10 mt-30" style={{ fontFamily: "Gordita, sans-serif" }}>
         <div className="mb-12">
-          <h1 className="text-4xl font-light mb-4">Community for Readers & Conversation</h1>
-          <p className="text-lg text-gray-600 mb-2">A Curated Reading and Conversation Space</p>
-          <p className="text-sm text-gray-500 leading-relaxed">
+          <h1 className="text-4xl font-light mb-4" style={{ fontFamily: "'Scope One', serif" }}>Community for Readers & Conversation</h1>
+          <p className="text-lg text-black font-medium mb-2" style={{ fontFamily: "'Scope One', serif" }}>A curated space for conversations and discussions</p>
+          <p className="text-[15px]  text-red-600 leading-relaxed" style={{ fontFamily: "'Scope One', serif" }}>
             This is a curated community centred on depth, attentive listening, and serious conversation. 
             Participation is considered carefully, and not all responses may be accommodated immediately.
           </p>
@@ -101,7 +101,7 @@ export default function MembershipForm() {
           {/* Question 1 */}
           <div className="grid md:grid-cols-[0.8fr_1.5fr] gap-16 items-center justify-start">
            
-            <div className="text-gray-700">
+            <div className="text-black"style={{ fontFamily: "'Scope One', serif" }}>
               1. Name
             </div>
             <div className="max-w-md">
@@ -116,7 +116,7 @@ export default function MembershipForm() {
 
           {/* Question 2 */}
           <div className="grid md:grid-cols-[0.8fr_1.5fr] gap-16 items-center justify-start">
-            <div className="text-gray-700">
+            <div className="text-black" style={{ fontFamily: "'Scope One', serif" }}>
               2. Email
             </div>
             <div className="max-w-md">
@@ -130,7 +130,7 @@ export default function MembershipForm() {
           </div>
 
            <div className="grid md:grid-cols-[0.8fr_1.5fr] gap-16 items-center justify-start">
-            <div className="text-gray-700">
+            <div className="text-black" style={{ fontFamily: "'Scope One', serif" }}>
               3. Phone
             </div>
             <div className="max-w-md">
@@ -147,7 +147,7 @@ export default function MembershipForm() {
 
           {/* Question 3 */}
           <div className="grid md:grid-cols-[0.8fr_1.5fr] gap-16 items-center justify-start">
-            <div className="text-gray-700">
+            <div className="text-black" style={{ fontFamily: "'Scope One', serif" }}>
               4. City
             </div>
             <div className="max-w-md">
@@ -161,7 +161,7 @@ export default function MembershipForm() {
           </div>
 
           <div className="grid md:grid-cols-[0.8fr_1.5fr] gap-16 items-center justify-start">
-            <div className="text-gray-700">
+            <div className="text-black" style={{ fontFamily: "'Scope One', serif" }}>
               5. Group Membership
             </div>
             <div className="max-w-md">
@@ -176,7 +176,7 @@ value={groupLabels[group] || ""}                readOnly
 
           {/* Question 4 */}
           <div className="grid md:grid-cols-[0.8fr_1.5fr] gap-16 items-center justify-start">
-            <div className="text-gray-700">
+            <div className="text-black" style={{ fontFamily: "'Scope One', serif" }}>
               6. Are you above 18 years of age?
             </div>
             <div className="flex gap-3 max-w-md">
@@ -187,7 +187,7 @@ value={groupLabels[group] || ""}                readOnly
 
           {/* Question 5 */}
           <div className="grid md:grid-cols-[0.8fr_1.5fr] gap-16 items-start justify-start">
-            <div className="text-gray-700">
+            <div className="text-black" style={{ fontFamily: "'Scope One', serif" }}>
               7. How would you like to participate in this community?
             </div>
             <div className="flex flex-wrap gap-3 max-w-md">
@@ -216,7 +216,7 @@ value={groupLabels[group] || ""}                readOnly
 
           {/* Question 6 - Multi-select */}
           <div className="grid md:grid-cols-[0.8fr_1.5fr] gap-16 items-start justify-start">
-            <div className="text-gray-700">
+            <div className="text-black" style={{ fontFamily: "'Scope One', serif" }}>
               8. What kinds of books or texts do you mostly engage with?
             </div>
             <div className="flex flex-wrap gap-3 max-w-md">
@@ -233,8 +233,8 @@ value={groupLabels[group] || ""}                readOnly
 
           {/* Question 7 */}
           <div className="grid md:grid-cols-[0.8fr_1.5fr] gap-16 items-start justify-start">
-            <div className="text-gray-700">
-              9. Name 1–3 authors, thinkers, or books that have shaped your thinking
+            <div className="text-black" style={{ fontFamily: "'Scope One', serif" }}>
+              9. Name 1–3 authors, thinkers, or books that have shaped your thinking. Why (Mandatory) ?
             </div>
             <div className="max-w-md">
               <textarea
@@ -248,7 +248,7 @@ value={groupLabels[group] || ""}                readOnly
 
           {/* Question 8 */}
           <div className="grid md:grid-cols-[0.8fr_1.5fr] gap-16 items-start justify-start">
-            <div className="text-gray-700">
+            <div className="text-black" style={{ fontFamily: "'Scope One', serif" }}>
               10. Why do you wish to be part of this reading and conversation community?
             </div>
             <div className="max-w-md">
@@ -263,7 +263,7 @@ value={groupLabels[group] || ""}                readOnly
 
           {/* Question 9 */}
           <div className="grid md:grid-cols-[0.8fr_1.5fr] gap-16 items-start justify-start">
-            <div className="text-gray-700">
+            <div className="text-black" style={{ fontFamily: "'Scope One', serif" }}>
               11. In your view, what is often missing in contemporary public conversations? <span className="text-gray-400">(Optional)</span>
             </div>
             <div className="max-w-md">
@@ -278,7 +278,7 @@ value={groupLabels[group] || ""}                readOnly
 
           {/* Question 10 */}
           <div className="grid md:grid-cols-[0.8fr_1.5fr] gap-16 items-start justify-start">
-            <div className="text-gray-700">
+            <div className="text-black" style={{ fontFamily: "'Scope One', serif" }}>
               12. Have you spoken publicly before, in any setting?
             </div>
             <div className="flex flex-wrap gap-3 max-w-md">
@@ -302,7 +302,7 @@ value={groupLabels[group] || ""}                readOnly
 
           {/* Question 11 */}
           <div className="grid md:grid-cols-[0.8fr_1.5fr] gap-16 items-start justify-start">
-            <div className="text-gray-700">
+            <div className="text-black" style={{ fontFamily: "'Scope One', serif" }}>
               13. If you speak or wish to speak, what kinds of ideas, texts, or questions do you hope to engage with? <span className="text-gray-400">(Optional)</span>
             </div>
             <div className="max-w-md">
@@ -317,7 +317,7 @@ value={groupLabels[group] || ""}                readOnly
 
           {/* Question 12 */}
           <div className="grid md:grid-cols-[0.8fr_1.5fr] gap-16 items-center justify-start">
-            <div className="text-gray-700">
+            <div className="text-black" style={{ fontFamily: "'Scope One', serif" }}>
               14. If available, you may share a link to any talk, writing, or work <span className="text-gray-400">(Optional)</span>
             </div>
             <div className="max-w-md">
@@ -332,7 +332,7 @@ value={groupLabels[group] || ""}                readOnly
 
           {/* Question 13 */}
           <div className="grid md:grid-cols-[0.8fr_1.5fr] gap-16 items-start justify-start">
-            <div className="text-gray-700">
+            <div className="text-black" style={{ fontFamily: "'Scope One', serif" }}>
               15. This is a slow-growing, and depth-oriented community. Are you comfortable with that pace and scale?
             </div>
             <div className="flex gap-3 max-w-md">
@@ -344,7 +344,7 @@ value={groupLabels[group] || ""}                readOnly
 
           {/* Question 14 */}
           <div className="grid md:grid-cols-[0.8fr_1.5fr] gap-16 items-start justify-start">
-            <div className="text-gray-700">
+            <div className="text-black" style={{ fontFamily: "'Scope One', serif" }}>
               16. Are you open to reading attentively, listening carefully, and engaging respectfully—even in disagreement?
             </div>
             <div className="flex gap-3 max-w-md">
@@ -355,7 +355,7 @@ value={groupLabels[group] || ""}                readOnly
 
           {/* Question 15 */}
           <div className="grid md:grid-cols-[0.8fr_1.5fr] gap-16 items-start justify-start">
-            <div className="text-gray-700">
+            <div className="text-black" style={{ fontFamily: "'Scope One', serif" }}>
               17. This community is curated. In order to preserve its quality and seriousness, the curator may intervene or set boundaries in cases of disruptive or inappropriate conduct. Are you comfortable with this understanding?
             </div>
             <div className="flex gap-3 max-w-md">
@@ -366,7 +366,7 @@ value={groupLabels[group] || ""}                readOnly
 
           {/* Question 16 */}
           <div className="grid md:grid-cols-[0.8fr_1.5fr] gap-16 items-start justify-start">
-            <div className="text-gray-700">
+            <div className="text-black" style={{ fontFamily: "'Scope One', serif" }}>
               18. Any final reflection you would like to share? <span className="text-gray-400">(Optional)</span>
             </div>
             <div className="max-w-md">

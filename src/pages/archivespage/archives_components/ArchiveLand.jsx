@@ -61,38 +61,40 @@ export default function ArchiveLand() {
   }, []);
 
   return (
-    <section className="w-full min-h-screen bg-position-[50%_120%] bg-no-repeat bg-cover flex flex-col items-end justify-center px-4"style={{backgroundImage:`url(${img})`}}>
-       <div className="absolute inset-0 bg-black/20" />
-      <div className="text-center w-full pb-35 h-screen mt-23 pt-20 text-white"style={{ fontFamily: "Bricolage Grotesqu, sans-serif" }}>
+   <section className="w-full min-h-screen font-light bg-[position:50%_120%] md:bg-position-[50%_120%] bg-no-repeat bg-cover flex flex-col items-end justify-center px-4" style={{ backgroundImage: `url(${img})` }}>
+       <div className="absolute inset-0 " />
+      <div className="text-center w-full px-2 pb-16 pt-24 min-h-screen flex flex-col justify-center text-white md:pb-35 md:h-screen md:mt-23 md:pt-20" style={{ fontFamily: "jim-nightshade-regular" }}>
         <p
           ref={line4Ref}
-          className="text-xl leading-27 tracking-tighter md:text-[8rem] font-medium opacity-0"
-         style={{ fontFamily: "Bricolage Grotesqu, sans-serif" }}
-        >
-          FOR THE MINDS
+          className="text-[2.9rem] leading-[1] tracking-tighter md:text-[8rem] font-thin opacity-40 italic"
+         style={{ fontFamily: "jim-nightshade-regular"}}
+        >READING IS 
         </p>
         <p
           ref={line3Ref}
-          className="text-xl leading-27 tracking-tighter md:text-[8rem] font-medium opacity-0"
-          style={{ fontFamily: "Bricolage Grotesqu, sans-serif" }}
+          className="text-[2.6rem] leading-[0.9] tracking-tighter md:text-[8rem] font-light italic opacity-0"
+          style={{ fontFamily: "jim-nightshade-regular" }}
         >
-          THAT DONT
+        THINKING GUIDED 
         </p>
         <p
           ref={line2Ref}
-          className="text-3xl leading-27 tracking-tighter md:text-[8rem] font-medium opacity-0"
-         style={{ fontFamily: "Bricolage Grotesqu, sans-serif" }}
+         className="text-[2.8rem] leading-[0.9] tracking-tighter italic md:text-[8rem] font-stretch-150% opacity-0"
+         style={{fontFamily: "jim-nightshade-regular"}}
         >
-          SETTLE FOR THE
+          BY THE WORDS 
         </p>
         <p
           ref={line1Ref}
-          className="text-3xl leading-27 tracking-tighter md:text-[8rem] font-medium opacity-0"
-          style={{ fontFamily: "Bricolage Grotesqu, sans-serif" }}
+          className="text-[2.8rem] leading-[0.9] tracking-tighter italic md:text-[8rem] font-stretch-150% opacity-0"
+          style={{ fontFamily: "jim-nightshade-regular" }}
         >
-          SURFACE.
+      OF ANOTHER.
         </p>
+       {/* <h5 className= "text-3xl  text-end  font-thin inline-block text-white mt-5 ms-3 " style={{fontFamily: "jim-nightshade-regular"}}>- Mortimer J. Adler</h5> */}
       </div>
+
+
       {/* <p ref={paragraphRef} style={{ fontFamily: "Gordita, sans-serif" }} className="text-white me-10 text-justify  mt-23 pb-23 w-1/3 max-w-2xl ">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium, delectus nihil illum omnis suscipit dolor, nobis debitis eveniet ipsam excepturi vitae accusantium expedita fugit, nostrum at alias nam maxime esse.
       </p> */}

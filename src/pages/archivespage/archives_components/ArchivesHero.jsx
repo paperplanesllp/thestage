@@ -32,30 +32,100 @@ const ArchiveSection = () => {
     }
   ];
 
-  const articles = [
-    {
-      id: 1,
-      title: "Small Town Sweden",
-      image: "https://i.pinimg.com/1200x/80/c7/52/80c7527bf3b23fcd694671c006b068b5.jpg",
-      desc: "Vestibulum id ligula porta felis euismod semper.",
-      category: "by Jrddoe",
-      time: "24 hours"
-    },
-    {
-      id: 2,
-      title: "Portrait in Black and White",
-      image: "https://i.pinimg.com/1200x/fc/75/79/fc757978da7434e0283c87cbd3f365cb.jpg",
-      desc: "Intimate moments captured in monochrome.",
-      category: "by Studio K",
-      time: "18 hours"
-    }
-  ];
+ const articles = [
+  {
+    id: 1,
+    title: "19 Artists at Galerie Mathgoth",
+    image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=900&q=80",
+    desc: "After the exhibition in the new year, Galerie Mathgoth will be presenting a group exhibition.",
+    category: "Fashion",
+    time: "24 hours"
+  },
+  {
+    id: 2,
+    title: "Ten Inspiration Picasso Sketches",
+    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900&q=80",
+    desc: "Apart from being an exceptional painter, Picasso was also one of the best draftsmen.",
+    category: "Art, Design",
+    time: "18 hours"
+  },
+  {
+    id: 3,
+    title: "Cy Twombly: Painting Can Bring Eight or Nine Figures in Auction",
+    image: "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?w=900&q=80",
+    desc: "A group of the most influential contemporary artists of our age.",
+    category: "Art, Analysis",
+    time: "12 hours"
+  },
+  {
+    id: 4,
+    title: "New Zealand’s Backpacker Buses",
+    image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=900&q=80",
+    desc: "Backpacker buses are popular for long-haul travel across New Zealand.",
+    category: "Travel",
+    time: "1 day"
+  },
+  {
+    id: 5,
+    title: "Discovering New Worlds of Experience With Synesthesia in Art",
+    image: "https://images.unsplash.com/photo-1495567720989-cebdbdd97913?w=900&q=80",
+    desc: "What is synesthesia and how does it shape artistic perception?",
+    category: "Fashion, Art",
+    time: "2 days"
+  },
+  {
+    id: 6,
+    title: "Eight Free Museums in Europe You Have to Check Out",
+    image: "https://images.unsplash.com/photo-1529429617124-95b109e86bb8?w=900&q=80",
+    desc: "A curated list of Europe’s most inspiring free museums.",
+    category: "Art, Culture",
+    time: "3 days"
+  },
+  {
+    id: 7,
+    title: "How to Know You Are Looking at a Fake Info",
+    image: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=900&q=80",
+    desc: "Understanding misinformation in the digital archive age.",
+    category: "Thoughts",
+    time: "5 days"
+  },
+  {
+    id: 8,
+    title: "10 Best Museum Shops Around the World",
+    image: "https://images.unsplash.com/photo-1523731407965-2430cd12f5e4?w=900&q=80",
+    desc: "From Tate Modern to MoMA — design-forward museum retail.",
+    category: "Fashion",
+    time: "1 week"
+  }
+];
+ const getCardHeight = (index) => {
+  const position = index % 4; // 0,1,2,3
+  return position === 1 || position === 3
+    ? "h-[520px]"   // 2nd & 4th cards (tall)
+    : "h-[380px]";  // 1st & 3rd cards (short)
+};
+
+const getCardTranslate = (index) => {
+  const position = index % 4; // 0,1,2,3
+  const isSmall = position === 0 || position === 2; // 1st & 3rd cards
+  const isAfterFirstRow = index >= 4;
+
+  return isSmall && isAfterFirstRow ? "-translate-y-30" : "";
+};
+
+const getImageHeight = (index) => {
+  const position = index % 4; // 0,1,2,3
+  return position === 1 || position === 3
+    ? "h-[320px]"   // tall cards → taller image
+    : "h-[220px]";  // small cards → smaller image
+};
+
 
   const isIntroExpanded = hoveredIntro !== null;
 
   return (
     <section
-      className="max-w-8xl mx-auto px-5 h-screen flex flex-col items-center py-12"
+      className="max-w-8xl mx-auto px-5 min-h-screen flex flex-col items-center py-12"
       style={{ fontFamily: "Gordita, sans-serif" }}
     >
       {/* CATEGORY NAV */}
@@ -103,7 +173,7 @@ const ArchiveSection = () => {
                   key={index}
                   onMouseEnter={() => setHoveredIntro(index)}
                   onMouseLeave={() => setHoveredIntro(null)}
-                  className="relative rounded-xl overflow-hidden h-full transition-all duration-900 ease-in-out cursor-pointer"
+                  className="relative rounded-md overflow-hidden h-full transition-all duration-900 ease-in-out cursor-pointer"
                   style={{
                     width: isActive ? `${EXPANDED_WIDTH}px` : `${COLLAPSED_WIDTH}px`,
                     flexShrink: 0
@@ -140,26 +210,46 @@ const ArchiveSection = () => {
         </div>
       ) : (
         /* ARTICLES GRID (UNCHANGED) */
-        <div className="flex flex-wrap gap-6 w-full">
-          {articles.map((item) => (
+      <div className="grid grid-cols-4 gap-6 auto-rows-min grid-flow-dense">
+          {articles.map((item, index) => (
             <div
-              key={item.id}
-              className="w-full sm:w-[48%] lg:w-[23%] cursor-pointer"
-              onClick={() => navigate("/archives_details")}
-            >
-              <div className="h-[260px] overflow-hidden mb-4">
-                <img
-                  src={item.image}
-                  className="w-full h-full object-cover "
-                />
-              </div>
-              <p className="text-xs text-gray-500">{item.time}</p>
-              <h3 className="text-lg font-medium">{item.title}</h3>
-              <p className="text-sm italic text-gray-600">{item.category}</p>
-              <p className="text-sm text-gray-700 mt-2">{item.desc}</p>
-            </div>
+  key={item.id}
+  className={`group  overflow-hidden cursor-pointer transition-transform hover:scale-[1.02] ${getCardHeight(index)} ${getCardTranslate(index)}`}
+  onClick={() => navigate("/archives_details")}
+>
+  {/* IMAGE */}
+  <div className={`w-full  ${getImageHeight(index)}  overflow-hidden`}>
+    <img
+      src={item.image}
+      alt={item.title}
+      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+    />
+  </div>
+
+  {/* CONTENT */}
+  <div className="py-5 bg-white flex flex-col gap-2">
+    <span className="text-xs uppercase tracking-wider text-gray-500">
+      {item.time}
+    </span>
+
+    <h3 className="text-lg font-semibold leading-snug text-gray-900" style={{ fontFamily: "'Scope One', serif" }}>
+      {item.title}
+    </h3>
+
+    <p className="text-xs uppercase tracking-wider text-gray-400">
+      {item.category}
+    </p>
+
+    <p className="text-sm text-black line-clamp-2" style={{ fontFamily: "'Scope One', serif" }}>
+      {item.desc}
+    </p>
+  </div>
+</div>
+
           ))}
         </div>
+
+
       )}
     </section>
   );

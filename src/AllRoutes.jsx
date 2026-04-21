@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import React from 'react'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import Home from '../src/pages/homepage/Home'
 import About from '../src/pages/aboutpage/About'
 import Header from './components/Header';
@@ -15,13 +15,21 @@ import StoreCheckout from './pages/storepage/storecomponents/StoreCheckout';
 import StageMagazine from './pages/magazine/StageMagazine';
 import Events from './pages/eventspage/Events'
 import EventAttend from './pages/eventspage/events_components/EventAttend'
+import AboutBrochure from './pages/aboutpage/about_components/AboutBrochure';
+import ScrollToTop from './pages/volunteerpage/ScrollToTop';
+import AdminLogin from './pages/adminpage/AdminLogin';
+import AdminDashboard from './pages/adminpage/AdminDashboard';
+import AdminEventsManager from './pages/adminpage/AdminEventsManager';
 
 const AllRoutes = () => {
+  const location = useLocation();
+  const isAdminRoute = location.pathname === '/login' || location.pathname.startsWith('/admin');
     
   return (
   <>
       
-      <Header/>
+      {!isAdminRoute && <Header/>}
+        <ScrollToTop/>
       <Routes>
           
           <Route path='/' element={<Home/>}></Route>
@@ -37,8 +45,12 @@ const AllRoutes = () => {
           <Route path='/store_checkout' element={<StoreCheckout/>}></Route>
           <Route path='/the_stage_events' element={<Events/>}></Route>
           <Route path='/event_attend' element={<EventAttend/>}></Route>
+          <Route path='/stage_brochure' element={<AboutBrochure/>}></Route>
+          <Route path='/login' element={<AdminLogin/>}></Route>
+          <Route path='/admin/dashboard' element={<AdminDashboard/>}></Route>
+          <Route path='/admin/events' element={<AdminEventsManager/>}></Route>
       </Routes>
-      <Footer/>
+          {!isAdminRoute && <Footer/>}
   </>
   )
 }

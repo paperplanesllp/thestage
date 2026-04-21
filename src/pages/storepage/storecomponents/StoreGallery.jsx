@@ -8,6 +8,8 @@ const categories = [
   "Scenes",
   "Words",
   "Calendars",
+  "Apparels",
+  "Scarfs"
   
 ];
 

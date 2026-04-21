@@ -1,129 +1,162 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const PreviousTalks = () => {
-  return (
-    <div className="w-full flex  flex-col bg-white space-y-0" style={{ fontFamily: "Gordita, sans-serif" }}>
+  const [event, setEvent] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-            <h1 className="text-start text-black px-15 font-normal pt-12 translate-y-[10%] text-5xl pb-12" >Upcoming Events</h1>
-            <p className="max-w-4xl px-15 font-light">In the present climate of a dominant scientific naturalism, heavily dependent on speculative 
-Darwinian explanations of practically everything, 
-and armed to the teeth against attacks from
-religion, I have thought it useful to speculate 
-about possible alternatives.</p>
-      {/* ===== SECTION 1 ===== */}
-      <div className="grid h-[33vh] bg-amber-200 grid-cols-1 mt-12 md:grid-cols-3 gap-10 items-stretch">
-        <div className="col-span-1 pt-5 pl-15 flex flex-col justify-between">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-semibold tracking-wide">
-              TITIAN: LOVE, <br /> DESIRE, DEATH
+  useEffect(() => {
+    const fetchUpcomingEvent = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("http://localhost:5000/api/admin/public-events");
+        
+        if (!response.ok) {
+          throw new Error("Failed to fetch events");
+        }
+
+        const data = await response.json();
+        
+        if (data.success && Array.isArray(data.events) && data.events.length > 0) {
+          // Get current date/time for comparison
+          const now = new Date();
+          
+          // Filter only upcoming events (date is in the future)
+          const upcomingEvents = data.events
+            .filter(event => {
+              const eventDate = new Date(event.date);
+              return eventDate > now;
+            })
+            .sort((a, b) => {
+              const dateA = new Date(a.date);
+              const dateB = new Date(b.date);
+              return dateA - dateB;
+            });
+          
+          // Get the nearest/next upcoming event
+          if (upcomingEvents.length > 0) {
+            const nextEvent = upcomingEvents[0];
+            const imageUrl = nextEvent.sections?.find(s => s.type === 'image')?.image || "";
+            const paragraphs = nextEvent.sections?.find(s => s.type === 'paragraphs')?.paragraphs || [];
+            
+            setEvent({
+              title: nextEvent.title,
+              date: nextEvent.date,
+              time: nextEvent.time,
+              location: nextEvent.location,
+              paragraphs: paragraphs,
+              image: imageUrl,
+            });
+          }
+          setError(null);
+        }
+      } catch (err) {
+        console.error("Error fetching event:", err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUpcomingEvent();
+  }, []);
+
+  if (loading) {
+    return <div className="w-full bg-white py-20 text-center">Loading upcoming events...</div>;
+  }
+
+  if (error || !event) {
+    return null;
+  }
+
+  // Format date
+  const eventDate = new Date(event.date);
+  const formattedDate = eventDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+
+  return (
+    <section
+      className="w-full overflow-hidden bg-white"
+      style={{ fontFamily: "Gordita, sans-serif" }}
+    >
+      {/* HEADING */}
+      <div className="px-4 pt-3 pb-2 sm:px-6 md:px-10 lg:px-12">
+        <h1 className="text-2xl leading-tight text-black sm:text-3xl md:text-4xl lg:text-5xl">
+          UPCOMINGS EVENTS
+        </h1>
+
+        <p
+          className="mt-3 max-w-2xl text-[14px] leading-6 text-black sm:text-[15px] md:text-[16px] lg:text-[17px]"
+          style={{ fontFamily: "'Scope One', serif" }}
+        >
+          Explore upcoming events at The Stage, where ideas are examined
+          carefully, assumptions questioned, and understanding deepened through
+          reasoned discussion.
+        </p>
+      </div>
+
+      {/* HERO SECTION */}
+      <div className="relative mt-0 min-h-[550px] w-full overflow-hidden sm:min-h-[600px] md:min-h-[800px]">
+        {/* BACKGROUND IMAGE */}
+        <img
+          src={event.image}
+          alt={event.title}
+          className="absolute inset-0 h-full w-full object-cover object-center md:object-[50%_80%]"
+        />
+
+        {/* OVERLAY */}
+        <div className="absolute inset-0 bg-black/35" />
+
+        {/* CONTENT */}
+        <div className="relative z-10 flex min-h-[550px] items-start sm:min-h-[600px] md:min-h-[800px]">
+          <div className="flex w-full flex-col gap-4 px-4 pt-4 text-white sm:px-6 sm:pt-6 md:w-[75%] md:px-10 md:pt-8 lg:w-[60%] lg:px-12">
+            <h1 className="max-w-4xl text-[26px] font-semibold leading-tight tracking-wide sm:text-3xl md:text-5xl lg:text-6xl">
+              {event.title}
             </h1>
 
-            <p className="text-gray-600 leading-5 mt-5">
-              In 1551, Prince Philip of Spain commissioned Titian to
-              produce a group of paintings inspired by Ovid’s
-              <em> Metamorphoses</em>.
-            </p>
-          </div>
+            {event.paragraphs && event.paragraphs.map((paragraph, index) => (
+              <p
+                key={index}
+                style={{ fontFamily: "'Scope One', serif" }}
+                className={`max-w-full text-[14px] font-bold leading-6 sm:max-w-[90%] sm:text-[15px] md:max-w-[520px] ${index === 0 ? 'pt-6 md:pt-24 lg:pt-40' : 'pt-4'}`}
+              >
+                {paragraph}
+              </p>
+            ))}
 
-          <div className="grid grid-cols-3 gap-6 mb-22 text-sm text-gray-700">
-            <div>
-              <p className="font-semibold">Date</p>
-              <p>9 – 12 June</p>
-            </div>
-            <div>
-              <p className="font-semibold">Time</p>
-              <p>11:00 – 16:00</p>
-            </div>
-            <div>
-              <button className="relative mt-4 text-sm after:absolute after:left-6 after:top-5 after:h-[1px] after:w-0 after:bg-black after:transition-all hover:after:w-[calc(100%-3rem)]">
-                MORE ABOUT
+            {/* INFO */}
+            <div className="mt-4 text-sm sm:mt-6">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
+                <div>
+                  <p className="text-sm font-semibold sm:text-base">Date</p>
+                  <p className="text-sm sm:text-base">{formattedDate}</p>
+                </div>
+
+                <div>
+                  <p className="text-sm font-semibold sm:text-base">Time</p>
+                  <p className="whitespace-nowrap text-sm sm:text-base">
+                    {event.time}
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-sm font-semibold sm:text-base">Venue</p>
+                  <p className="text-sm leading-6 sm:text-base">
+                    {event.location}
+                  </p>
+                </div>
+              </div>
+
+              {/* BUTTON */}
+              <button
+                className="mt-14 sm:mt-16 md:mt-8 relative inline-block w-fit pb-10 text-sm after:absolute  after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full sm:text-base"
+              >
+          Register Now
               </button>
             </div>
           </div>
         </div>
-
-        <div className="col-span-2 pl-15">
-          <img
-            src="https://i.pinimg.com/1200x/d3/32/e2/d332e2d07c25d8ec069c5d89b6478b43.jpg"
-            className="w-full h-[320px] object-cover"
-            alt=""
-          />
-        </div>
       </div>
-
-      {/* ===== SECTION 2 ===== */}
-      <div className="grid h-[33vh] grid-cols-1 md:grid-cols-3  items-stretch">
-        <div className="col-span-2">
-          <img
-            src="https://i.pinimg.com/1200x/4c/a2/19/4ca219e0fa029ee4c87b181ac48134ea.jpg"
-            className="w-full h-[320px] object-cover"
-            alt=""
-          />
-        </div>
-
-        <div className="col-span-1 pt-5 pr-15 flex bg-blue-400 flex-col items-center justify-between">
-          <h1 className="text-3xl md:text-4xl font-semibold tracking-wide">
-            TITIAN: LOVE, <br /> DESIRE, DEATH
-          </h1>
-
-          <p className="text-gray-600 ms-22 ">
-            In 1551, Prince Philip of Spain commissioned Titian to
-            create mythological works.
-          </p>
-
-          <div className="grid grid-cols-3 mb-22 gap-6 text-sm text-gray-700">
-            <div>
-              <p className="font-semibold">Date</p>
-              <p>9 – 12 June</p>
-            </div>
-            <div>
-              <p className="font-semibold">Time</p>
-              <p>11:00 – 16:00</p>
-            </div>
-            <button className="relative mt-4 after:absolute after:left-6 after:top-5 after:h-[1px] after:w-0 after:bg-black after:transition-all hover:after:w-[calc(100%-3rem)]">
-              MORE ABOUT
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* ===== SECTION 3 ===== */}
-      <div className="grid overflow-hidden h-[33vh] text-white bg-gray-700 grid-cols-1 md:grid-cols-3 gap-10 items-stretch">
-        <div className="col-span-1 pl-15 flex flex-col justify-between">
-          <h1 className="text-3xl md:text-4xl pt-5 font-semibold tracking-wide">
-            TITIAN: LOVE, <br /> DESIRE, DEATH
-          </h1>
-
-          <p className="text-white mt-10">
-            Titian was one of the most influential painters of the
-            Renaissance period.
-          </p>
-
-          <div className="grid overflow-hidden grid-cols-3 pb-4 gap-6 text-sm text-white">
-            <div>
-              <p className="font-semibold">Date</p>
-              <p>9 – 12 June</p>
-            </div>
-            <div>
-              <p className="font-semibold">Time</p>
-              <p>11:00 – 16:00</p>
-            </div>
-            <button className="relative mt-4 after:absolute after:left-6 after:top-5 after:h-[1px] after:w-0 after:bg-black after:transition-all hover:after:w-[calc(100%-3rem)]">
-              MORE ABOUT
-            </button>
-          </div>
-        </div>
-
-        <div className="col-span-2 relative overflow-hidden">
-          <img
-            src="https://i.pinimg.com/1200x/2f/24/a8/2f24a8538e9399a7c7d68f5ba8a3b546.jpg"
-            className="w-full absolute  object-cover"
-            alt=""
-          />
-        </div>
-      </div>
-
-    </div>
+    </section>
   );
 };
 
