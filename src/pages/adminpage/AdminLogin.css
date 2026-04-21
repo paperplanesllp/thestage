@@ -74,6 +74,36 @@
   font-family: 'Gordita', sans-serif;
 }
 
+.admin-login-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.admin-login-home-button {
+  border: 1px solid rgba(193, 155, 89, 0.42);
+  border-radius: 999px;
+  padding: 0.34rem 0.78rem;
+  background: rgba(9, 13, 20, 0.62);
+  color: #e9d1a7;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  font-family: 'Gordita', sans-serif;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.admin-login-home-button:hover {
+  border-color: rgba(224, 192, 139, 0.9);
+  background: rgba(18, 23, 32, 0.9);
+  transform: translateY(-1px);
+}
+
+.admin-login-home-button:active {
+  transform: translateY(0);
+}
+
 .admin-login-title {
   margin: 0.35rem 0 0;
   color: #f9f6ef;

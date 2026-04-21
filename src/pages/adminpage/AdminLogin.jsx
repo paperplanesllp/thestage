@@ -60,7 +60,16 @@ const AdminLogin = () => {
       <div className="admin-login-glow admin-login-glow-right" aria-hidden="true" />
 
       <section className="admin-login-card" aria-label="Admin login panel">
-        <p className="admin-login-brand">The Stage</p>
+        <div className="admin-login-topbar">
+          <p className="admin-login-brand">The Stage</p>
+          <button
+            type="button"
+            className="admin-login-home-button"
+            onClick={() => navigate('/')}
+          >
+            Home
+          </button>
+        </div>
         <h1 className="admin-login-title">Admin Login</h1>
         <p className="admin-login-subtitle">Private access for authorized administrators.</p>
 
