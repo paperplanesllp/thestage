@@ -45,8 +45,8 @@ const StageMagazine = () => {
 
         {/* THE STAGE MAGAZINE */}
         <h1
-          className="relative z-10 mt-8 sm:mt-12 md:mt-15 translate-y-[6%] sm:translate-y-[10%] text-white text-center text-[2.2rem] sm:text-[3.4rem] md:text-[5rem] lg:text-[6.5rem] xl:text-[8rem] leading-[0.95] mb-[-0.3rem] sm:mb-[-0.7rem] md:mb-[-1.2rem]"
-          style={{ fontFamily: "XB Niloofar", fontStyle: "italic" }}
+          className="relative z-10 mt-8 sm:mt-12 md:mt-15 translate-y-[6%] sm:translate-y-[10%] text-white text-center text-[2.2rem] sm:text-[3.4rem] md:text-[5rem] lg:text-[6.5rem] xl:text-[8rem] leading-[0.95] mb-[-0.3rem] sm:mb-[-0.7rem] md:mb-[-1.2rem] logo-font"
+          
         >
           The Stage Magazine
         </h1>
