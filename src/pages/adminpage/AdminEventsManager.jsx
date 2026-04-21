@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './AdminEventsManager.css';
 
+const MAX_IMAGE_FILE_SIZE_BYTES = 10 * 1024 * 1024;
+
 const createEmptyParagraphSection = () => ({
   paragraphs: [''],
 });
@@ -212,6 +214,12 @@ const AdminEventsManager = () => {
       return;
     }
 
+    if (selectedFile.size > MAX_IMAGE_FILE_SIZE_BYTES) {
+      setError('Image is too large. Please upload a file smaller than 10 MB.');
+      event.target.value = '';
+      return;
+    }
+
     setError('');
     setMessage('');
 
@@ -229,6 +237,11 @@ const AdminEventsManager = () => {
       const data = await response.json();
 
       if (!response.ok) {
+        if (response.status === 413) {
+          setError('Upload failed: file too large on server. Increase Nginx client_max_body_size for /api.');
+          return;
+        }
+
         setError(data.message || 'Unable to upload image.');
         return;
       }
