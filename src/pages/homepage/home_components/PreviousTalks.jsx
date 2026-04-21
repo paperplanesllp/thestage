@@ -9,7 +9,7 @@ const PreviousTalks = () => {
     const fetchUpcomingEvent = async () => {
       try {
         setLoading(true);
-        const response = await fetch("http://localhost:5000/api/admin/public-events");
+        const response = await fetch("/api/admin/public-events");
         
         if (!response.ok) {
           throw new Error("Failed to fetch events");

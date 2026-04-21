@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 const filters = [
   { id: "upcoming", label: "Upcoming" },
@@ -15,14 +14,13 @@ const EventDetail = () => {
   const [allEvents, setAllEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
   // Fetch events from API
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         setLoading(true);
-        const response = await fetch("http://localhost:5000/api/admin/public-events");
+        const response = await fetch("/api/admin/public-events");
         
         if (!response.ok) {
           throw new Error("Failed to fetch events");
