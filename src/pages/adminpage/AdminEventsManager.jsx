@@ -2,8 +2,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './AdminEventsManager.css';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
-
 const createEmptyParagraphSection = () => ({
   paragraphs: [''],
 });
@@ -64,7 +62,7 @@ const AdminEventsManager = () => {
       setIsLoading(true);
       setError('');
 
-      const response = await fetch(`${API_BASE_URL}/api/admin/events`, {
+      const response = await fetch('/api/admin/events', {
         method: 'GET',
         headers: sessionHeaders,
       });
@@ -222,7 +220,7 @@ const AdminEventsManager = () => {
       const formDataPayload = new FormData();
       formDataPayload.append('image', selectedFile);
 
-      const response = await fetch(`${API_BASE_URL}/api/admin/upload-image`, {
+      const response = await fetch('/api/admin/upload-image', {
         method: 'POST',
         headers: adminSessionHeaders,
         body: formDataPayload,
@@ -280,7 +278,7 @@ const AdminEventsManager = () => {
       setIsSaving(true);
 
       const response = await fetch(
-        editingId ? `${API_BASE_URL}/api/admin/events/${editingId}` : `${API_BASE_URL}/api/admin/events`,
+        editingId ? `/api/admin/events/${editingId}` : '/api/admin/events',
         {
           method: editingId ? 'PUT' : 'POST',
           headers: sessionHeaders,
@@ -370,7 +368,7 @@ const AdminEventsManager = () => {
       setError('');
       setMessage('');
 
-      const response = await fetch(`${API_BASE_URL}/api/admin/events/${id}`, {
+      const response = await fetch(`/api/admin/events/${id}`, {
         method: 'DELETE',
         headers: sessionHeaders,
       });

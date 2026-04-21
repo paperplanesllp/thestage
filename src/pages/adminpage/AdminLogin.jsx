@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { FiLock, FiUser } from 'react-icons/fi';
 import './AdminLogin.css';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
-
 const AdminLogin = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
@@ -26,7 +24,7 @@ const AdminLogin = () => {
     try {
       setIsLoading(true);
 
-      const response = await fetch(`${API_BASE_URL}/api/admin/login`, {
+      const response = await fetch('/api/admin/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
