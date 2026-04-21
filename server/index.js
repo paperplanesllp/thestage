@@ -47,6 +47,21 @@ app.use(
 
 app.use(express.json());
 
+app.use((req, res, next) => {
+  const requestStartedAt = Date.now();
+
+  res.on('finish', () => {
+    if (res.statusCode >= 400) {
+      const elapsedMs = Date.now() - requestStartedAt;
+      console.error(
+        `[API ERROR] ${req.method} ${req.originalUrl} -> ${res.statusCode} (${elapsedMs}ms)`
+      );
+    }
+  });
+
+  next();
+});
+
 app.get('/api/health', (_req, res) => {
   res.status(200).json({
     success: true,
@@ -56,6 +71,31 @@ app.get('/api/health', (_req, res) => {
 
 app.use('/api/admin', adminAuthRouter);
 app.use('/api/admin', adminEventsRouter);
+// Backward compatibility for stale frontend bundles that may call /api/api/admin/*.
+app.use('/api/api/admin', adminAuthRouter);
+app.use('/api/api/admin', adminEventsRouter);
+
+app.use('/api', (req, res) => {
+  console.error(`[API 404] ${req.method} ${req.originalUrl}`);
+  res.status(404).json({
+    success: false,
+    message: 'The requested route could not be found.',
+    path: req.originalUrl,
+  });
+});
+
+app.use((error, req, res, _next) => {
+  console.error(`[API EXCEPTION] ${req.method} ${req.originalUrl}`, error);
+
+  if (res.headersSent) {
+    return;
+  }
+
+  res.status(500).json({
+    success: false,
+    message: 'Internal server error.',
+  });
+});
 
 const startServer = async () => {
   try {
