@@ -4,7 +4,7 @@ const eventSectionSchema = new mongoose.Schema(
   {
     type: {
       type: String,
-      enum: ['paragraphs', 'image'],
+      enum: ['paragraphs', 'image', 'googleForm', 'qrCode'],
       required: true,
       trim: true,
     },
@@ -13,6 +13,16 @@ const eventSectionSchema = new mongoose.Schema(
       default: [],
     },
     image: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    formLink: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    qrCode: {
       type: String,
       default: '',
       trim: true,
@@ -43,6 +53,12 @@ const eventSchema = new mongoose.Schema(
     location: {
       type: String,
       required: true,
+      trim: true,
+    },
+    category: {
+      type: String,
+      enum: ['', 'nil', 'discourse', 'monologic', 'dialogic', 'panel'],
+      default: '',
       trim: true,
     },
     sections: {

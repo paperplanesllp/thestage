@@ -31,6 +31,9 @@ const normalizeSections = (sections = []) =>
         ? section.paragraphs.map((paragraph) => String(paragraph || '').trim()).filter(Boolean)
         : [String(section.paragraph || section.description || '').trim()].filter(Boolean);
       const normalizedImage = String(section.image || '').trim();
+      const normalizedFormLink = String(section.formLink || '').trim();
+      const normalizedQRCode = String(section.qrCode || '').trim();
+      const normalizedCategory = String(section.category || '').trim().toLowerCase();
       const normalizedType = String(section.type || '').trim().toLowerCase();
 
       if (normalizedType === 'image') {
@@ -42,6 +45,30 @@ const normalizeSections = (sections = []) =>
           },
         ];
       }
+
+      if (normalizedType === 'googleform') {
+        return [
+          {
+            type: 'googleForm',
+            formLink: normalizedFormLink,
+            paragraphs: [],
+            image: '',
+          },
+        ];
+      }
+
+      if (normalizedType === 'qrcode') {
+        return [
+          {
+            type: 'qrCode',
+            qrCode: normalizedQRCode,
+            paragraphs: [],
+            image: '',
+          },
+        ];
+      }
+
+
 
       if (normalizedType === 'paragraphs') {
         return [
@@ -90,13 +117,14 @@ const normalizeSections = (sections = []) =>
 
       return [];
     })
-    .filter((section) => section.type === 'image' || section.type === 'paragraphs');
+    .filter((section) => section.type === 'image' || section.type === 'paragraphs' || section.type === 'googleForm' || section.type === 'qrCode');
 
-const validatePayload = ({ title, date, time, location, sections }) => {
+const validatePayload = ({ title, date, time, location, category, sections }) => {
   const normalizedTitle = String(title || '').trim();
   const normalizedDate = String(date || '').trim();
   const normalizedTime = String(time || '').trim();
   const normalizedLocation = String(location || '').trim();
+  const normalizedCategory = String(category || '').trim();
   const normalizedSections = normalizeSections(sections);
 
   if (!normalizedTitle || !normalizedDate || !normalizedTime || !normalizedLocation) {
@@ -120,12 +148,20 @@ const validatePayload = ({ title, date, time, location, sections }) => {
       return !section.paragraphs.length;
     }
 
+    if (section.type === 'googleForm') {
+      return !section.formLink;
+    }
+
+    if (section.type === 'qrCode') {
+      return !section.qrCode;
+    }
+
     return true;
   });
 
   if (hasInvalidSection) {
     return {
-      error: 'Each paragraph section needs para content and each image section needs image URL.',
+      error: 'Each paragraph section needs para content, each image section needs image URL, each Google Form section needs a form link, and each QR code section needs a QR code.',
     };
   }
 
@@ -135,6 +171,7 @@ const validatePayload = ({ title, date, time, location, sections }) => {
       date: normalizedDate,
       time: normalizedTime,
       location: normalizedLocation,
+      category: normalizedCategory,
       sections: normalizedSections,
     },
   };
@@ -247,6 +284,7 @@ router.post('/events', async (req, res) => {
       date: req.body.date,
       time: req.body.time,
       location: req.body.location,
+      category: req.body.category,
       sections,
     });
 
@@ -280,6 +318,7 @@ router.put('/events/:id', async (req, res) => {
       date: req.body.date,
       time: req.body.time,
       location: req.body.location,
+      category: req.body.category,
       sections: req.body.sections,
     });
 

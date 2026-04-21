@@ -33,6 +33,9 @@ const EventDetail = () => {
           const formattedEvents = data.events.map(event => {
             // Extract description from first paragraph section
             const description = event.sections?.find(s => s.type === 'paragraphs')?.paragraphs?.[0] || "";
+            const formLink = event.sections?.find(
+              (s) => String(s?.type || '').toLowerCase() === 'googleform'
+            )?.formLink || "";
             
             // Parse date to get day name
             const eventDate = new Date(event.date);
@@ -46,6 +49,8 @@ const EventDetail = () => {
               venue: event.location,
               title: event.title,
               description: description,
+              formLink,
+              category: event.category || "",
               status: "available",
               rawDate: eventDate,
             };
@@ -85,8 +90,7 @@ const EventDetail = () => {
       case "monologic":
       case "dialogic":
       case "panel":
-        // Currently no type field in database, return empty
-        return [];
+        return allEvents.filter(event => event.category === activeFilter).sort((a, b) => a.rawDate - b.rawDate);
       
       default:
         return [];
@@ -153,13 +157,20 @@ const EventDetail = () => {
 
               {/* TITLE + DESCRIPTION */}
               <div className="max-w-full text-center md:max-w-[600px] md:text-left">
-                <h2
-                  className="text-base font-semibold sm:text-lg"
-                  style={{ fontFamily: "'Scope One', serif" }}
-                >
-                  <span className="block md:inline">{item.title.substring(0, Math.min(item.title.indexOf(' ', 20), 30))}</span>
-                  {item.title.length > 30 && <span className="block md:inline">{item.title.substring(30)}</span>}
-                </h2>
+                <div className="flex flex-wrap items-center justify-center gap-2 md:justify-start md:gap-3">
+                  <h2
+                    className="text-base font-semibold sm:text-lg"
+                    style={{ fontFamily: "'Scope One', serif" }}
+                  >
+                    <span className="block md:inline">{item.title.substring(0, Math.min(item.title.indexOf(' ', 20), 30))}</span>
+                    {item.title.length > 30 && <span className="block md:inline">{item.title.substring(30)}</span>}
+                  </h2>
+                  {item.category && (
+                    <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-900">
+                      {item.category}
+                    </span>
+                  )}
+                </div>
 
                 <p className="mt-2 text-sm leading-relaxed text-gray-600">
                   {item.description}
@@ -169,13 +180,15 @@ const EventDetail = () => {
               {/* ACTION */}
               <div className="flex items-center justify-center md:justify-end">
                 <button
-                  onClick={() =>
-                    (window.location.href =
-                      "https://docs.google.com/forms/d/e/1FAIpQLSe22UuJjfLsHScIglF8ydlEA-1O0qbXg6eGi8MT6aKK1J1I3g/viewform")
-                  }
-                  className="whitespace-nowrap rounded-full border-2 border-black bg-white px-6 py-2 text-sm text-black hover:border-transparent hover:bg-[#8C3917] hover:text-white"
+                  onClick={() => item.formLink && window.open(item.formLink, '_blank', 'noopener,noreferrer')}
+                  disabled={!item.formLink}
+                  className={`whitespace-nowrap rounded-full border-2 px-6 py-2 text-sm transition ${
+                    item.formLink
+                      ? 'border-black bg-white text-black hover:border-transparent hover:bg-[#8C3917] hover:text-white'
+                      : 'cursor-not-allowed border-gray-300 bg-gray-200 text-gray-500'
+                  }`}
                 >
-                  Attend
+                  {item.formLink ? 'Attend' : 'Form Unavailable'}
                 </button>
               </div>
             </div>

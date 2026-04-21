@@ -8,8 +8,8 @@ const EventsHero = () => {
       <div className="w-full min-h-[30vh] sm:min-h-[40vh] md:h-[50vh] flex items-center justify-center px-4">
         
         <h1
-          className="text-[41px] sm:text-4xl md:text-[6rem] lg:text-[9rem] text-center leading-tight md:mt-7"
-          style={{ fontFamily: "XB Niloofar", fontStyle: "italic" }}
+          className="text-[41px] sm:text-4xl md:text-[6rem] lg:text-[9rem] text-center leading-tight md:mt-7 logo-font"
+          
         >
           The Stage Events
         </h1>

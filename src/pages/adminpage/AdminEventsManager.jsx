@@ -13,13 +13,25 @@ const createEmptyImageSection = () => ({
   inputMode: 'upload',
 });
 
+const createEmptyGoogleFormSection = () => ({
+  formLink: '',
+});
+
+const createEmptyQRSection = () => ({
+  qrCode: '',
+  inputMode: 'upload',
+});
+
 const createEmptyForm = () => ({
   title: '',
   date: '',
   time: '',
   location: '',
+  category: '',
   paragraphSections: [createEmptyParagraphSection()],
   imageSections: [],
+  googleFormSection: createEmptyGoogleFormSection(),
+  qrSections: [],
 });
 
 const AdminEventsManager = () => {
@@ -207,6 +219,114 @@ const AdminEventsManager = () => {
     }));
   };
 
+  const handleGoogleFormChange = (value) => {
+    setFormData((previous) => ({
+      ...previous,
+      googleFormSection: {
+        formLink: value,
+      },
+    }));
+  };
+
+  const handleQRCodeChange = (index, value) => {
+    setFormData((previous) => ({
+      ...previous,
+      qrSections: previous.qrSections.map((section, sectionIndex) =>
+        sectionIndex === index
+          ? {
+              ...section,
+              qrCode: value,
+            }
+          : section
+      ),
+    }));
+  };
+
+  const handleQRCodeModeChange = (index, inputMode) => {
+    setFormData((previous) => ({
+      ...previous,
+      qrSections: previous.qrSections.map((section, sectionIndex) =>
+        sectionIndex === index
+          ? {
+              ...section,
+              inputMode,
+              qrCode: '',
+            }
+          : section
+      ),
+    }));
+  };
+
+  const addQRSection = () => {
+    setFormData((previous) => ({
+      ...previous,
+      qrSections: [...previous.qrSections, createEmptyQRSection()],
+    }));
+  };
+
+  const removeQRSection = (index) => {
+    setFormData((previous) => ({
+      ...previous,
+      qrSections: previous.qrSections.filter((_, sectionIndex) => sectionIndex !== index),
+    }));
+  };
+
+  const handleCategoryChange = (value) => {
+    setFormData((previous) => ({
+      ...previous,
+      category: value,
+    }));
+  };
+
+  const handleQRFileChange = async (index, event) => {
+    const selectedFile = event.target.files?.[0];
+
+    if (!selectedFile) {
+      return;
+    }
+
+    if (selectedFile.size > MAX_IMAGE_FILE_SIZE_BYTES) {
+      setError('QR code file is too large. Please upload a file smaller than 10 MB.');
+      event.target.value = '';
+      return;
+    }
+
+    setError('');
+    setMessage('');
+
+    try {
+      setUploadingImageSectionIndex(index);
+      const formDataPayload = new FormData();
+      formDataPayload.append('image', selectedFile);
+
+      const response = await fetch('/api/admin/upload-image', {
+        method: 'POST',
+        headers: adminSessionHeaders,
+        body: formDataPayload,
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        if (response.status === 413) {
+          setError('Upload failed: file too large on server. Increase Nginx client_max_body_size for /api.');
+          return;
+        }
+
+        setError(data.message || 'Unable to upload QR code.');
+        return;
+      }
+
+      handleQRCodeChange(index, data.url || '');
+      setMessage('QR code uploaded to Cloudinary.');
+    } catch {
+      setError('Unable to upload QR code.');
+    } finally {
+      setUploadingImageSectionIndex(-1);
+      event.target.value = '';
+    }
+  };
+
   const handleImageFileChange = async (index, event) => {
     const selectedFile = event.target.files?.[0];
 
@@ -271,6 +391,7 @@ const AdminEventsManager = () => {
       date: formData.date.trim(),
       time: formData.time.trim(),
       location: formData.location.trim(),
+      category: formData.category.trim(),
       sections: [
         ...formData.paragraphSections.map((section) => ({
           type: 'paragraphs',
@@ -284,6 +405,24 @@ const AdminEventsManager = () => {
             image: section.image.trim(),
           }))
           .filter((section) => section.image),
+        ...(formData.googleFormSection?.formLink?.trim()
+          ? [
+              {
+                type: 'googleForm',
+                paragraphs: [],
+                image: '',
+                formLink: formData.googleFormSection.formLink.trim(),
+              },
+            ]
+          : []),
+        ...formData.qrSections
+          .map((section) => ({
+            type: 'qrCode',
+            paragraphs: [],
+            image: '',
+            qrCode: section.qrCode.trim(),
+          }))
+          .filter((section) => section.qrCode),
       ],
     };
 
@@ -323,6 +462,9 @@ const AdminEventsManager = () => {
 
     const parsedParagraphSections = [];
     const parsedImageSections = [];
+    let parsedGoogleFormSection = createEmptyGoogleFormSection();
+    const parsedQRSections = [];
+    let parsedCategory = String(eventItem.category || '').trim();
 
     (eventItem.sections || []).forEach((section = {}) => {
       const paragraphs = Array.isArray(section.paragraphs)
@@ -331,6 +473,8 @@ const AdminEventsManager = () => {
           ? [section.paragraph || section.description]
           : [];
       const image = String(section.image || '').trim();
+      const formLink = String(section.formLink || '').trim();
+      const qrCode = String(section.qrCode || '').trim();
       const sectionType = String(section.type || '').trim().toLowerCase();
 
       if (sectionType === 'paragraphs') {
@@ -347,12 +491,34 @@ const AdminEventsManager = () => {
         return;
       }
 
+      if (sectionType === 'googleform') {
+        if (formLink) {
+          parsedGoogleFormSection = { formLink };
+        }
+        return;
+      }
+
+      if (sectionType === 'qrcode') {
+        if (qrCode) {
+          parsedQRSections.push({ qrCode, inputMode: 'link' });
+        }
+        return;
+      }
+
       if (paragraphs.length) {
         parsedParagraphSections.push({ paragraphs });
       }
 
       if (image) {
         parsedImageSections.push({ image, inputMode: 'link' });
+      }
+
+      if (formLink) {
+        parsedGoogleFormSection = { formLink };
+      }
+
+      if (qrCode) {
+        parsedQRSections.push({ qrCode, inputMode: 'link' });
       }
     });
 
@@ -361,10 +527,13 @@ const AdminEventsManager = () => {
       date: eventItem.date || '',
       time: eventItem.time || '',
       location: eventItem.location || '',
+      category: parsedCategory,
       paragraphSections: parsedParagraphSections.length
         ? parsedParagraphSections
         : [createEmptyParagraphSection()],
       imageSections: parsedImageSections,
+      googleFormSection: parsedGoogleFormSection,
+      qrSections: parsedQRSections,
     });
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -623,6 +792,137 @@ const AdminEventsManager = () => {
                   </article>
                 );
               })}
+            </div>
+
+            <div className="admin-events-section-group">
+              <div className="admin-events-sections-title-row">
+                <h2>Google Form</h2>
+              </div>
+
+              <article className="admin-events-section-card">
+                <label>
+                  Google Form Link
+                  <input
+                    type="url"
+                    value={formData.googleFormSection.formLink}
+                    onChange={(event) => handleGoogleFormChange(event.target.value)}
+                    placeholder="https://forms.gle/..."
+                  />
+                </label>
+              </article>
+            </div>
+
+            <div className="admin-events-section-group">
+              <div className="admin-events-sections-title-row">
+                <h2>QR Code Sections</h2>
+                <button type="button" onClick={addQRSection} className="admin-events-add-section-btn">
+                  Add QR Code Section
+                </button>
+              </div>
+
+              {!formData.qrSections.length && (
+                <p className="admin-events-muted">No QR code sections added.</p>
+              )}
+
+              {formData.qrSections.map((section, index) => {
+                const selectedQRInputMode = section.inputMode === 'link' ? 'link' : 'upload';
+
+                return (
+                  <article className="admin-events-section-card" key={`qr-section-${index}`}>
+                    <div className="admin-events-section-head">
+                      <h3>QR Code Section:{index + 1}</h3>
+                      <button
+                        type="button"
+                        onClick={() => removeQRSection(index)}
+                        className="admin-events-remove-btn"
+                      >
+                        Remove
+                      </button>
+                    </div>
+
+                    <div
+                      className="admin-events-image-mode"
+                      role="group"
+                      aria-label={`QR code section ${index + 1} source`}
+                    >
+                      <button
+                        type="button"
+                        className={`admin-events-image-mode-btn ${
+                          selectedQRInputMode === 'upload' ? 'admin-events-image-mode-btn-active' : ''
+                        }`}
+                        onClick={() => handleQRCodeModeChange(index, 'upload')}
+                      >
+                        Upload QR Code
+                      </button>
+                      <button
+                        type="button"
+                        className={`admin-events-image-mode-btn ${
+                          selectedQRInputMode === 'link' ? 'admin-events-image-mode-btn-active' : ''
+                        }`}
+                        onClick={() => handleQRCodeModeChange(index, 'link')}
+                      >
+                        Use QR Code Link
+                      </button>
+                    </div>
+
+                    <p className="admin-events-image-mode-note">Only one option is needed.</p>
+
+                    {selectedQRInputMode === 'upload' && (
+                      <label>
+                        Upload QR Code File
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(event) => handleQRFileChange(index, event)}
+                        />
+                      </label>
+                    )}
+
+                    {uploadingImageSectionIndex === index && (
+                      <p className="admin-events-uploading">Uploading QR code to Cloudinary...</p>
+                    )}
+
+                    {selectedQRInputMode === 'upload' && section.qrCode && (
+                      <p className="admin-events-uploading">QR code selected from gallery and ready.</p>
+                    )}
+
+                    {selectedQRInputMode === 'link' && (
+                      <label>
+                        QR Code URL
+                        <input
+                          type="url"
+                          value={section.qrCode}
+                          onChange={(event) => handleQRCodeChange(index, event.target.value)}
+                          placeholder="https://..."
+                        />
+                      </label>
+                    )}
+                  </article>
+                );
+              })}
+            </div>
+
+            <div className="admin-events-section-group">
+              <div className="admin-events-sections-title-row">
+                <h2>Category</h2>
+              </div>
+
+              <article className="admin-events-section-card">
+                <label>
+                  Select Category (Optional)
+                  <select
+                    value={formData.category}
+                    onChange={(event) => handleCategoryChange(event.target.value)}
+                  >
+                    <option value="">-- No category --</option>
+                    <option value="nil">nil</option>
+                    <option value="discourse">discourse</option>
+                    <option value="monologic">monologic</option>
+                    <option value="dialogic">dialogic</option>
+                    <option value="panel">panel</option>
+                  </select>
+                </label>
+              </article>
             </div>
           </section>
 

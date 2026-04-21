@@ -75,7 +75,8 @@
 }
 
 .admin-events-form input,
-.admin-events-form textarea {
+.admin-events-form textarea,
+.admin-events-form select {
   border: 1px solid rgba(183, 152, 96, 0.34);
   border-radius: 10px;
   padding: 0.66rem 0.75rem;
@@ -90,9 +91,24 @@
 }
 
 .admin-events-form input:focus,
-.admin-events-form textarea:focus {
+.admin-events-form textarea:focus,
+.admin-events-form select:focus {
   border-color: rgba(223, 192, 138, 0.95);
   box-shadow: 0 0 0 3px rgba(189, 150, 82, 0.18);
+}
+
+.admin-events-form select {
+  appearance: auto;
+}
+
+.admin-events-form select option {
+  color: #101318;
+  background: #f4efe4;
+}
+
+.admin-events-form select option:checked {
+  color: #ffffff;
+  background: #8c3917;
 }
 
 .admin-events-sections {

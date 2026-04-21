@@ -38,6 +38,9 @@ const PreviousTalks = () => {
             const nextEvent = upcomingEvents[0];
             const imageUrl = nextEvent.sections?.find(s => s.type === 'image')?.image || "";
             const paragraphs = nextEvent.sections?.find(s => s.type === 'paragraphs')?.paragraphs || [];
+            const formLink = nextEvent.sections?.find(
+              (section) => String(section?.type || '').toLowerCase() === 'googleform'
+            )?.formLink || "";
             
             setEvent({
               title: nextEvent.title,
@@ -46,6 +49,7 @@ const PreviousTalks = () => {
               location: nextEvent.location,
               paragraphs: paragraphs,
               image: imageUrl,
+              formLink,
             });
           }
           setError(null);
@@ -148,9 +152,17 @@ const PreviousTalks = () => {
 
               {/* BUTTON */}
               <button
-                className="mt-14 sm:mt-16 md:mt-8 relative inline-block w-fit pb-10 text-sm after:absolute  after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full sm:text-base"
+                onClick={() =>
+                  event.formLink && window.open(event.formLink, '_blank', 'noopener,noreferrer')
+                }
+                disabled={!event.formLink}
+                className={`mt-14 sm:mt-16 md:mt-8 relative inline-block w-fit pb-10 text-sm sm:text-base ${
+                  event.formLink
+                    ? 'after:absolute after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full'
+                    : 'cursor-not-allowed opacity-60'
+                }`}
               >
-          Register Now
+          {event.formLink ? 'Register Now' : 'Registration Closed'}
               </button>
             </div>
           </div>

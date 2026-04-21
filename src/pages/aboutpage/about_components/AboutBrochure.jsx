@@ -17,8 +17,8 @@ const AboutBrochure = () => {
     >
       {/* HEADING */}
       <h1
-        className="text-[3rem] sm:text-[5rem] md:text-[9rem] translate-y-[0%] sm:translate-y-[20%] md:translate-y-[38%]"
-        style={{ fontFamily: "XB Niloofar", fontStyle: "italic" }}
+        className="text-[3rem] sm:text-[5rem] md:text-[9rem] translate-y-[0%] sm:translate-y-[20%] md:translate-y-[38%] logo-font"
+        
       >
         Know <span className="text-[#8C3917]">The Stage</span>
       </h1>
@@ -62,6 +62,7 @@ const AboutBrochure = () => {
             structured to prioritise clarity, depth, and intellectual rigor. It
             hosts regular events that involve different forms of intellectual
             activity: <br />
+            <span className="font-bold">Discourse</span> - a structured, moderator-led intellectual session where participants collectively examine ideas through open discussion. <br />
             <span className="font-bold">Monologic</span> - a single presenter
             develops and examines a coherent line of thought. <br />
             <span className="font-bold">Dialogic</span> - a structured debate
@@ -155,8 +156,8 @@ const AboutBrochure = () => {
         <h2 className="text-3xl sm:text-5xl md:text-6xl">
           JOIN{" "}
           <span
-            className="text-[#8C3917]"
-            style={{ fontFamily: "XB Niloofar", fontStyle: "italic" }}
+            className="text-[#8C3917] logo-font"
+            
           >
             The Stage
           </span>
