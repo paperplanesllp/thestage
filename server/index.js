@@ -17,9 +17,11 @@ dotenv.config({ path: path.resolve(__dirname, '.env'), override: true });
 
 const app = express();
 const PORT = Number(process.env.PORT) || 5000;
-const configuredClientOrigin = String(process.env.CLIENT_ORIGIN || '').trim();
+const configuredClientOrigin = String(process.env.CLIENT_ORIGIN || '').trim().replace(/\/$/, '');
 const staticAllowedOrigins = [
   configuredClientOrigin,
+  'https://thestageofficial.com',
+  'https://www.thestageofficial.com',
   'http://localhost:5173',
   'http://localhost:5174',
   'http://127.0.0.1:5173',
@@ -35,7 +37,9 @@ app.use(
         return;
       }
 
-      if (staticAllowedOrigins.includes(origin) || localLanOriginPattern.test(origin)) {
+      const normalizedOrigin = String(origin).trim().replace(/\/$/, '');
+
+      if (staticAllowedOrigins.includes(normalizedOrigin) || localLanOriginPattern.test(normalizedOrigin)) {
         callback(null, true);
         return;
       }
@@ -88,6 +92,14 @@ app.use((error, req, res, _next) => {
   console.error(`[API EXCEPTION] ${req.method} ${req.originalUrl}`, error);
 
   if (res.headersSent) {
+    return;
+  }
+
+  if (error?.message === 'Not allowed by CORS') {
+    res.status(403).json({
+      success: false,
+      message: 'CORS blocked this request origin.',
+    });
     return;
   }
 
