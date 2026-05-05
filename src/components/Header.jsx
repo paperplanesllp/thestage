@@ -30,6 +30,14 @@ const Header = () => {
             />
           </div>
 
+          {/* MOBILE CENTER LOGO */}
+          <Link
+            to="/"
+            className="xl:hidden absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 text-2xl text-white cursor-pointer whitespace-nowrap leading-none logo-font"
+          >
+            The Stage
+          </Link>
+
           {/* DESKTOP LEFT NAV */}
           <nav
             className="hidden xl:flex items-center gap-6 text-xl tracking-wide"
@@ -65,7 +73,7 @@ const Header = () => {
           {/* CENTER LOGO */}
           <Link
             to="/"
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl sm:text-2xl md:text-3xl xl:text-4xl cursor-pointer whitespace-nowrap logo-font"
+            className="hidden xl:block absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 text-2xl sm:text-2xl md:text-3xl xl:text-4xl text-white cursor-pointer whitespace-nowrap leading-none logo-font"
             onClick={() => navigate("/")}
           >
             The Stage
@@ -85,7 +93,7 @@ const Header = () => {
           </div>
 
           {/* MOBILE EMPTY RIGHT */}
-          <div className="w-6 xl:hidden" />
+          <div className="w-6 shrink-0 xl:hidden" />
         </div>
       </header>
 

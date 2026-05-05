@@ -72,6 +72,10 @@ const EventDetail = () => {
     fetchEvents();
   }, []);
 
+  const isEventPassed = (eventDate) => {
+    return new Date(eventDate) < new Date();
+  };
+
   const getFilteredEvents = () => {
     const now = new Date();
     const currentMonth = now.getMonth();
@@ -189,20 +193,22 @@ const EventDetail = () => {
 
               {/* ACTION */}
               <div className="flex items-center justify-center md:justify-end">
-                <button
-                  onClick={() =>
-                    item.formLink &&
-                    window.open(item.formLink, "_blank", "noopener,noreferrer")
-                  }
-                  disabled={!item.formLink}
-                  className={`whitespace-nowrap rounded-full border-2 px-6 py-2 text-sm transition ${
-                    item.formLink
-                      ? "border-black bg-white text-black hover:border-transparent hover:bg-[#8C3917] hover:text-white"
-                      : "cursor-not-allowed border-gray-300 bg-gray-200 text-gray-500"
-                  }`}
-                >
-                  {item.formLink ? "Attend" : "Form Unavailable"}
-                </button>
+                {!isEventPassed(item.date) ? (
+                  <button
+                    onClick={() =>
+                      item.formLink &&
+                      window.open(item.formLink, "_blank", "noopener,noreferrer")
+                    }
+                    disabled={!item.formLink}
+                    className={`whitespace-nowrap rounded-full border-2 px-6 py-2 text-sm transition ${
+                      item.formLink
+                        ? "border-black bg-white text-black hover:border-transparent hover:bg-[#8C3917] hover:text-white"
+                        : "cursor-not-allowed border-gray-300 bg-gray-200 text-gray-500"
+                    }`}
+                  >
+                    {item.formLink ? "Attend" : "Form Unavailable"}
+                  </button>
+                ) : null}
               </div>
             </div>
           ))
