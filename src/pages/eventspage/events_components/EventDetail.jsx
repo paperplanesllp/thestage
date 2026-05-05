@@ -52,7 +52,6 @@ const EventDetail = () => {
               description,
               formLink,
               category: event.category || "",
-              status: "available",
               rawDate: eventDate,
             };
           });
@@ -72,7 +71,7 @@ const EventDetail = () => {
     fetchEvents();
   }, []);
 
-  const isEventPassed = (eventDate) => {
+  const isEventPassed = eventDate => {
     return new Date(eventDate) < new Date();
   };
 
@@ -147,11 +146,11 @@ const EventDetail = () => {
           filteredEvents.map(item => (
             <div
               key={item.id}
-              className="grid w-full grid-cols-1 gap-5 border-y border-gray-200 bg-white px-4 py-6 text-black sm:px-6 md:grid-cols-[1fr_1fr_1.5fr_2.5fr_auto] md:items-center md:gap-4"
+              className="grid w-full grid-cols-1 gap-5 border-y border-gray-200 bg-white px-4 py-6 text-black sm:px-6 md:grid-cols-[1fr_1fr_1.5fr_2.5fr_140px] md:items-center md:gap-4"
             >
               {/* DATE */}
               <div className="text-center md:text-left">
-                <div className="pt-0 text-sm font-semibold md:pt-6">
+                <div className="text-sm font-semibold md:pt-6">
                   {item.date}
                 </div>
                 <div className="text-sm text-gray-500">{item.day}</div>
@@ -163,15 +162,13 @@ const EventDetail = () => {
               </div>
 
               {/* VENUE */}
-              <div className="text-center text-sm text-black md:flex md:items-center md:text-left">
+              <div className="text-center text-sm md:flex md:items-center md:text-left">
                 {item.venue}
               </div>
 
               {/* TITLE + DESCRIPTION */}
               <div className="max-w-full text-center md:max-w-[600px] md:text-left">
                 <div className="flex flex-wrap items-center justify-center gap-2 md:justify-start md:gap-3">
-                  
-                  {/* ✅ FIXED TITLE */}
                   <h2
                     className="text-base font-semibold sm:text-lg break-words line-clamp-2"
                     style={{ fontFamily: "'Scope One', serif" }}
@@ -191,24 +188,26 @@ const EventDetail = () => {
                 </p>
               </div>
 
-              {/* ACTION */}
-              <div className="flex items-center justify-center md:justify-end">
-                {!isEventPassed(item.date) ? (
-                  <button
-                    onClick={() =>
-                      item.formLink &&
-                      window.open(item.formLink, "_blank", "noopener,noreferrer")
-                    }
-                    disabled={!item.formLink}
-                    className={`whitespace-nowrap rounded-full border-2 px-6 py-2 text-sm transition ${
-                      item.formLink
-                        ? "border-black bg-white text-black hover:border-transparent hover:bg-[#8C3917] hover:text-white"
-                        : "cursor-not-allowed border-gray-300 bg-gray-200 text-gray-500"
-                    }`}
-                  >
-                    {item.formLink ? "Attend" : "Form Unavailable"}
-                  </button>
-                ) : null}
+              {/* ACTION (FIXED) */}
+              <div className="flex items-center justify-center md:justify-end min-w-[130px]">
+                <button
+                  onClick={() =>
+                    item.formLink &&
+                    window.open(item.formLink, "_blank", "noopener,noreferrer")
+                  }
+                  disabled={!item.formLink || isEventPassed(item.date)}
+                  className={`whitespace-nowrap rounded-full border-2 px-6 py-2 text-sm transition ${
+                    !isEventPassed(item.date) && item.formLink
+                      ? "border-black bg-white text-black hover:border-transparent hover:bg-[#8C3917] hover:text-white"
+                      : "cursor-not-allowed border-gray-300 bg-gray-200 text-gray-500"
+                  }`}
+                >
+                  {isEventPassed(item.date)
+                    ? "Closed"
+                    : item.formLink
+                    ? "Attend"
+                    : "Form Unavailable"}
+                </button>
               </div>
             </div>
           ))
