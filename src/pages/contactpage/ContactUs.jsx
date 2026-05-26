@@ -21,21 +21,16 @@ const ContactSection = () => {
 
         {/* CONTENT */}
         <div className="relative z-10 w-full max-w-[1400px] flex flex-col lg:flex-row gap-10 lg:gap-20 text-white">
-          
           {/* LEFT SIDE */}
           <div className="w-full lg:w-1/2 flex flex-col ">
             <h1 className="logo-font text-[2.2rem] sm:text-[2.8rem] md:text-[3.2rem] lg:text-[3.5rem] leading-tight">
-              Let’s get on{" "}
-              <span>
-                The Stage.
-              </span>
+              Let's get on <span>The Stage.</span>
             </h1>
           </div>
 
           {/* RIGHT SIDE FORM */}
           <div className="w-full lg:w-1/2">
             <form className="space-y-6 text-sm">
-              
               <div>
                 <label className="block mb-1">Name</label>
                 <input
@@ -82,13 +77,10 @@ const ContactSection = () => {
               >
                 Send Message
               </button>
-
             </form>
           </div>
         </div>
       </section>
-
-     
     </>
   );
 };
