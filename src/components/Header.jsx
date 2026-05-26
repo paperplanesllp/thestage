@@ -87,6 +87,9 @@ const Header = () => {
             <Link to="/store" className="hover:opacity-80">
               Store
             </Link>
+            <Link to="/careers" className="hover:opacity-80">
+              Careers
+            </Link>
             <Link to="/contact_us" className="hover:opacity-80">
               Contact
             </Link>
@@ -249,6 +252,9 @@ const Header = () => {
                     </Link>
                     <Link to="/store" onClick={closeMenu}>
                       Store
+                    </Link>
+                    <Link to="/careers" onClick={closeMenu}>
+                      Careers
                     </Link>
                     <Link to="/contact_us" onClick={closeMenu}>
                       Contact

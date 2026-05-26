@@ -51,10 +51,7 @@ const Hero = () => {
       <h1
         className="
           relative md:pt-70 pt-16
-          
-  
-          
-          
+
           text-center  font-bold
           text-white text-4xl md:text-[4rem] lg:[5rem] 
           tracking-wide leading-[0.9] px-2 uppercase 

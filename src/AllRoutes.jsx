@@ -20,6 +20,7 @@ import ScrollToTop from './pages/volunteerpage/ScrollToTop';
 import AdminLogin from './pages/adminpage/AdminLogin';
 import AdminDashboard from './pages/adminpage/AdminDashboard';
 import AdminEventsManager from './pages/adminpage/AdminEventsManager';
+import Careers from './pages/careerspage/Careers';
 
 const AllRoutes = () => {
   const location = useLocation();
@@ -40,6 +41,7 @@ const AllRoutes = () => {
           <Route path='/the_stage_programs' element={<Programs/>}></Route>
           <Route path='/archives_details' element={<ArchivesDetail/>}></Route>
           <Route path='/store' element={<Store/>}></Route>
+          <Route path='/careers' element={<Careers/>}></Route>
           <Route path='/the_stage_magazine' element={<StageMagazine/>}></Route>
           <Route path='*' element={<Pnf/>}></Route>
           <Route path='/store_checkout' element={<StoreCheckout/>}></Route>

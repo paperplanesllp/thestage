@@ -1,5 +1,3 @@
-import mic from "../../../assets/mic_image.png";
-
 const StoreIntro = () => {
   return (
     <section className="mt-10 sm:mt-16 w-full">
@@ -21,14 +19,18 @@ const StoreIntro = () => {
             The Stage Store
           </h1>
 
-          <h2 className="text-[40px] sm:text-4xl md:text-[70px] lg:text-[85px] xl:text-[100px] text-white tracking-wide leading-none">
-            COMING SOON
+          <h2 className="text-[32px] sm:text-4xl md:text-[64px] lg:text-[78px] xl:text-[90px] text-white tracking-wide leading-none">
+            AESTHETIC CORNER
           </h2>
+          <p
+            className="mt-6 max-w-xl text-[16px] leading-7 text-white/82 sm:text-[18px]"
+            style={{ fontFamily: "'Scope One', serif" }}
+          >
+            Curated pieces for creative souls.
+          </p>
         </div>
       </div>
 
-      {/* WHITE STRIP */}
-      <div className="w-full h-[80px] sm:h-[100px] md:h-[130px] bg-white"></div>
     </section>
   );
 };
