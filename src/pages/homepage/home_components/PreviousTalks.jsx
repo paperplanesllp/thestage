@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 const PreviousTalks = () => {
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchUpcomingEvent = async () => {
@@ -12,7 +11,8 @@ const PreviousTalks = () => {
         const response = await fetch("/api/admin/public-events");
         
         if (!response.ok) {
-          throw new Error("Failed to fetch events");
+          setEvent(null);
+          return;
         }
 
         const data = await response.json();
@@ -52,11 +52,11 @@ const PreviousTalks = () => {
               formLink,
             });
           }
-          setError(null);
+        } else {
+          setEvent(null);
         }
-      } catch (err) {
-        console.error("Error fetching event:", err);
-        setError(err.message);
+      } catch {
+        setEvent(null);
       } finally {
         setLoading(false);
       }
@@ -69,7 +69,7 @@ const PreviousTalks = () => {
     return <div className="w-full bg-white py-20 text-center">Loading upcoming events...</div>;
   }
 
-  if (error || !event) {
+  if (!event) {
     return null;
   }
 

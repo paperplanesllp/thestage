@@ -13,7 +13,6 @@ const EventDetail = () => {
   const [activeFilter, setActiveFilter] = useState("upcoming");
   const [allEvents, setAllEvents] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -22,7 +21,8 @@ const EventDetail = () => {
         const response = await fetch("/api/admin/public-events");
 
         if (!response.ok) {
-          throw new Error("Failed to fetch events");
+          setAllEvents([]);
+          return;
         }
 
         const data = await response.json();
@@ -57,11 +57,10 @@ const EventDetail = () => {
           });
 
           setAllEvents(formattedEvents);
-          setError(null);
+        } else {
+          setAllEvents([]);
         }
-      } catch (err) {
-        console.error("Error fetching events:", err);
-        setError(err.message);
+      } catch {
         setAllEvents([]);
       } finally {
         setLoading(false);
@@ -137,10 +136,6 @@ const EventDetail = () => {
         {loading ? (
           <div className="py-12 text-center text-lg text-gray-500">
             Loading events...
-          </div>
-        ) : error ? (
-          <div className="py-12 text-center text-lg text-red-500">
-            Error loading events: {error}
           </div>
         ) : filteredEvents.length > 0 ? (
           filteredEvents.map(item => (
