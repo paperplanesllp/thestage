@@ -1,24 +1,5 @@
 import React, { useEffect, useState } from "react";
-import fallbackEventImage from "../../../assets/IMG_2315.jpg.jpeg";
-
-const getEventImage = (image) => {
-  const trimmedImage = String(image || "").trim();
-
-  if (!trimmedImage) {
-    return fallbackEventImage;
-  }
-
-  if (
-    trimmedImage.startsWith("http://") ||
-    trimmedImage.startsWith("https://") ||
-    trimmedImage.startsWith("/") ||
-    trimmedImage.startsWith("data:")
-  ) {
-    return trimmedImage;
-  }
-
-  return fallbackEventImage;
-};
+import eventsImage from "../../../assets/Events.png";
 
 const PreviousTalks = () => {
   const [event, setEvent] = useState(null);
@@ -56,9 +37,6 @@ const PreviousTalks = () => {
           // Get the nearest/next upcoming event
           if (upcomingEvents.length > 0) {
             const nextEvent = upcomingEvents[0];
-            const imageUrl = getEventImage(
-              nextEvent.sections?.find(s => s.type === 'image')?.image
-            );
             const paragraphs = nextEvent.sections?.find(s => s.type === 'paragraphs')?.paragraphs || [];
             const formLink = nextEvent.sections?.find(
               (section) => String(section?.type || '').toLowerCase() === 'googleform'
@@ -70,7 +48,6 @@ const PreviousTalks = () => {
               time: nextEvent.time,
               location: nextEvent.location,
               paragraphs: paragraphs,
-              image: imageUrl,
               formLink,
             });
           }
@@ -124,11 +101,8 @@ const PreviousTalks = () => {
       <div className="relative mt-0 min-h-[550px] w-full overflow-hidden sm:min-h-[600px] md:min-h-[800px]">
         {/* BACKGROUND IMAGE */}
         <img
-          src={event.image}
+          src={eventsImage}
           alt={event.title}
-          onError={(error) => {
-            error.currentTarget.src = fallbackEventImage;
-          }}
           className="absolute inset-0 h-full w-full object-cover object-center md:object-[50%_80%]"
         />
 
