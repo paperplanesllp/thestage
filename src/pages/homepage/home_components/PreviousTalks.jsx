@@ -157,7 +157,7 @@ const PreviousTalks = () => {
                 disabled={!event.formLink}
                 className={`mt-14 sm:mt-16 md:mt-8 relative inline-block w-fit pb-10 text-sm sm:text-base ${
                   event.formLink
-                    ? 'after:absolute after:left-0 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full'
+                    ? 'after:absolute after:left-0 after:bottom-8 after:h-[1px] after:w-0 after:bg-white after:transition-all hover:after:w-full'
                     : 'cursor-not-allowed opacity-60'
                 }`}
               >
