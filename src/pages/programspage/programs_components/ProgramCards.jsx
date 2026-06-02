@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import group1Image from "../../../assets/group-1.jpeg";
+import group2Image from "../../../assets/group-2.jpeg";
+import group3Image from "../../../assets/group-3.jpeg";
 
 const MembershipSection = () => {
   const [activePlan, setActivePlan] = useState(null);
@@ -22,7 +25,7 @@ const MembershipSection = () => {
           className="md:col-span-2 h-[300px] md:h-[420px] overflow-hidden cursor-pointer relative"
         >
           <img
-            src="../../../../src/assets/group-1.jpeg"
+            src={group1Image}
             className="w-full h-full object-cover"
             alt="Group One Membership"
           />
@@ -89,7 +92,7 @@ const MembershipSection = () => {
             className="overflow-hidden cursor-pointer relative h-[300px] md:h-[420px]"
           >
             <img
-              src="../../../../src/assets/group-2.jpeg"
+              src={group2Image}
               className="w-full h-full object-cover"
               alt="Group Two"
             />
@@ -137,7 +140,7 @@ const MembershipSection = () => {
             className="overflow-hidden cursor-pointer relative h-[300px] md:h-[420px]"
           >
             <img
-              src="../../../../src/assets/group-3.jpeg"
+              src={group3Image}
               className="w-full h-full object-cover"
               alt="Students Group"
             />

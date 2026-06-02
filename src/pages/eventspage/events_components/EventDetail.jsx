@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import EventMediaModal from "./EventMediaModal";
 
 const filters = [
   { id: "upcoming", label: "Upcoming" },
+  { id: "past", label: "Past Events" },
   { id: "month", label: "This Month" },
   { id: "discourse", label: "Discourse" },
   { id: "monologic", label: "Monologic" },
@@ -13,6 +15,8 @@ const EventDetail = () => {
   const [activeFilter, setActiveFilter] = useState("upcoming");
   const [allEvents, setAllEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -85,6 +89,11 @@ const EventDetail = () => {
           .filter(event => event.rawDate > now)
           .sort((a, b) => a.rawDate - b.rawDate);
 
+      case "past":
+        return allEvents
+          .filter(event => event.rawDate <= now)
+          .sort((a, b) => b.rawDate - a.rawDate);
+
       case "month":
         return allEvents
           .filter(
@@ -141,7 +150,15 @@ const EventDetail = () => {
           filteredEvents.map(item => (
             <div
               key={item.id}
-              className="grid w-full grid-cols-1 gap-5 border-y border-gray-200 bg-white px-4 py-6 text-black sm:px-6 md:grid-cols-[1fr_1fr_1.5fr_2.5fr_140px] md:items-center md:gap-4"
+              onClick={() => {
+                if (activeFilter === "past" || isEventPassed(item.date)) {
+                  setSelectedEvent(item);
+                  setIsModalOpen(true);
+                }
+              }}
+              className={`grid w-full grid-cols-1 gap-5 border-y border-gray-200 bg-white px-4 py-6 text-black sm:px-6 md:grid-cols-[1fr_1fr_1.5fr_2.5fr_140px] md:items-center md:gap-4 ${
+                activeFilter === "past" || isEventPassed(item.date) ? "cursor-pointer hover:bg-gray-50" : ""
+              }`}
             >
               {/* DATE */}
               <div className="text-center md:text-left">
@@ -185,24 +202,33 @@ const EventDetail = () => {
 
               {/* ACTION (FIXED) */}
               <div className="flex items-center justify-center md:justify-end min-w-[130px]">
-                <button
-                  onClick={() =>
-                    item.formLink &&
-                    window.open(item.formLink, "_blank", "noopener,noreferrer")
-                  }
-                  disabled={!item.formLink || isEventPassed(item.date)}
-                  className={`whitespace-nowrap rounded-full border-2 px-6 py-2 text-sm transition ${
-                    !isEventPassed(item.date) && item.formLink
-                      ? "border-black bg-white text-black hover:border-transparent hover:bg-[#8C3917] hover:text-white"
-                      : "cursor-not-allowed border-gray-300 bg-gray-200 text-gray-500"
-                  }`}
-                >
-                  {isEventPassed(item.date)
-                    ? "Closed"
-                    : item.formLink
-                    ? "Attend"
-                    : "Form Unavailable"}
-                </button>
+                {activeFilter === "past" || isEventPassed(item.date) ? (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedEvent(item);
+                      setIsModalOpen(true);
+                    }}
+                    className="whitespace-nowrap rounded-full border-2 border-black bg-white text-black px-6 py-2 text-sm hover:border-transparent hover:bg-[#8C3917] hover:text-white transition"
+                  >
+                    View Media
+                  </button>
+                ) : (
+                  <button
+                    onClick={() =>
+                      item.formLink &&
+                      window.open(item.formLink, "_blank", "noopener,noreferrer")
+                    }
+                    disabled={!item.formLink}
+                    className={`whitespace-nowrap rounded-full border-2 px-6 py-2 text-sm transition ${
+                      item.formLink
+                        ? "border-black bg-white text-black hover:border-transparent hover:bg-[#8C3917] hover:text-white"
+                        : "cursor-not-allowed border-gray-300 bg-gray-200 text-gray-500"
+                    }`}
+                  >
+                    {item.formLink ? "Attend" : "Form Unavailable"}
+                  </button>
+                )}
               </div>
             </div>
           ))
@@ -212,6 +238,16 @@ const EventDetail = () => {
           </div>
         )}
       </div>
+
+      {isModalOpen && selectedEvent && (
+        <EventMediaModal 
+          event={selectedEvent} 
+          onClose={() => {
+            setIsModalOpen(false);
+            setSelectedEvent(null);
+          }} 
+        />
+      )}
     </section>
   );
 };
