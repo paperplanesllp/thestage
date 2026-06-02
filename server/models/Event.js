@@ -4,7 +4,7 @@ const eventSectionSchema = new mongoose.Schema(
   {
     type: {
       type: String,
-      enum: ['paragraphs', 'image', 'googleForm', 'qrCode'],
+      enum: ['paragraphs', 'image', 'video', 'googleForm', 'qrCode'],
       required: true,
       trim: true,
     },
@@ -13,6 +13,11 @@ const eventSectionSchema = new mongoose.Schema(
       default: [],
     },
     image: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    video: {
       type: String,
       default: '',
       trim: true,

@@ -20,6 +20,7 @@ import ScrollToTop from './pages/volunteerpage/ScrollToTop';
 import AdminLogin from './pages/adminpage/AdminLogin';
 import AdminDashboard from './pages/adminpage/AdminDashboard';
 import AdminEventsManager from './pages/adminpage/AdminEventsManager';
+import AdminEventMediaManager from './pages/adminpage/AdminEventMediaManager';
 import Careers from './pages/careerspage/Careers';
 
 const AllRoutes = () => {
@@ -51,10 +52,11 @@ const AllRoutes = () => {
           <Route path='/login' element={<AdminLogin/>}></Route>
           <Route path='/admin/dashboard' element={<AdminDashboard/>}></Route>
           <Route path='/admin/events' element={<AdminEventsManager/>}></Route>
-      </Routes>
-          {!isAdminRoute && <Footer/>}
-  </>
-  )
+          <Route path='/admin/event-media' element={<AdminEventMediaManager/>}></Route>
+       </Routes>
+           {!isAdminRoute && <Footer/>}
+   </>
+   )
 }
 
 export default AllRoutes
