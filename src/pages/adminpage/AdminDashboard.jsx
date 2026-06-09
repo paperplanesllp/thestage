@@ -33,6 +33,9 @@ const AdminDashboard = () => {
           <Link to="/admin/events" className="admin-dashboard-link">
             Manage Events
           </Link>
+          <Link to="/admin/event-media" className="admin-dashboard-link">
+            Manage Event Media
+          </Link>
         </nav>
 
         <button type="button" className="admin-dashboard-logout" onClick={handleLogout}>

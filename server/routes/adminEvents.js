@@ -195,6 +195,31 @@ router.get('/public-events', async (_req, res) => {
   }
 });
 
+// Public endpoint - fetch single event by ID
+router.get('/public-events/:id', async (req, res) => {
+  try {
+    const event = await Event.findById(req.params.id);
+
+    if (!event) {
+      return res.status(404).json({
+        success: false,
+        message: 'Event not found.',
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      event,
+    });
+  } catch (error) {
+    console.error('Fetch event details error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Unable to fetch event details.',
+    });
+  }
+});
+
 router.use(requireAdminSession);
 
 router.post('/upload-image', (req, res) => {
@@ -245,6 +270,66 @@ router.post('/upload-image', (req, res) => {
       return res.status(500).json({
         success: false,
         message: 'Unable to upload image.',
+      });
+    }
+  });
+});
+
+router.post('/upload-video', (req, res) => {
+  const videoUpload = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+      fileSize: 100 * 1024 * 1024, // 100MB for videos
+    },
+  });
+
+  videoUpload.single('video')(req, res, async (uploadError) => {
+    try {
+      if (uploadError) {
+        return res.status(400).json({
+          success: false,
+          message: uploadError.message || 'Invalid upload request.',
+        });
+      }
+
+      if (!req.file) {
+        return res.status(400).json({
+          success: false,
+          message: 'Please select a video file to upload.',
+        });
+      }
+
+      if (!ensureCloudinaryConfigured()) {
+        return res.status(500).json({
+          success: false,
+          message: 'Cloudinary is not configured. Set CLOUDINARY env variables.',
+        });
+      }
+
+      const uploadFolder = String(process.env.CLOUDINARY_PROFILE_FOLDER || 'thestage/videos').trim();
+      const base64File = req.file.buffer.toString('base64');
+      const dataUri = `data:${req.file.mimetype};base64,${base64File}`;
+      const uploadOptions = {
+        resource_type: 'video',
+      };
+
+      if (uploadFolder) {
+        uploadOptions.folder = uploadFolder;
+      }
+
+      const result = await cloudinary.uploader.upload(dataUri, uploadOptions);
+
+      return res.status(200).json({
+        success: true,
+        message: 'Video uploaded successfully.',
+        url: result.secure_url,
+        publicId: result.public_id,
+      });
+    } catch (error) {
+      console.error('Upload video error:', error);
+      return res.status(500).json({
+        success: false,
+        message: 'Unable to upload video.',
       });
     }
   });
@@ -375,6 +460,93 @@ router.delete('/events/:id', async (req, res) => {
     return res.status(500).json({
       success: false,
       message: 'Unable to delete event.',
+    });
+  }
+});
+
+router.post('/events/:id/add-media', async (req, res) => {
+  try {
+    const { mediaUrl, mediaType } = req.body;
+
+    if (!mediaUrl || !mediaType) {
+      return res.status(400).json({
+        success: false,
+        message: 'Media URL and type are required.',
+      });
+    }
+
+    if (!['image', 'video'].includes(mediaType)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Media type must be "image" or "video".',
+      });
+    }
+
+    const event = await Event.findById(req.params.id);
+
+    if (!event) {
+      return res.status(404).json({
+        success: false,
+        message: 'Event not found.',
+      });
+    }
+
+    const newSection = {
+      type: mediaType,
+      [mediaType]: mediaUrl,
+      paragraphs: [],
+    };
+
+    event.sections.push(newSection);
+    await event.save();
+
+    return res.status(200).json({
+      success: true,
+      message: `${mediaType} added to event successfully.`,
+      event,
+    });
+  } catch (error) {
+    console.error('Add media error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Unable to add media to event.',
+    });
+  }
+});
+
+router.delete('/events/:id/media/:mediaIndex', async (req, res) => {
+  try {
+    const event = await Event.findById(req.params.id);
+
+    if (!event) {
+      return res.status(404).json({
+        success: false,
+        message: 'Event not found.',
+      });
+    }
+
+    const mediaIndex = parseInt(req.params.mediaIndex);
+
+    if (isNaN(mediaIndex) || mediaIndex < 0 || mediaIndex >= event.sections.length) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid media index.',
+      });
+    }
+
+    event.sections.splice(mediaIndex, 1);
+    await event.save();
+
+    return res.status(200).json({
+      success: true,
+      message: 'Media removed from event successfully.',
+      event,
+    });
+  } catch (error) {
+    console.error('Remove media error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Unable to remove media from event.',
     });
   }
 });
