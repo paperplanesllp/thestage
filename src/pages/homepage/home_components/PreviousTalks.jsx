@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import eventsImage from "../../../assets/Events.png";
+import eventsImage from "../../../assets/5th ed pic.PNG";
 
 const PreviousTalks = () => {
   const [event, setEvent] = useState(null);
