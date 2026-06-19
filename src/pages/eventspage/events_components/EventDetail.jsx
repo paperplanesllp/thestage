@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import EventMediaModal from "./EventMediaModal";
+import { getEventEndDateTime } from "../../../utils/eventDateTime";
 
 const filters = [
   { id: "upcoming", label: "Upcoming" },
@@ -42,6 +43,7 @@ const EventDetail = () => {
               )?.formLink || "";
 
             const eventDate = new Date(event.date);
+            const endDateTime = getEventEndDateTime(event.date, event.time);
             const dayName = eventDate.toLocaleDateString("en-US", {
               weekday: "long",
             });
@@ -57,6 +59,7 @@ const EventDetail = () => {
               formLink,
               category: event.category || "",
               rawDate: eventDate,
+              endDateTime,
             };
           });
 
@@ -74,8 +77,8 @@ const EventDetail = () => {
     fetchEvents();
   }, []);
 
-  const isEventPassed = eventDate => {
-    return new Date(eventDate) < new Date();
+  const isEventPassed = event => {
+    return event.endDateTime ? event.endDateTime <= new Date() : false;
   };
 
   const getFilteredEvents = () => {
@@ -86,13 +89,13 @@ const EventDetail = () => {
     switch (activeFilter) {
       case "upcoming":
         return allEvents
-          .filter(event => event.rawDate > now)
-          .sort((a, b) => a.rawDate - b.rawDate);
+          .filter(event => !isEventPassed(event))
+          .sort((a, b) => (a.endDateTime || a.rawDate) - (b.endDateTime || b.rawDate));
 
       case "past":
         return allEvents
-          .filter(event => event.rawDate <= now)
-          .sort((a, b) => b.rawDate - a.rawDate);
+          .filter(isEventPassed)
+          .sort((a, b) => (b.endDateTime || b.rawDate) - (a.endDateTime || a.rawDate));
 
       case "month":
         return allEvents
@@ -151,13 +154,13 @@ const EventDetail = () => {
             <div
               key={item.id}
               onClick={() => {
-                if (activeFilter === "past" || isEventPassed(item.date)) {
+                if (isEventPassed(item)) {
                   setSelectedEvent(item);
                   setIsModalOpen(true);
                 }
               }}
               className={`grid w-full grid-cols-1 gap-5 border-y border-gray-200 bg-white px-4 py-6 text-black sm:px-6 md:grid-cols-[1fr_1fr_1.5fr_2.5fr_140px] md:items-center md:gap-4 ${
-                activeFilter === "past" || isEventPassed(item.date) ? "cursor-pointer hover:bg-gray-50" : ""
+                isEventPassed(item) ? "cursor-pointer hover:bg-gray-50" : ""
               }`}
             >
               {/* DATE */}
@@ -202,7 +205,7 @@ const EventDetail = () => {
 
               {/* ACTION (FIXED) */}
               <div className="flex items-center justify-center md:justify-end min-w-[130px]">
-                {activeFilter === "past" || isEventPassed(item.date) ? (
+                {isEventPassed(item) ? (
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
