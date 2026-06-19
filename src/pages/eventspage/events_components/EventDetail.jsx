@@ -122,16 +122,16 @@ const EventDetail = () => {
 
   return (
     <section
-      className="max-w-8xl mx-auto flex flex-col items-center px-4 sm:px-6"
+      className="max-w-8xl mx-auto flex flex-col items-center px-4 pt-6 sm:px-6"
       style={{ fontFamily: "Gordita, sans-serif" }}
     >
       {/* FILTER PILLS */}
-      <div className="mb-8 flex flex-wrap justify-center gap-3 sm:gap-4">
+      <div className="mb-8 flex flex-wrap justify-center gap-3 sm:gap-5">
         {filters.map(filter => (
           <button
             key={filter.id}
             onClick={() => setActiveFilter(filter.id)}
-            className={`rounded-full px-4 py-2 text-sm font-medium transition sm:px-5 ${
+            className={`rounded-full px-5 py-2.5 text-sm font-medium transition sm:px-6 sm:py-3 sm:text-base ${
               activeFilter === filter.id
                 ? "bg-[#8C3917] text-white"
                 : "bg-gray-200 text-gray-700 hover:bg-gray-300"
