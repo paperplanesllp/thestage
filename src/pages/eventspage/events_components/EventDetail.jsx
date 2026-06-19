@@ -104,6 +104,8 @@ const EventDetail = () => {
           .sort((a, b) => a.rawDate - b.rawDate);
 
       case "discourse":
+        return [];
+
       case "monologic":
       case "dialogic":
       case "panel":
