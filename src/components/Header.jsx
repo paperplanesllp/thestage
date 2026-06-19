@@ -84,9 +84,6 @@ const Header = () => {
             className="hidden xl:flex items-center gap-6 text-xl"
             style={{ fontFamily: "Josefin Slab, serif" }}
           >
-            <Link to="/store" className="hover:opacity-80">
-              Store
-            </Link>
             <Link to="/careers" className="hover:opacity-80">
               Careers
             </Link>
@@ -249,9 +246,6 @@ const Header = () => {
                     </Link>
                     <Link to="/archives_the_stage" onClick={closeMenu}>
                       Archives
-                    </Link>
-                    <Link to="/store" onClick={closeMenu}>
-                      Store
                     </Link>
                     <Link to="/careers" onClick={closeMenu}>
                       Careers
