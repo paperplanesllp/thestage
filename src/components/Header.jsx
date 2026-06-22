@@ -65,9 +65,6 @@ const Header = () => {
             <Link to="/the_stage_magazine" className="hover:opacity-80">
               Magazine
             </Link>
-            <Link to="/archives_the_stage" className="hover:opacity-80">
-              Archives
-            </Link>
           </nav>
 
           {/* CENTER LOGO */}
@@ -84,6 +81,9 @@ const Header = () => {
             className="hidden xl:flex items-center gap-6 text-xl"
             style={{ fontFamily: "Josefin Slab, serif" }}
           >
+            <Link to="/archives_the_stage" className="hover:opacity-80">
+              Archives
+            </Link>
             <Link to="/careers" className="hover:opacity-80">
               Careers
             </Link>
