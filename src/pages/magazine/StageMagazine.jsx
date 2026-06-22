@@ -72,17 +72,15 @@ const StageMagazine = () => {
             className="text-black text-[1.2rem] sm:text-[1.5rem] md:text-[2.2rem] leading-relaxed italic font-light text-center"
             style={{ fontFamily: "'Scope One', serif" }}
           >
-            “An adventure is only an inconvenience rightly considered.
-            <br className="hidden sm:block" />
-            <span className="sm:hidden"> </span>
-            An inconvenience is only an adventure wrongly considered.”
+            Fine. Since the tea is not forthcoming, let&apos;s have a philosophical
+            conversation.
           </p>
 
           <p className="mt-5 sm:mt-6 text-black text-lg sm:text-sm md:text-[20px] tracking-wide text-center font-bold " style={{
             fontStyle: "italic",
             fontFamily: "Josefin Slab, serif",
           }}>
-            — G.K. Chesterton
+            - Chekhov
           </p>
         </div>
       </section>
