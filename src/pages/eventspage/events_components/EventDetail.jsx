@@ -122,7 +122,7 @@ const EventDetail = () => {
 
   return (
     <section
-      className="max-w-8xl mx-auto flex flex-col items-center px-4 pt-6 sm:px-6"
+      className="max-w-8xl mx-auto flex min-h-[620px] flex-col items-center px-4 pt-6 pb-24 sm:px-6"
       style={{ fontFamily: "Gordita, sans-serif" }}
     >
       {/* FILTER PILLS */}
