@@ -1,7 +1,7 @@
 import React from "react";
 import image from "../../../assets/description_image.png";
 
-const StageDescription = () => {
+export const HomeQuote = () => {
   return (
     <section className="relative flex w-full flex-col bg-white">
       {/* TEXT CONTENT */}
@@ -21,7 +21,13 @@ const StageDescription = () => {
           </p>
         </div>
       </div>
+    </section>
+  );
+};
 
+const StageDescription = () => {
+  return (
+    <section className="relative flex w-full flex-col bg-white">
       {/* LINE ART IMAGE */}
       <div className="mt-6 flex w-full justify-center px-0 pb-3 sm:mt-8">
         <img
