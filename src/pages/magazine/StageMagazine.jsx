@@ -72,15 +72,15 @@ const StageMagazine = () => {
             className="text-black text-[1.2rem] sm:text-[1.5rem] md:text-[2.2rem] leading-relaxed italic font-light text-center"
             style={{ fontFamily: "'Scope One', serif" }}
           >
-            Fine. Since the tea is not forthcoming, let&apos;s have a philosophical
-            conversation.
+            &ldquo;Read not to contradict and confute, nor to believe and take for
+            granted, but to weigh and consider.&rdquo;
           </p>
 
           <p className="mt-5 sm:mt-6 text-black text-lg sm:text-sm md:text-[20px] tracking-wide text-center font-bold " style={{
             fontStyle: "italic",
             fontFamily: "Josefin Slab, serif",
           }}>
-            - Chekhov
+            &mdash; Francis Bacon
           </p>
         </div>
       </section>

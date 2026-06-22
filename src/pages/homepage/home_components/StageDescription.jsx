@@ -12,11 +12,11 @@ const StageDescription = () => {
             // style={{ fontFamily: "jim-nightshade-regular" }}
             style={{ fontFamily: "'Scope One', serif" }}
           >
-            &ldquo;Read not to contradict and confute, nor to believe and take for
-            granted, but to <span>weigh and consider.&rdquo;</span>
+            &ldquo;Fine. Since the tea is not forthcoming, let&apos;s have a
+            philosophical conversation.&rdquo;
             <span className="text-sm sm:text-base md:text-lg lg:text-xl">
               {" "}
-              - Francis Bacon
+              &mdash; Chekhov
             </span>
           </p>
         </div>
