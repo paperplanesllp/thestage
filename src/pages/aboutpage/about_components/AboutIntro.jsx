@@ -14,7 +14,7 @@ const AboutIntro = () => {
 
           {/* Left small caption */}
 <p className="text-center md:text-left text-[17px] md:text-4xl font-light  text-white md:mb-6 whitespace-nowrap">
-  For the minds that don’t settle for the surface.
+  For the Pursuit Of Truth
 </p>
 
 

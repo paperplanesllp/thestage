@@ -47,15 +47,15 @@ const Hero = () => {
       <div className="absolute inset-0 bg-linear-to-t from-black/50 via-black/20 to-transparent" />
 
       {/* hero text */}
-      <h1
+      <blockquote
         className="
           relative md:pt-70 pt-16
-
-          text-center  font-bold
-          text-white text-4xl md:text-[4rem] lg:[5rem] 
-          tracking-wide leading-[0.9] px-2 uppercase 
+          w-full max-w-5xl px-6
+          text-center font-normal italic
+          text-white text-3xl md:text-5xl lg:text-6xl
+          tracking-wide leading-tight
         "
-        style={{ fontFamily: "Gordita, sans-serif" }}
+        style={{ fontFamily: "Georgia, serif" }}
       >
         {lines.map((line, i) => (
           <span
@@ -63,10 +63,10 @@ const Hero = () => {
             ref={(el) => (linesRef.current[i] = el)}
             className="block will-change-transform"
           >
-            {line}
+            “{line}”
           </span>
         ))}
-      </h1>
+      </blockquote>
 
       <button onClick={()=>navigate('/stage_brochure')} className="border md:mb-20   text-xl text-white hover:bg-[#8C3917] transition-all duration-300 z-10 p-3 mt-33">KNOW MORE</button>
     </section>
