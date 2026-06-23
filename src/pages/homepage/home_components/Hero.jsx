@@ -29,8 +29,7 @@ const Hero = () => {
   }, []);
 
   const lines = [
-    "For the minds that don't",
-    "settle for the surface."
+    "For The Pursuit Of Truth"
   ];
 
   return (
