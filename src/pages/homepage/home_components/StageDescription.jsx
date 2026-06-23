@@ -7,17 +7,15 @@ export const HomeQuote = () => {
       {/* TEXT CONTENT */}
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center text-center">
         <p
-          className="max-w-5xl text-3xl italic leading-tight text-black sm:text-4xl md:text-5xl lg:text-6xl"
+          className="max-w-6xl text-2xl italic leading-tight text-black sm:text-3xl md:text-4xl lg:text-5xl"
           style={{ fontFamily: "Georgia, serif" }}
         >
           &ldquo;Fine. Since the tea is not forthcoming, let&apos;s have a
           philosophical conversation.&rdquo;
-        </p>
-        <p
-          className="mt-8 text-base font-semibold italic text-black sm:text-lg md:text-xl"
-          style={{ fontFamily: "Georgia, serif" }}
-        >
-          - Chekhov
+          <span className="text-base sm:text-lg md:text-xl lg:text-2xl">
+            {" "}
+            &mdash; Chekhov
+          </span>
         </p>
       </div>
     </section>
