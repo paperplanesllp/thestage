@@ -3,23 +3,22 @@ import image from "../../../assets/description_image.png";
 
 export const HomeQuote = () => {
   return (
-    <section className="relative flex w-full flex-col bg-white pb-8 sm:pb-10 md:pb-12">
+    <section className="relative flex w-full flex-col bg-white px-5 py-12 sm:py-16 md:py-20">
       {/* TEXT CONTENT */}
-      <div className="w-full bg-[#bd925f] px-4 py-4 sm:px-6 sm:py-5 md:px-8 lg:px-10">
-        <div className="mx-auto flex max-w-7xl justify-center">
-          <p
-            className="text-center italic text-white italic text-base leading-relaxed sm:text-lg md:text-2xl lg:text-3xl px-2 sm:px-4 md:px-6"
-            // style={{ fontFamily: "jim-nightshade-regular" }}
-            style={{ fontFamily: "'Scope One', serif" }}
-          >
-            &ldquo;Fine. Since the tea is not forthcoming, let&apos;s have a
-            philosophical conversation.&rdquo;
-            <span className="text-sm sm:text-base md:text-lg lg:text-xl">
-              {" "}
-              &mdash; Chekhov
-            </span>
-          </p>
-        </div>
+      <div className="mx-auto flex w-full max-w-6xl flex-col items-center text-center">
+        <p
+          className="max-w-5xl text-3xl italic leading-tight text-black sm:text-4xl md:text-5xl lg:text-6xl"
+          style={{ fontFamily: "Georgia, serif" }}
+        >
+          &ldquo;Fine. Since the tea is not forthcoming, let&apos;s have a
+          philosophical conversation.&rdquo;
+        </p>
+        <p
+          className="mt-8 text-base font-semibold italic text-black sm:text-lg md:text-xl"
+          style={{ fontFamily: "Georgia, serif" }}
+        >
+          - Chekhov
+        </p>
       </div>
     </section>
   );
