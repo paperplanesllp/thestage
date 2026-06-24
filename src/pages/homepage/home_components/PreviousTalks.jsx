@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import eventsImage from "../../../assets/Events.png";
+import eventsImage from "../../../assets/stage.PNG";
 import { isUpcomingEventDate, parseEventDate } from "../../../utils/eventDate";
 
 
