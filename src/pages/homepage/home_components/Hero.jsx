@@ -46,7 +46,7 @@ const Hero = () => {
       {/* overlay */}
       <div className="absolute inset-0 bg-black/60" />
       <div className="absolute inset-0 bg-linear-to-t from-[#080706] via-black/20 to-black/30" />
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-b from-transparent to-white" />
+      <div className="absolute inset-x-0 bottom-0 h-28 bg-linear-to-b from-transparent via-white/45 to-white" />
 
       {/* hero text */}
       <blockquote
