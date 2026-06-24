@@ -12,8 +12,7 @@ export const HomeQuote = () => {
         >
           &ldquo;Fine. Since the tea is not forthcoming, let&apos;s have a
           philosophical conversation.&rdquo;
-          <span className="text-base sm:text-lg md:text-xl lg:text-2xl">
-            {" "}
+          <span className="mt-1 block text-left text-base sm:ml-[64%] sm:text-lg md:text-xl lg:text-2xl">
             &mdash; Chekhov
           </span>
         </p>
