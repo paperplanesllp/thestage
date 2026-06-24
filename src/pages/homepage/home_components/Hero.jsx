@@ -36,7 +36,7 @@ const Hero = () => {
 
   <section
     id="hero"
-    className="relative w-full flex flex-col justify-center items-center h-screen bg-cover bg-no-repeat"
+    className="relative w-full flex flex-col justify-center items-center min-h-[105vh] bg-cover bg-no-repeat"
     style={{
       backgroundImage: `url(${img})`,
       backgroundPosition: "50% 70%",
@@ -50,7 +50,7 @@ const Hero = () => {
       <blockquote
         className="
           relative md:pt-70 pt-16
-          w-full max-w-5xl px-6
+          w-full max-w-6xl px-6
           text-center font-normal italic
           text-white text-3xl md:text-5xl lg:text-6xl
           tracking-wide leading-tight
