@@ -22,7 +22,7 @@ export const parseEventDate = (value) => {
     return Number.isNaN(parsedDate.getTime()) ? null : parsedDate;
   }
 
-  const dayFirstMatch = rawValue.match(/^(\d{1,2})[/-](\d{1,2})[/-](\d{4})$/);
+  const dayFirstMatch = rawValue.match(/^(\d{1,2})\s*[/-]\s*(\d{1,2})\s*[/-]\s*(\d{4})$/);
   if (dayFirstMatch) {
     const [, day, month, year] = dayFirstMatch;
     const parsedDate = new Date(Number(year), Number(month) - 1, Number(day));
