@@ -34,12 +34,13 @@ const AboutIntro = () => {
       </div>
 
       {/* IMAGE STRIP */}
-      <div className="mt-10 md:mt-15 w-full h-[50vh] sm:h-[60vh] md:h-[90vh] overflow-hidden">
+      <div className="relative mt-10 md:mt-15 w-full h-[50vh] sm:h-[60vh] md:h-[90vh] overflow-hidden">
   <img
     src={img}
     alt="About visual"
     className="w-full h-full object-cover object-center md:object-[50%_90%]"
   />
+  <div className="absolute inset-0 bg-black/45" />
 </div>
     </section>
   );
