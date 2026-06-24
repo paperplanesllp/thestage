@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import EventMediaModal from "./EventMediaModal";
+import { getEventDayEnd, isUpcomingEventDate, parseEventDate } from "../../../utils/eventDate";
 
 const filters = [
   { id: "upcoming", label: "Upcoming" },
@@ -41,10 +42,13 @@ const EventDetail = () => {
                 s => String(s?.type || "").toLowerCase() === "googleform"
               )?.formLink || "";
 
-            const eventDate = new Date(event.date);
-            const dayName = eventDate.toLocaleDateString("en-US", {
-              weekday: "long",
-            });
+            const eventDate = parseEventDate(event.date);
+            const eventDayEnd = getEventDayEnd(event.date);
+            const dayName = eventDate
+              ? eventDate.toLocaleDateString("en-US", {
+                  weekday: "long",
+                })
+              : "";
 
             return {
               id: event._id,
@@ -57,8 +61,9 @@ const EventDetail = () => {
               formLink,
               category: event.category || "",
               rawDate: eventDate,
+              eventDayEnd,
             };
-          });
+          }).filter(event => event.rawDate);
 
           setAllEvents(formattedEvents);
         } else {
@@ -75,7 +80,7 @@ const EventDetail = () => {
   }, []);
 
   const isEventPassed = eventDate => {
-    return new Date(eventDate) < new Date();
+    return !isUpcomingEventDate(eventDate);
   };
 
   const getFilteredEvents = () => {
@@ -86,12 +91,12 @@ const EventDetail = () => {
     switch (activeFilter) {
       case "upcoming":
         return allEvents
-          .filter(event => event.rawDate > now)
+          .filter(event => event.eventDayEnd >= now)
           .sort((a, b) => a.rawDate - b.rawDate);
 
       case "past":
         return allEvents
-          .filter(event => event.rawDate <= now)
+          .filter(event => event.eventDayEnd < now)
           .sort((a, b) => b.rawDate - a.rawDate);
 
       case "month":
@@ -104,8 +109,6 @@ const EventDetail = () => {
           .sort((a, b) => a.rawDate - b.rawDate);
 
       case "discourse":
-        return [];
-
       case "monologic":
       case "dialogic":
       case "panel":

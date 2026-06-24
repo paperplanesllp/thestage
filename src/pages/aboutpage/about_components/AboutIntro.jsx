@@ -17,8 +17,6 @@ const AboutIntro = () => {
   For the Pursuit Of Truth
 </p>
 
-
-
           <div className="flex md:ms-10 mt-10 md:justify-end">
 
   <p

@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import eventsImage from "../../../assets/Events.png";
+import { isUpcomingEventDate, parseEventDate } from "../../../utils/eventDate";
 
 
 const PreviousTalks = () => {
@@ -25,12 +27,11 @@ const PreviousTalks = () => {
           // Filter only upcoming events (date is in the future)
           const upcomingEvents = data.events
             .filter(event => {
-              const eventDate = new Date(event.date);
-              return eventDate > now;
+              return isUpcomingEventDate(event.date, now);
             })
             .sort((a, b) => {
-              const dateA = new Date(a.date);
-              const dateB = new Date(b.date);
+              const dateA = parseEventDate(a.date);
+              const dateB = parseEventDate(b.date);
               return dateA - dateB;
             });
           
@@ -73,8 +74,10 @@ const PreviousTalks = () => {
   }
 
   // Format date
-  const eventDate = new Date(event.date);
-  const formattedDate = eventDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+  const eventDate = parseEventDate(event.date);
+  const formattedDate = eventDate
+    ? eventDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })
+    : event.date;
 
   return (
     <section
