@@ -46,18 +46,17 @@ const Hero = () => {
       {/* overlay */}
       <div className="absolute inset-0 bg-black/60" />
       <div className="absolute inset-0 bg-linear-to-t from-[#080706] via-black/20 to-black/30" />
-      <div className="absolute inset-x-0 bottom-0 h-28 bg-linear-to-b from-transparent via-white/45 to-white" />
 
       {/* hero text */}
       <blockquote
         className="
           relative md:pt-70 pt-16
-          w-full max-w-6xl px-6
-          text-center font-normal italic
-          text-white text-3xl md:text-5xl lg:text-6xl
+          w-full max-w-8xl px-6
+          text-center font-normal
+          text-white text-3xl md:text-5xl lg:text-8xl
           tracking-wide leading-tight
         "
-        style={{ fontFamily: "Georgia, serif" }}
+        style={{ fontFamily: "Norwester, sans-serif" }}
       >
         {lines.map((line, i) => (
           <span

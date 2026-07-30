@@ -54,16 +54,8 @@ const Header = () => {
             <Link to="/the_stage_events" className="hover:opacity-80">
               Events
             </Link>
-
-            <Link
-              to="/the_stage_programs"
-              className="bg-white text-black font-extrabold text-2xl py-3 px-5 hover:opacity-80"
-            >
-              Join
-            </Link>
-
-            <Link to="/the_stage_magazine" className="hover:opacity-80">
-              Magazine
+            <Link to="/the_stage_forum" className="hover:opacity-80">
+              The Stage Forum
             </Link>
           </nav>
 
@@ -81,11 +73,8 @@ const Header = () => {
             className="hidden xl:flex items-center gap-6 text-xl"
             style={{ fontFamily: "Josefin Slab, serif" }}
           >
-            <Link to="/archives_the_stage" className="hover:opacity-80">
-              Archives
-            </Link>
-            <Link to="/careers" className="hover:opacity-80">
-              Careers
+            <Link to="/the_stage_symposium" className="hover:opacity-80">
+              The Stage Symposium
             </Link>
             <Link to="/contact_us" className="hover:opacity-80">
               Contact
@@ -152,8 +141,32 @@ const Header = () => {
                 </div>
               </div>
 
-              {/* EMPTY CENTER */}
-              <div></div>
+              {/* CENTER — PAGES MOVED FROM THE MAIN HEADER */}
+              <div>
+                <h2 className="text-white font-bold mb-10 text-[16px] uppercase">
+                  Pages
+                </h2>
+
+                <div
+                  className="flex flex-col gap-8 text-[18px]"
+                  style={{ fontFamily: "Josefin Slab, serif" }}
+                >
+                  <Link
+                    to="/the_stage_magazine"
+                    className="hover:underline"
+                    onClick={closeMenu}
+                  >
+                    Magazine
+                  </Link>
+                  <Link
+                    to="/archives_the_stage"
+                    className="hover:underline"
+                    onClick={closeMenu}
+                  >
+                    Archives
+                  </Link>
+                </div>
+              </div>
 
               {/* RIGHT — IMAGE */}
               <div className="flex flex-col justify-start items-center">
@@ -241,6 +254,9 @@ const Header = () => {
                     <Link to="/the_stage_programs" onClick={closeMenu}>
                       Join
                     </Link>
+                    <Link to="/the_stage_forum" onClick={closeMenu}>
+                      The Stage Forum
+                    </Link>
                     <Link to="/the_stage_magazine" onClick={closeMenu}>
                       Magazine
                     </Link>
@@ -249,6 +265,9 @@ const Header = () => {
                     </Link>
                     <Link to="/careers" onClick={closeMenu}>
                       Careers
+                    </Link>
+                    <Link to="/the_stage_symposium" onClick={closeMenu}>
+                      The Stage Symposium
                     </Link>
                     <Link to="/contact_us" onClick={closeMenu}>
                       Contact

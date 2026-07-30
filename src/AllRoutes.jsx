@@ -22,6 +22,8 @@ import AdminDashboard from './pages/adminpage/AdminDashboard';
 import AdminEventsManager from './pages/adminpage/AdminEventsManager';
 import AdminEventMediaManager from './pages/adminpage/AdminEventMediaManager';
 import Careers from './pages/careerspage/Careers';
+import TheStageForum from './pages/forumpage/TheStageForum';
+import TheStageSymposium from './pages/symposiumpage/TheStageSymposium';
 
 const AllRoutes = () => {
   const location = useLocation();
@@ -47,6 +49,8 @@ const AllRoutes = () => {
           <Route path='*' element={<Pnf/>}></Route>
           <Route path='/store_checkout' element={<StoreCheckout/>}></Route>
           <Route path='/the_stage_events' element={<Events/>}></Route>
+          <Route path='/the_stage_forum' element={<TheStageForum/>}></Route>
+          <Route path='/the_stage_symposium' element={<TheStageSymposium/>}></Route>
           <Route path='/event_attend' element={<EventAttend/>}></Route>
           <Route path='/stage_brochure' element={<AboutBrochure/>}></Route>
           <Route path='/login' element={<AdminLogin/>}></Route>
