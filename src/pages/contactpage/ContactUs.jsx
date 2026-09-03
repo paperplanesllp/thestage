@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import emailjs from "@emailjs/browser";
-import ContactDescription from "../contactpage/contactcomponents/ContactDescription";
+import { validateEmailJsConfig } from "../../utils/emailjs";
 import img from "../../assets/IMG_2694.JPEG";
 
 const ContactSection = () => {
@@ -11,15 +11,11 @@ const ContactSection = () => {
     event.preventDefault();
     if (isSubmitting) return;
 
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
     const templateId = import.meta.env.VITE_EMAILJS_CONTACT_TEMPLATE_ID;
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    const config = validateEmailJsConfig(templateId, "contact form");
 
-    if (!serviceId || !templateId || !publicKey) {
-      setStatus({
-        type: "error",
-        message: "Email service is not configured. Please contact the site admin.",
-      });
+    if (!config.isValid) {
+      setStatus({ type: "error", message: config.errorMessage });
       return;
     }
 
@@ -45,8 +41,8 @@ const ContactSection = () => {
     try {
       setIsSubmitting(true);
       setStatus({ type: "", message: "" });
-      emailjs.init({ publicKey });
-      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      emailjs.init({ publicKey: config.publicKey });
+      await emailjs.send(config.serviceId, config.templateId, templateParams, config.publicKey);
       form.reset();
       setStatus({ type: "success", message: "Your message was sent successfully." });
     } catch (error) {

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
+import { validateEmailJsConfig } from "../../utils/emailjs";
 
 const TheStageSymposium = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -10,12 +11,11 @@ const TheStageSymposium = () => {
     event.preventDefault();
     if (isSubmitting) return;
 
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
     const templateId = import.meta.env.VITE_EMAILJS_SYMPOSIUM_TEMPLATE_ID;
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    const config = validateEmailJsConfig(templateId, "symposium form");
 
-    if (!serviceId || !templateId || !publicKey) {
-      setErrorMessage("Email service is not configured. Please contact the site admin.");
+    if (!config.isValid) {
+      setErrorMessage(config.errorMessage);
       return;
     }
 
@@ -44,8 +44,8 @@ const TheStageSymposium = () => {
       setIsSubmitting(true);
       setErrorMessage("");
       setSubmitted(false);
-      emailjs.init({ publicKey });
-      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      emailjs.init({ publicKey: config.publicKey });
+      await emailjs.send(config.serviceId, config.templateId, templateParams, config.publicKey);
       form.reset();
       setSubmitted(true);
     } catch (error) {
