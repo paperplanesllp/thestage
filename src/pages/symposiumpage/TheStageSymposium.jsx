@@ -102,25 +102,24 @@ const TheStageSymposium = () => {
       </section>
 
       <section
-        className="relative flex min-h-[65vh] w-full flex-col items-center overflow-hidden px-12 pb-20 pt-16 sm:px-20 sm:pt-[4.5rem] md:px-24 md:pt-20 lg:px-28 lg:pt-24"
+        className="relative flex min-h-[65vh] w-full flex-col items-center overflow-hidden px-4 pb-12 pt-10 sm:min-h-[65vh] sm:px-12 sm:pb-20 sm:pt-16 sm:pt-[4.5rem] md:px-24 md:pt-20 lg:px-28 lg:pt-24"
         style={{ fontFamily: "Staatliches, sans-serif" }}
       >
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-3 border-[6px] border-[#AA2525] sm:inset-4"
+          className="pointer-events-none absolute inset-2 border-[4px] border-[#AA2525] sm:inset-3 sm:border-[6px] sm:inset-4"
         />
 
-        <div className="relative z-10 mx-auto w-full max-w-[1100px] translate-y-6">
-          <div className="relative text-center text-6xl uppercase leading-[0.95] sm:text-6xl md:text-7xl lg:text-9xl">
-            <span className="block text-[#AA2525]">The Stage Symposium</span>
-            <span className="block text-left text-[#030303]">Edition 1</span>
-            <p className="absolute right-0 top-1/2 whitespace-nowrap text-right text-6xl leading-[0.95] text-[#030303] sm:text-6xl md:text-7xl lg:text-9xl">
+        <div className="relative z-10 mx-auto w-full max-w-[1100px] translate-y-0 sm:translate-y-6">
+          <div className="relative text-center uppercase leading-[0.95] text-4xl sm:text-6xl md:text-7xl lg:text-9xl">
+            <span className="block text-[#AA2525] max-sm:text-[2.2rem]">The Stage Symposium</span>
+            <span className="mt-2 block text-left text-[#030303] max-sm:text-[2.2rem]">Edition 1</span>
+            <p className="mt-4 block whitespace-normal text-left text-3xl leading-[0.95] text-[#030303] sm:absolute sm:right-0 sm:top-1/2 sm:mt-0 sm:whitespace-nowrap sm:text-right sm:text-6xl md:text-7xl lg:text-9xl">
               Coming Soon
             </p>
           </div>
         </div>
-      
-       </section>
+      </section>
 
       <section className="w-full px-5">
         <img

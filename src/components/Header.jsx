@@ -252,15 +252,6 @@ const Header = () => {
                     <Link to="/the_stage_forum" onClick={closeMenu}>
                       The Stage Forum
                     </Link>
-                    <Link to="/the_stage_magazine" onClick={closeMenu}>
-                      Magazine
-                    </Link>
-                    <Link to="/archives_the_stage" onClick={closeMenu}>
-                      Archives
-                    </Link>
-                    <Link to="/careers" onClick={closeMenu}>
-                      Careers
-                    </Link>
                     <Link to="/the_stage_symposium" onClick={closeMenu}>
                       The Stage Symposium
                     </Link>
