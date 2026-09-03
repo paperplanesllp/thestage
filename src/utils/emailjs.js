@@ -1,15 +1,17 @@
 export const getEmailJsConfig = () => {
-  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID?.trim();
-  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY?.trim();
+  const env = import.meta.env;
+
+  const serviceId = env.VITE_EMAILJS_SERVICE_ID?.trim() || "service_5nk6uu2";
+  const publicKey = env.VITE_EMAILJS_PUBLIC_KEY?.trim() || "8i6PS9YsBf7SyASeQ";
 
   return {
     serviceId,
     publicKey,
     templates: {
-      contact: import.meta.env.VITE_EMAILJS_CONTACT_TEMPLATE_ID?.trim(),
-      forum: import.meta.env.VITE_EMAILJS_FORUM_TEMPLATE_ID?.trim(),
-      membership: import.meta.env.VITE_EMAILJS_MEMBERSHIP_TEMPLATE_ID?.trim(),
-      symposium: import.meta.env.VITE_EMAILJS_SYMPOSIUM_TEMPLATE_ID?.trim(),
+      contact: env.VITE_EMAILJS_CONTACT_TEMPLATE_ID?.trim() || "template_4030myr",
+      forum: env.VITE_EMAILJS_FORUM_TEMPLATE_ID?.trim(),
+      membership: env.VITE_EMAILJS_MEMBERSHIP_TEMPLATE_ID?.trim(),
+      symposium: env.VITE_EMAILJS_SYMPOSIUM_TEMPLATE_ID?.trim() || "template_ij4qbmr",
     },
   };
 };

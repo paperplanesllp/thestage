@@ -11,7 +11,7 @@ const TheStageSymposium = () => {
     event.preventDefault();
     if (isSubmitting) return;
 
-    const templateId = import.meta.env.VITE_EMAILJS_SYMPOSIUM_TEMPLATE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_SYMPOSIUM_TEMPLATE_ID?.trim() || "template_ij4qbmr";
     const config = validateEmailJsConfig(templateId, "symposium form");
 
     if (!config.isValid) {
