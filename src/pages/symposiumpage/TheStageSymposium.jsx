@@ -105,18 +105,22 @@ const TheStageSymposium = () => {
         className="relative flex min-h-[65vh] w-full flex-col items-center overflow-hidden px-4 pb-12 pt-10 sm:min-h-[65vh] sm:px-12 sm:pb-20 sm:pt-16 sm:pt-[4.5rem] md:px-24 md:pt-20 lg:px-28 lg:pt-24"
         style={{ fontFamily: "Staatliches, sans-serif" }}
       >
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-2 border-[4px] border-[#AA2525] sm:inset-3 sm:border-[6px] sm:inset-4"
-        />
+        <div className="relative z-10 mx-auto flex w-full max-w-[1100px] items-center justify-center sm:translate-y-6">
+          <div className="relative flex w-full max-w-[760px] flex-col items-start justify-center gap-3 max-sm:aspect-square max-sm:justify-center max-sm:border-[4px] max-sm:border-[#AA2525] max-sm:px-4 max-sm:py-5 sm:relative sm:w-full sm:max-w-[1100px] sm:text-center">
+            <div className="w-full text-left uppercase leading-[0.9] text-[clamp(1.6rem,4vw,4rem)] text-[#AA2525] sm:text-center sm:text-[clamp(3rem,5vw,8rem)]">
+              <span className="block">The Stage Symposium</span>
+            </div>
 
-        <div className="relative z-10 mx-auto w-full max-w-[1100px] translate-y-0 sm:translate-y-6">
-          <div className="relative text-center uppercase leading-[0.95] text-4xl sm:text-6xl md:text-7xl lg:text-9xl">
-            <span className="block text-[#AA2525] max-sm:text-[2.2rem]">The Stage Symposium</span>
-            <span className="mt-2 block text-left text-[#030303] max-sm:text-[2.2rem]">Edition 1</span>
-            <p className="mt-4 block whitespace-normal text-left text-3xl leading-[0.95] text-[#030303] sm:absolute sm:right-0 sm:top-1/2 sm:mt-0 sm:whitespace-nowrap sm:text-right sm:text-6xl md:text-7xl lg:text-9xl">
-              Coming Soon
-            </p>
+            <div className="flex w-full items-end justify-between gap-3 max-sm:items-center sm:relative sm:justify-center">
+              <div className="text-left text-[clamp(1.6rem,4vw,4rem)] uppercase leading-[0.9] text-[#030303] sm:text-left sm:text-[clamp(3rem,5vw,8rem)]">
+                Edition 1
+                <span className="mt-1 block text-[#AA2525] sm:hidden">Coming Soon</span>
+              </div>
+
+              <p className="hidden whitespace-nowrap text-right text-[clamp(2rem,4vw,5rem)] leading-[0.9] text-[#030303] sm:block sm:text-[clamp(3rem,5vw,8rem)]">
+                Coming Soon
+              </p>
+            </div>
           </div>
         </div>
       </section>

@@ -246,9 +246,6 @@ const Header = () => {
                     <Link to="/the_stage_events" onClick={closeMenu}>
                       Events
                     </Link>
-                    <Link to="/the_stage_programs" onClick={closeMenu}>
-                      Join
-                    </Link>
                     <Link to="/the_stage_forum" onClick={closeMenu}>
                       The Stage Forum
                     </Link>
