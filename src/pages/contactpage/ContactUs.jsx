@@ -11,6 +11,18 @@ const ContactSection = () => {
     event.preventDefault();
     if (isSubmitting) return;
 
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_CONTACT_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      setStatus({
+        type: "error",
+        message: "Email service is not configured. Please contact the site admin.",
+      });
+      return;
+    }
+
     const form = event.currentTarget;
     const formData = new FormData(form);
     const values = Object.fromEntries(formData.entries());
@@ -33,17 +45,16 @@ const ContactSection = () => {
     try {
       setIsSubmitting(true);
       setStatus({ type: "", message: "" });
-      await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_CONTACT_TEMPLATE_ID,
-        templateParams,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      );
+      emailjs.init({ publicKey });
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
       form.reset();
       setStatus({ type: "success", message: "Your message was sent successfully." });
     } catch (error) {
       console.error("Contact form email failed:", error);
-      setStatus({ type: "error", message: "Unable to send your message. Please try again." });
+      setStatus({
+        type: "error",
+        message: "Unable to send your message. Please try again.",
+      });
     } finally {
       setIsSubmitting(false);
     }

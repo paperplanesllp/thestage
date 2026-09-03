@@ -10,6 +10,15 @@ const TheStageSymposium = () => {
     event.preventDefault();
     if (isSubmitting) return;
 
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_SYMPOSIUM_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      setErrorMessage("Email service is not configured. Please contact the site admin.");
+      return;
+    }
+
     const form = event.currentTarget;
     const formData = new FormData(form);
     const values = Object.fromEntries(formData.entries());
@@ -17,7 +26,7 @@ const TheStageSymposium = () => {
       ...values,
       submission_type: "The Stage Symposium delegate form",
       from_name: values.fullName,
-      reply_to: values.studyYear,
+      reply_to: values.email,
       message: [
         "NEW WEBSITE SUBMISSION",
         "",
@@ -25,7 +34,7 @@ const TheStageSymposium = () => {
         `Full Name: ${values.fullName}`,
         `Place: ${values.college}`,
         `Occupation: ${values.department}`,
-        `Email Address: ${values.studyYear}`,
+        `Email Address: ${values.email}`,
         `Phone: ${values.phone}`,
         `Reason: ${values.reason}`,
       ].join("\n"),
@@ -35,12 +44,8 @@ const TheStageSymposium = () => {
       setIsSubmitting(true);
       setErrorMessage("");
       setSubmitted(false);
-      await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_SYMPOSIUM_TEMPLATE_ID,
-        templateParams,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      );
+      emailjs.init({ publicKey });
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
       form.reset();
       setSubmitted(true);
     } catch (error) {
@@ -182,15 +187,15 @@ const TheStageSymposium = () => {
             </div>
 
             <div>
-              <label className="mb-2 block font-bold" htmlFor="symposium-study-year">
+              <label className="mb-2 block font-bold" htmlFor="symposium-email">
                 4. Email Address
               </label>
               <input
                 className="w-full border-b-2 border-black bg-transparent px-1 py-3 outline-none transition focus:border-[#AA2525]"
-                id="symposium-study-year"
-                name="studyYear"
+                id="symposium-email"
+                name="email"
                 required
-                type="text"
+                type="email"
               />
             </div>
 
