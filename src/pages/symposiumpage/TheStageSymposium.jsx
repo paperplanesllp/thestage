@@ -1,43 +1,80 @@
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 
 const TheStageSymposium = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleStudentTeamSubmit = (event) => {
+  const handleStudentTeamSubmit = async (event) => {
     event.preventDefault();
-    setSubmitted(true);
+    if (isSubmitting) return;
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const values = Object.fromEntries(formData.entries());
+    const templateParams = {
+      ...values,
+      submission_type: "The Stage Symposium delegate form",
+      from_name: values.fullName,
+      reply_to: values.studyYear,
+      message: [
+        "NEW WEBSITE SUBMISSION",
+        "",
+        "## SYMPOSIUM FORM",
+        `Full Name: ${values.fullName}`,
+        `Place: ${values.college}`,
+        `Occupation: ${values.department}`,
+        `Email Address: ${values.studyYear}`,
+        `Phone: ${values.phone}`,
+        `Reason: ${values.reason}`,
+      ].join("\n"),
+    };
+
+    try {
+      setIsSubmitting(true);
+      setErrorMessage("");
+      setSubmitted(false);
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_SYMPOSIUM_TEMPLATE_ID,
+        templateParams,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+      form.reset();
+      setSubmitted(true);
+    } catch (error) {
+      console.error("Symposium form email failed:", error);
+      setErrorMessage("Unable to submit the form. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <main className="min-h-screen bg-[#f5f1e8] text-black">
-      <section className="flex min-h-screen items-center justify-center px-5 pb-16 pt-28 text-center sm:px-8">
+      <section className="flex min-h-[72vh] items-center justify-center px-5 pb-20 pt-24 text-center sm:px-8">
         <div className="mx-auto w-full max-w-[1400px]">
           
           <h1
-            className="text-[3.2rem] leading-[0.95] text-black sm:text-[5rem] md:text-[7rem] lg:text-[9rem]"
+            className="translate-y-10 text-[3.2rem] leading-[0.95] text-black sm:text-[5rem] md:text-[7rem] lg:text-[9rem]"
             style={{ fontFamily: "Norwester, sans-serif" }}
           >
             The Stage Symposium
           </h1>
 
           <p
-            className="mx-auto mt-8 max-w-2xl text-2xl leading-relaxed sm:text-xl md:text-5xl"
+            className="mx-auto mt-12 max-w-2xl text-2xl leading-relaxed sm:text-xl md:text-5xl"
             style={{ fontFamily: "'Scope One', serif" }}
           >
-           For Academic Institutions
+           Annual Event
           </p>
 
-         <p
-            className="mb-8 mt-15 text-sm font-bold uppercase tracking-[0.35em] text-[#6d0707] sm:text-base"
-            style={{ fontFamily: "Analogia, Georgia, italic" }}
-          >
-           Lectures Â· Debates Â· Discourses
-          </p>
         </div>
       </section>
 
-      <section className="px-5 pb-16 pt-2 sm:px-8 sm:pb-20 sm:pt-4">
-        <div className="mx-auto mb-8 w-full max-w-[950px] border-t-2 border-[#000000]" />
+      <section className="px-5 pb-16 pt-0 sm:px-8 sm:pb-20 sm:pt-2">
+        <div className="mx-auto mb-4 w-full max-w-[950px] border-t-2 border-[#000000]" />
         <p
           className="mx-auto w-full max-w-[950px] text-justify text-base leading-[1.2] sm:text-lg md:text-[15px]"
           style={{ fontFamily: "'Scope One', serif" }}
@@ -60,7 +97,7 @@ const TheStageSymposium = () => {
       </section>
 
       <section
-        className="relative flex min-h-[65vh] w-full flex-col items-start overflow-hidden px-12 pb-20 pt-12 sm:px-20 sm:pt-14 md:px-24 md:pt-16 lg:px-28 lg:pt-20"
+        className="relative flex min-h-[65vh] w-full flex-col items-center overflow-hidden px-12 pb-20 pt-16 sm:px-20 sm:pt-[4.5rem] md:px-24 md:pt-20 lg:px-28 lg:pt-24"
         style={{ fontFamily: "Staatliches, sans-serif" }}
       >
         <div
@@ -68,26 +105,15 @@ const TheStageSymposium = () => {
           className="pointer-events-none absolute inset-3 border-[6px] border-[#AA2525] sm:inset-4"
         />
 
-        <div className="relative z-10 w-full max-w-[1100px]">
-          <h2 className="text-5xl uppercase leading-[0.95] sm:text-5xl md:text-6xl lg:text-8xl">
+        <div className="relative z-10 mx-auto w-full max-w-[1100px] translate-y-6">
+          <div className="relative text-center text-6xl uppercase leading-[0.95] sm:text-6xl md:text-7xl lg:text-9xl">
             <span className="block text-[#AA2525]">The Stage Symposium</span>
-            
-            <span className="block">Edition 1</span>
-           
-          </h2>
-
-          <p
-            className="mt-12 text-2xl font-semibold sm:text-3xl md:mt-12 md:text-4xl"
-            style={{ fontFamily: "'Josefin Slab', serif" }}
-          >
-            03rd October 2026 (Tentative)
-          </p>
+            <span className="block text-left text-[#030303]">Edition 1</span>
+            <p className="absolute right-0 top-1/2 whitespace-nowrap text-right text-6xl leading-[0.95] text-[#030303] sm:text-6xl md:text-7xl lg:text-9xl">
+              Coming Soon
+            </p>
+          </div>
         </div>
-
-        <p className="relative z-10 mt-10 self-end text-right text-4xl uppercase leading-[0.9] text-[#030303] sm:text-5xl md:absolute md:right-24 md:top-1/2 md:mt-0 md:-translate-y-1/2 md:text-6xl lg:right-28 lg:text-8xl">
-          <span className="block">Coming</span>
-          <span className="block text-black">Soon</span>
-        </p>
       
        </section>
 
@@ -202,15 +228,20 @@ const TheStageSymposium = () => {
 
             <button
               className="bg-[#AA2525] px-10 py-3 text-lg font-bold text-white transition hover:bg-black"
+              disabled={isSubmitting}
               type="submit"
             >
-              Submit
+              {isSubmitting ? "Submitting..." : "Submit"}
             </button>
 
             {submitted && (
               <p className="font-bold text-[#AA2525]" role="status">
-                Form validated successfully. Online submission storage is not
-                connected yet.
+                Form submitted successfully.
+              </p>
+            )}
+            {errorMessage && (
+              <p className="font-bold text-[#AA2525]" role="alert">
+                {errorMessage}
               </p>
             )}
           </form>

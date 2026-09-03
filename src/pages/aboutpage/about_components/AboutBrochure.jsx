@@ -17,8 +17,8 @@ const AboutBrochure = () => {
     >
       {/* HEADING */}
       <h1
-        className="text-[3rem] sm:text-[5rem] md:text-[9rem] translate-y-[0%] sm:translate-y-[20%] md:translate-y-[38%] logo-font"
-        
+        className="text-[3rem] sm:text-[5rem] md:text-[9rem] translate-y-[5%] sm:translate-y-[25%] md:translate-y-[45%]"
+        style={{ fontFamily: "Norwester, sans-serif" }}
       >
         Know <span className="text-[#8C3917]">The Stage</span>
       </h1>

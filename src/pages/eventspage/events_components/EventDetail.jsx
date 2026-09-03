@@ -7,10 +7,54 @@ const filters = [
   { id: "past", label: "Past Events" },
   { id: "month", label: "This Month" },
   { id: "discourse", label: "Discourse" },
-  { id: "monologic", label: "Monologic" },
-  { id: "dialogic", label: "Dialogic" },
+  { id: "monologic", label: "Debates" },
+  { id: "dialogic", label: "Lectures" },
   { id: "panel", label: "Panel" },
+  { id: "gallery", label: "Gallery" },
 ];
+
+const localGalleryImages = [
+  "sii.jpeg",
+  "IMG_1799.jpg",
+  "IMG_0444.jpg",
+  "IMG_6295.jpeg",
+  "IMG_1781.jpg",
+  "IMG_7237.JPG.jpeg",
+  "IMG_0536.jpg",
+  "IMG_2823.jpeg",
+  "preethi-1.jpg.jpeg",
+  "st 3rd ed.jpg.jpeg",
+  "jimmy & si.jpg.jpeg",
+  "manju.jpg.jpeg",
+  "IMG_3639.jpg.jpeg",
+  "IMG_0423.jpg",
+  "IMG-20260425-WA0059.jpg.jpeg",
+  "IMG-20260425-WA0044.jpg.jpeg",
+  "IMG_7200.JPG.jpeg",
+  "IMG_0468.jpg",
+  "IMG_0489.jpg",
+  "IMG_0503.jpg",
+  "IMG_0526.jpg",
+  "IMG_0619.jpg",
+  "IMG_1713.jpg",
+  "IMG-20260425-WA0013.jpg.jpeg",
+  "IMG_6137.jpeg",
+  "IMG_6217.jpeg",
+  "IMG_6303.jpeg",
+  "IMG_8504.jpg",
+  "IMG_8508.jpg",
+  "IMG_3622.jpg",
+  "IMG_3346.jpg",
+  "IMG_3214.jpg",
+  "IMG_5398.jpg",
+  "IMG_4696.jpg",
+  "IMG_4715.jpg",
+].map((fileName, index) => ({
+  id: `local-gallery-${index}`,
+  image: `/${fileName}`,
+  title: "The Stage Gallery",
+  date: "",
+}));
 
 const EventDetail = () => {
   const [activeFilter, setActiveFilter] = useState("upcoming");
@@ -18,6 +62,7 @@ const EventDetail = () => {
   const [loading, setLoading] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedGalleryImage, setSelectedGalleryImage] = useState(null);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -62,6 +107,9 @@ const EventDetail = () => {
               category: event.category || "",
               rawDate: eventDate,
               eventDayEnd,
+              images: (event.sections || [])
+                .filter(section => section.type === "image" && section.image)
+                .map(section => section.image),
             };
           }).filter(event => event.rawDate);
 
@@ -122,6 +170,17 @@ const EventDetail = () => {
   };
 
   const filteredEvents = getFilteredEvents();
+  const galleryImages = [
+    ...localGalleryImages,
+    ...allEvents.flatMap(event =>
+      event.images.map((image, index) => ({
+        id: `${event.id}-${index}`,
+        image,
+        title: event.title,
+        date: event.date,
+      }))
+    ),
+  ];
 
   return (
     <section
@@ -129,7 +188,7 @@ const EventDetail = () => {
       style={{ fontFamily: "Gordita, sans-serif" }}
     >
       {/* FILTER PILLS */}
-      <div className="mb-12 flex flex-wrap justify-center gap-3 sm:gap-5">
+      <div className="mb-12 flex translate-y-6 flex-wrap justify-center gap-3 sm:gap-5">
         {filters.map(filter => (
           <button
             key={filter.id}
@@ -145,7 +204,42 @@ const EventDetail = () => {
         ))}
       </div>
 
-      {/* EVENT LIST */}
+      {/* EVENT GALLERY */}
+      {activeFilter === "gallery" ? (
+        <div className="mb-24 w-full md:w-[95%]">
+          {loading ? (
+            <div className="py-12 text-center text-lg text-gray-500">
+              Loading gallery...
+            </div>
+          ) : galleryImages.length > 0 ? (
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {galleryImages.map(item => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => setSelectedGalleryImage(item)}
+                  className="group overflow-hidden rounded-xl bg-gray-100 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#8C3917]"
+                >
+                  <img
+                    src={item.image}
+                    alt={`${item.title} gallery photo`}
+                    className="h-64 w-full object-cover transition duration-300 group-hover:scale-105"
+                  />
+                  <div className="bg-white px-4 py-3">
+                    <p className="truncate font-semibold text-black">{item.title}</p>
+                    {item.date && <p className="mt-1 text-sm text-gray-500">{item.date}</p>}
+                  </div>
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="py-12 text-center text-lg text-gray-500">
+              No images have been added to the gallery yet.
+            </div>
+          )}
+        </div>
+      ) : (
+      /* EVENT LIST */
       <div className="mb-24 w-full md:w-[95%]">
         {loading ? (
           <div className="py-12 text-center text-lg text-gray-500">
@@ -243,6 +337,7 @@ const EventDetail = () => {
           </div>
         )}
       </div>
+      )}
 
       {isModalOpen && selectedEvent && (
         <EventMediaModal 
@@ -252,6 +347,33 @@ const EventDetail = () => {
             setSelectedEvent(null);
           }} 
         />
+      )}
+
+      {selectedGalleryImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+          onClick={() => setSelectedGalleryImage(null)}
+          role="presentation"
+        >
+          <div className="relative max-h-[90vh] max-w-5xl" onClick={event => event.stopPropagation()}>
+            <button
+              type="button"
+              onClick={() => setSelectedGalleryImage(null)}
+              aria-label="Close image preview"
+              className="absolute -right-2 -top-10 text-3xl leading-none text-white hover:text-gray-300"
+            >
+              ×
+            </button>
+            <img
+              src={selectedGalleryImage.image}
+              alt={`${selectedGalleryImage.title} gallery photo`}
+              className="max-h-[82vh] max-w-full rounded-lg object-contain"
+            />
+            <p className="mt-3 text-center text-sm text-white">
+              {selectedGalleryImage.title} · {selectedGalleryImage.date}
+            </p>
+          </div>
+        </div>
       )}
     </section>
   );

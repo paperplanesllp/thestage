@@ -1,12 +1,56 @@
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 
 const TheStageForum = ({ pageName = "The Stage Forum" }) => {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const activityName = pageName.replace(/^The /, "");
 
-  const handleStudentTeamSubmit = (event) => {
+  const handleStudentTeamSubmit = async (event) => {
     event.preventDefault();
-    setSubmitted(true);
+    if (isSubmitting) return;
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const values = Object.fromEntries(formData.entries());
+    const templateParams = {
+      ...values,
+      submission_type: `${pageName} student team form`,
+      from_name: values.fullName,
+      reply_to: values.email,
+      message: [
+        "NEW WEBSITE SUBMISSION",
+        "",
+        "## FORUM STUDENT TEAM",
+        `Full Name: ${values.fullName}`,
+        `College / Institution: ${values.college}`,
+        `Department: ${values.department}`,
+        `Semester / Year of Study: ${values.studyYear}`,
+        `Email: ${values.email}`,
+        `Phone: ${values.phone}`,
+        `Reason: ${values.reason}`,
+        `Active Participation: ${values.activeParticipation}`,
+      ].join("\n"),
+    };
+
+    try {
+      setIsSubmitting(true);
+      setErrorMessage("");
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_FORUM_TEMPLATE_ID,
+        templateParams,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+      form.reset();
+      setSubmitted(true);
+    } catch (error) {
+      console.error("Forum form email failed:", error);
+      setErrorMessage("Unable to submit the form. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -32,16 +76,10 @@ const TheStageForum = ({ pageName = "The Stage Forum" }) => {
           The Stage Symposium is the flagship annual intellectual gathering of The Stage, bringing together scholars, academics, professionals, and students for rigorous interdisciplinary dialogue in the pursuit of truth.
           </p>
 
-         <p
-            className="mb-8 mt-15 text-sm font-bold uppercase tracking-[0.35em] text-[#6d0707] sm:text-base"
-            style={{ fontFamily: "Analogia, Georgia, italic" }}
-          >
-           Lectures · Debates · Discourses · Intellectual Activities
-          </p>
         </div>
       </section>
 
-      <section className="px-5 pb-16 pt-2 sm:px-8 sm:pb-20 sm:pt-4">
+      <section className="-mt-10 px-5 pb-16 pt-2 sm:px-8 sm:pb-20 sm:pt-4">
         <div className="mx-auto mb-8 w-full max-w-[950px] border-t-2 border-[#000000]" />
         <p
           className="mx-auto w-full max-w-[950px] text-justify text-base leading-[1.2] sm:text-lg md:text-[15px]"
@@ -84,13 +122,13 @@ const TheStageForum = ({ pageName = "The Stage Forum" }) => {
               />
             </div>
             <div>
-              <label className="mb-2 block font-bold" htmlFor="forum-department">
+              <label className="mb-2 block font-bold" htmlFor="forum-college">
                 2. College / Institution
               </label>
               <input
                 className="w-full border-b-2 border-black bg-transparent px-1 py-3 outline-none transition focus:border-[#AA2525]"
-                id="forum-department"
-                name="department"
+                id="forum-college"
+                name="college"
                 required
                 type="text"
               />
@@ -184,15 +222,20 @@ const TheStageForum = ({ pageName = "The Stage Forum" }) => {
 
             <button
               className="bg-[#AA2525] px-10 py-3 text-lg font-bold text-white transition hover:bg-black"
+              disabled={isSubmitting}
               type="submit"
             >
-              Submit
+              {isSubmitting ? "Submitting..." : "Submit"}
             </button>
 
             {submitted && (
               <p className="font-bold text-[#AA2525]" role="status">
-                Form validated successfully. Online submission storage is not
-                connected yet.
+                Form submitted successfully.
+              </p>
+            )}
+            {errorMessage && (
+              <p className="font-bold text-[#AA2525]" role="alert">
+                {errorMessage}
               </p>
             )}
           </form>

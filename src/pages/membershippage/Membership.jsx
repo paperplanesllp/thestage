@@ -1,4 +1,5 @@
 import React, { useLayoutEffect, useState } from 'react';
+import emailjs from '@emailjs/browser';
 import img from '../../assets/Contact_banner.PNG'
 import { useLocation, useParams } from 'react-router-dom';
 export default function MembershipForm() {
@@ -15,7 +16,7 @@ export default function MembershipForm() {
   three: "Students Group",
 };
 
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     name: '',
     email: '',
     phone:'',
@@ -33,7 +34,11 @@ export default function MembershipForm() {
     attentiveEngagement: '',
     curatedUnderstanding: '',
     finalReflection: ''
-  });
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState({ type: '', message: '' });
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -50,6 +55,47 @@ export default function MembershipForm() {
 
   const handlePillSelect = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (isSubmitting) return;
+
+    const membershipData = {
+      ...formData,
+      group: groupLabels[group] || '',
+      bookTypes: formData.bookTypes.join(', '),
+    };
+    const templateParams = {
+      ...membershipData,
+      submission_type: 'Membership application',
+      from_name: formData.name,
+      reply_to: formData.email,
+      message: [
+        'NEW WEBSITE SUBMISSION',
+        '',
+        '## MEMBERSHIP APPLICATION',
+        ...Object.entries(membershipData).map(([field, value]) => `${field}: ${value}`),
+      ].join('\n'),
+    };
+
+    try {
+      setIsSubmitting(true);
+      setStatus({ type: '', message: '' });
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_MEMBERSHIP_TEMPLATE_ID,
+        templateParams,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+      setFormData(initialFormData);
+      setStatus({ type: 'success', message: 'Your application was submitted successfully.' });
+    } catch (error) {
+      console.error('Membership form email failed:', error);
+      setStatus({ type: 'error', message: 'Unable to submit your application. Please try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const PillOption = ({ field, value, label, isMulti = false }) => {
@@ -96,7 +142,7 @@ export default function MembershipForm() {
           </p>
         </div>
 
-        <form className="space-y-12">
+        <form className="space-y-12" onSubmit={handleSubmit}>
           
           {/* Question 1 */}
           <div className="grid md:grid-cols-[0.8fr_1.5fr] gap-16 items-center justify-start">
@@ -383,10 +429,16 @@ value={groupLabels[group] || ""}                readOnly
           <div className="flex justify-center pt-8">
             <button
               type="submit"
+              disabled={isSubmitting}
               className="px-8 py-3 bg-black text-white rounded-full hover:bg-gray-800 transition-colors font-medium"
             >
-              Submit Application
+              {isSubmitting ? 'Submitting...' : 'Submit Application'}
             </button>
+            {status.message && (
+              <p className={status.type === 'error' ? 'text-red-600' : 'text-green-700'} role="status">
+                {status.message}
+              </p>
+            )}
           </div>
         </form>
       </div>

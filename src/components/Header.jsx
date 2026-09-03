@@ -43,11 +43,6 @@ const Header = () => {
             className="hidden xl:flex items-center gap-6 text-xl tracking-wide"
             style={{ fontFamily: "Josefin Slab, serif" }}
           >
-            <FiMenu
-              className="text-2xl cursor-pointer hover:opacity-80"
-              onClick={() => setOpenMenu(true)}
-            />
-
             <Link to="/about_the_stage" className="hover:opacity-80">
               About
             </Link>
@@ -90,7 +85,7 @@ const Header = () => {
       {openMenu && (
         <>
           {/* DESKTOP VIEW */}
-          <div className="hidden xl:block fixed top-16 left-0 w-screen h-[55vh] z-[999] bg-[#6d0707] text-white shadow-lg transition-all duration-300">
+          <div className="hidden">
             {/* CLOSE BUTTON */}
             <div className="absolute top-4 left-6 text-3xl cursor-pointer">
               <FiX onClick={closeMenu} />
@@ -276,95 +271,6 @@ const Header = () => {
                 </div>
               </div>
 
-              {/* SECTIONS */}
-              <div className="border-b border-white/20 py-4">
-                <button
-                  onClick={() => toggleSection("sections")}
-                  className="w-full flex items-center justify-between text-left"
-                  style={{ fontFamily: "Josefin Slab, serif" }}
-                >
-                  <span className="text-lg font-bold uppercase tracking-wide">
-                    Sections
-                  </span>
-                  <span className="text-3xl leading-none">
-                    {openSection === "sections" ? "-" : "+"}
-                  </span>
-                </button>
-
-                <div
-                  className={`overflow-hidden transition-all duration-300 ${
-                    openSection === "sections"
-                      ? "max-h-[500px] mt-4"
-                      : "max-h-0"
-                  }`}
-                >
-                  <div
-                    className="grid grid-cols-2 gap-y-4 text-base"
-                    style={{ fontFamily: "Josefin Slab, serif" }}
-                  >
-                    <Link to="/ideas" onClick={closeMenu}>
-                      Philosophy
-                    </Link>
-                    <Link to="/books" onClick={closeMenu}>
-                      Theology
-                    </Link>
-                    <Link to="/technology" onClick={closeMenu}>
-                      Science
-                    </Link>
-                    <Link to="/politics" onClick={closeMenu}>
-                      History
-                    </Link>
-                    <Link to="/economy" onClick={closeMenu}>
-                      Literature
-                    </Link>
-                    <Link to="/art" onClick={closeMenu}>
-                      Art
-                    </Link>
-                    <Link to="/science" onClick={closeMenu}>
-                      Health
-                    </Link>
-                    <Link to="/culture" onClick={closeMenu}>
-                      Culture
-                    </Link>
-                    <Link to="/global" onClick={closeMenu}>
-                      Economy
-                    </Link>
-                    <Link to="/politics" onClick={closeMenu}>
-                      Politics
-                    </Link>
-                  </div>
-                </div>
-              </div>
-
-              {/* IMAGE */}
-              <div className="pt-6">
-                <div className="relative h-[220px] overflow-hidden">
-                  <img
-                    src={heroimg}
-                    alt="Print Edition"
-                    className="w-full h-full object-cover object-bottom"
-                  />
-
-                  <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                    <p
-                      className="text-white text-[24px] text-center"
-                      style={{
-                        fontFamily: "XB Niloofar",
-                        fontStyle: "italic",
-                      }}
-                    >
-                      The Stage Magazine
-                    </p>
-                  </div>
-                </div>
-
-                <p
-                  className="text-[20px] tracking-tight text-white text-center uppercase mt-4 pb-10"
-                  style={{ fontFamily: "Josefin Slab, serif" }}
-                >
-                  Coming Soon
-                </p>
-              </div>
             </div>
           </div>
         </>

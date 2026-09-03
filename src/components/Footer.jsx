@@ -42,7 +42,10 @@ const Footer = () => {
 
       <div className="relative mx-auto max-w-7xl px-5 py-12 sm:px-8 md:px-12 lg:px-16">
         <div className="grid gap-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
-          <h2 className="logo-font-footer max-w-2xl text-[4rem] leading-[0.9] text-black sm:text-[6rem] md:text-[7.5rem]">
+          <h2
+            className="-translate-x-2 max-w-2xl whitespace-nowrap text-[3.25rem] leading-[0.9] text-black sm:text-[6rem] md:text-[7.5rem]"
+            style={{ fontFamily: "Norwester, sans-serif" }}
+          >
             The Stage
           </h2>
 
